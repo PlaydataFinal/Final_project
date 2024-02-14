@@ -9,7 +9,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 # # 데이터 로딩
-df_place = pd.read_csv('/Users/joowan/Desktop/Final_project/django/mysite/data/tour_place.csv')
+df_place = pd.read_csv('/home/ubuntu/Final_project/django/mysite/data/tour_place.csv')
 # # vectorizer와 tag_vectors를 전역 변수로 정의
 # vectorizer_place = TfidfVectorizer()
 # tag_vectors_place = vectorizer_place.fit_transform(df_place['tour_place_tag'])
