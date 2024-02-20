@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sass_processor',
+
 ]
 
 MIDDLEWARE = [
@@ -86,12 +88,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # }
 DATABASES = {
     'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME':  'final',
-            'USER':  'admin',
-            'PASSWORD' : '1q2w3e!',
-            'HOST' : '3.34.187.145',
-            'PORT':  '3306'                      
+            # 'ENGINE': 'django.db.backends.mysql',
+            # 'NAME':  'final',
+            # 'USER':  'admin',
+            # 'PASSWORD' : '1q2w3e!',
+            # 'HOST' : '43.201.252.155',
+            # 'PORT':  '3306'                      
         }
     }
 
@@ -140,3 +142,14 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SASS_PRECISION = 8
+SASS_OUTPUT_STYLE = 'compact'
+SASS_PROCESSOR_ENABLED = True
+SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_FINDERS  = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]

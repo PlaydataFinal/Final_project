@@ -1,0 +1,4 @@
+text1 : https://apost.dev/1121/
+text2 : https://apost.dev/1120/
+image1 : https://velog.io/@leejpsd/CSS-pure-css-slide-keyframe-slider
+image2 : https://nilgi.tistory.com/2802
