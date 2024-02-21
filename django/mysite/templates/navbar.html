@@ -9,19 +9,26 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'main' %}">second
-                        Trip</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'main' %}">third Trip</a>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'main' %}">
+                        second Trip</a>
                 </li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'main' %}">firth Trip</a>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'main' %}">
+                        third Trip</a>
+                </li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'main' %}">
+                        firth Trip</a>
                 </li>
 
 
                 {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'common:logout' %}">
-                        {{ user.username }} (로그아웃)</li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'common:logout' %}">
+                        {{ user.username }} (로그아웃)</a>
+                </li>
                 {% else %}
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'common:login' %}">Login</a>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'common:login' %}">
+                        Login</a>
                 </li>
                 {% endif %}
             </ul>
