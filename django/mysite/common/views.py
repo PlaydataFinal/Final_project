@@ -7,6 +7,8 @@ from .forms import UserForm
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
 
 def signup(request):
     """

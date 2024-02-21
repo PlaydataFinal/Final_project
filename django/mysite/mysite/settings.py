@@ -80,24 +80,24 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-
-# }
 DATABASES = {
     'default': {
-            # 'ENGINE': 'django.db.backends.mysql',
-            # 'NAME':  'final',
-            # 'USER':  'admin',
-            # 'PASSWORD' : '1q2w3e!',
-            # 'HOST' : '43.201.252.155',
-            # 'PORT':  '3306'                      
-        }
+
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+
+}
+# DATABASES = {
+#     'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME':  'final',
+#             'USER':  'admin',
+#             'PASSWORD' : '1q2w3e!',
+#             'HOST' : '43.201.252.155',
+#             'PORT':  '3306'                      
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -155,3 +155,9 @@ STATICFILES_FINDERS  = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
+
+# 로그인 성공후 이동하는 URL
+LOGIN_REDIRECT_URL = '/'
