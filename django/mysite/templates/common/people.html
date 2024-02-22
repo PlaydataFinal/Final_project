@@ -1,11 +1,11 @@
 <!-- accounts/templates/accounts/people.html -->
 {% extends 'base.html' %}
 
-{% block body %}
+{% block content %}
 <div class="row">
     <div class="col-4">
-        <img src={% if person.profile.image %}"{{ person.profile.image.url }}"{% else
-            %}"https://i.stack.imgur.com/34AD2.jpg"{% endif %} width="150rem" style="border-radius: 50%;" alt="">
+        <img src={% if person.profile.image %}"{{ person.profile.image.url }}" {% else
+            %}"https://i.stack.imgur.com/34AD2.jpg" {%endif %} width="150rem" style="border-radius: 50%;" alt="">
     </div>
     <div class="col-8">
         <h2>{{ person.username }}

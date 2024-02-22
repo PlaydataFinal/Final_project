@@ -31,8 +31,12 @@ urlpatterns = [
     path('main/', views.main, name='main'),
     path('find_similar_places/', find_similar_places, name='find_similar_places'),
     path('common/', include('common.urls')),
+
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
