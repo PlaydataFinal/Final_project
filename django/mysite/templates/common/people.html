@@ -4,8 +4,9 @@
 {% block content %}
 <div class="row">
     <div class="col-4">
-        <img src={% if person.profile.image %}"{{ person.profile.image.url }}" {% else
-            %}"https://i.stack.imgur.com/34AD2.jpg" {%endif %} width="150rem" style="border-radius: 50%;" alt="">
+        <img class='profile_photo' src={% if person.profile.image %} "{{ person.profile.image.url }}"
+        {% else %} "https://i.stack.imgur.com/34AD2.jpg" {%endif %} width="150rem"
+            style="border-radius: 50%; margin-left: 23rem;" alt="">
     </div>
     <div class="col-8">
         <h2>{{ person.username }}
@@ -14,8 +15,12 @@
             {% endif %}
             <!-- 다음 포스트에 프로필 편집 페이지를 구성할 것이다. -->
         </h2>
-        <p>{{ person.profile.nickname }}</p>
-        <p>{{ person.profile.description }}</p>
+        <p>닉네임 : {{ person.profile.nickname }}</p>
+        <p>이름 : {{ person.first_name }}{{ person.last_name }}</p>
+        <p>주소 : {{ person.profile.address }}</p>
+        <p>전화번호 : {{ person.profile.phone }}</p>
+        <p>자기소개 : {{ person.profile.description }}</p>
+
     </div>
 </div>
 {% endblock %}

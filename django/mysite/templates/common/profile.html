@@ -10,6 +10,9 @@
     {% csrf_token %}
     {% bootstrap_form user_change_form %}
     {% bootstrap_form profile_form %}
+    이미지 미리보기<br>
+    <img src={% if profile_form.image %} "{{ profile_form.image.value.url }}" {%endif %}
+        width="150rem" style="border-radius: 50%; margin-bottom: 1rem;" alt=""><br>
     <button type="submit" class="btn btn-primary">수정</button>
 </form>
 {% endblock %}

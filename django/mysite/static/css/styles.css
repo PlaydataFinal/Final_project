@@ -12595,3 +12595,8 @@ header.masthead .post-heading .meta a {
     font-size: 2.25rem;
   }
 }
+
+.profile_photo {
+  border-radius: 50%;
+  margin-left: 23rem;
+}

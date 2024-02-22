@@ -10,32 +10,55 @@ from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 
+from django.contrib.auth.models import User
 
 from .models import Profile
 
 from .forms import CustomUserChangeForm, ProfileForm
-from .models import Profile
+
 
 from django.contrib.auth.forms import UserCreationForm
 # Django 프레임워크가 구현해 놓은 회원가입 폼을 import 한다.
 
+# def signup(request):
+#     """
+#     계정생성
+#     """
+#     if request.method == "POST":
+#         form = UserForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             print(form)
+#             print('-'*50)
+#             print('phone : ' + form.cleaned_data.get('phone'))
+#             username = form.cleaned_data.get('username')
+#             raw_password = form.cleaned_data.get('password1')
+#             user = authenticate(username=username, password=raw_password)
+#             login(request, user)
+#             return redirect('index')
+#     else:
+#         form = UserForm()
+#     return render(request, 'common/signup.html', {'form': form})
+# views.py
+
 def signup(request):
-    """
-    계정생성
-    """
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            user = User.objects.create_user(
+                username=request.POST["username"],
+                password=request.POST["password1"])
+            nickname = request.POST["nickname"]
+            email = request.POST["email"]
+            phone = request.POST["phone"]
+            profile = Profile(user=user, nickname=nickname, phone=phone, email=email)
+            profile.save()
+            login(request,user)
             return redirect('index')
     else:
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
-
+    
 def logout_view(request):
     logout(request)
     return redirect('index')
