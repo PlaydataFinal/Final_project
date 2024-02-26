@@ -17,5 +17,6 @@ class Profile(models.Model):
     email = models.EmailField(max_length=150, blank=True, null=True)
     
     address_choices = ((None, '선택'), ('서울', '서울'), ('인천', '인천'))
-    address = models.CharField(max_length=50, choices=address_choices, verbose_name='주소')
+    address = models.CharField(max_length=50, choices=address_choices, verbose_name='주소',)
 
+    is_first = models.BooleanField(default = True)

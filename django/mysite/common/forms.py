@@ -85,7 +85,7 @@ class CustomUserChangeForm(UserChangeForm):
 class ProfileForm(forms.ModelForm):
     nickname = forms.CharField(label="닉네임", required=False)
     description = forms.CharField(label="자기소개", required=False, widget=forms.Textarea())
-    image = forms.ImageField(label="프로필사진", required=False)
+    image = forms.ImageField(label="프로필사진", required=False, widget=PreviewImageFileWidget,)
     # 위의 내용을 정의하지 않아도 상관없지만, 화면에 출력될 때 label이 영문으로 출력되는 것이 싫어서 수정한 것이다..
     class Meta:
         model = Profile
