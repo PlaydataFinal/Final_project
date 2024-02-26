@@ -51,10 +51,11 @@ def signup(request):
             nickname = request.POST["nickname"]
             email = request.POST["email"]
             phone = request.POST["phone"]
-            profile = Profile(user=user, nickname=nickname, phone=phone, email=email)
+            address = request.POST["address"]
+            profile = Profile(user=user, nickname=nickname, phone=phone, email=email, address=address)
             profile.save()
             login(request,user)
-            return redirect('index')
+            return redirect('main')
     else:
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
