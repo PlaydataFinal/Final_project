@@ -9,7 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apk update
-RUN apk add postgresql-dev mariadb-dev gcc python3-dev musl-dev zlib-dev jpeg-dev  #--(5.2)
+RUN apk add postgresql-dev mariadb-dev gcc g++ python3-dev musl-dev zlib-dev jpeg-dev  #--(5.2)
 
 COPY . /usr/src/app/
 # install dependencies
