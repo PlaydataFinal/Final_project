@@ -6,10 +6,9 @@
 
     <div class="container">
         <div class="row align-items-start">
-            <div class="col" style="width: auto;">
+            <div class="col">
                 <div class="col-sm-4">
-                    <img class='profile_photo' src={% if person.profile.image %} "{{ person.profile.image.url }}" {%
-                        else %} "https://i.stack.imgur.com/34AD2.jpg" {%endif %} width="150rem"
+                    <img class='profile_photo' src={% if person.profile.image %} "{{ person.profile.image.url }}" {% else %} "https://i.stack.imgur.com/34AD2.jpg" {%endif %} width="150rem"
                         style="border-radius: 50%;" alt="">
                 </div>
             </div>

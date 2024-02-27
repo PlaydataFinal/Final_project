@@ -90,3 +90,7 @@ def profile(request):
             'user_change_form': user_change_form,
             'profile_form': profile_form
         })
+        
+def first(request, username):
+    person = get_object_or_404(get_user_model(), username=username)
+    return render(request, 'common/first.html')

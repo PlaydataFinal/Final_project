@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sass_processor',
     'bootstrap4',
+    'sweetify',
 
 ]
 
@@ -145,3 +146,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/'
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
