@@ -145,3 +145,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/'
+
+CELERY_BROKER_URL = 'pyamqp://guest:guest@rabbitmq//'
