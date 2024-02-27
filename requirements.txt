@@ -51,3 +51,4 @@ wcwidth==0.2.
 PyMySQL==1.1.0
 Pillow==10.2.0
 mysqlclient
+gunicorn
