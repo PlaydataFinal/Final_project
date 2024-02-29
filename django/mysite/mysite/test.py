@@ -30,7 +30,7 @@ s3.download_file(s3_bucket, s3_model_key, model_path_local)
 
 
 # Load the trained OCR model
-loaded_model = load_model(model_path_local)
+model = loaded_load_model(model_path_local)
 # Load the label encoder
 # 저장된 라벨 인코더를 불러오기
 label_encoder = joblib.load('label_encoder.joblib')
