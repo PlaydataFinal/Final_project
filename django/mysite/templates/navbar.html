@@ -1,7 +1,7 @@
 <!-- navbar.html -->
-<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color:#ffbb80;">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="{% url 'index' %}" style="margin-left: 50px;">Start Trip</a>
+        <a class="navbar-brand" href="{% url 'index' %}">Start Trip</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -15,7 +15,6 @@
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'main' %}">
                         third Trip</a>
                 </li>
-
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                         href="{% url 'common:people' user.username %}">

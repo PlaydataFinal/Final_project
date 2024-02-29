@@ -2,25 +2,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row">
-    <div class="col-4">
-        <img class='profile_photo' src={% if person.profile.image %} "{{ person.profile.image.url }}"
-        {% else %} "https://i.stack.imgur.com/34AD2.jpg" {%endif %} width="150rem"
-            style="border-radius: 50%; margin-left: 23rem;" alt="">
-    </div>
-    <div class="col-8">
-        <h2>{{ person.username }}
-            {% if person.username == user.username %}
-            <a href="{% url 'common:profile' %}"><button class="btn btn-success">프로필 편집</button></a>
-            {% endif %}
-            <!-- 다음 포스트에 프로필 편집 페이지를 구성할 것이다. -->
-        </h2>
-        <p>닉네임 : {{ person.profile.nickname }}</p>
-        <p>이름 : {{ person.first_name }}{{ person.last_name }}</p>
-        <p>주소 : {{ person.profile.address }}</p>
-        <p>전화번호 : {{ person.profile.phone }}</p>
-        <p>자기소개 : {{ person.profile.description }}</p>
-
+<div class="row-cols-1">
+{% include 'chat.html' %}
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col">
+                <div class="col-sm-4">
+                    <img class='profile_photo' src={% if person.profile.image %} "{{ person.profile.image.url }}" {% else %} "https://i.stack.imgur.com/34AD2.jpg" {%endif %} width="150rem"
+                        style="border-radius: 50%;" alt="">
+                </div>
+            </div>
+            <div class="col">
+                <div class="col-sm-8">
+                    <h2>{{ person.username }}
+                        {% if person.username == user.username %}
+                        <a href="{% url 'common:profile' %}"><button class="btn btn-success">프로필 편집</button></a>
+                        {% endif %}
+                        <!-- 다음 포스트에 프로필 편집 페이지를 구성할 것이다. -->
+                    </h2>
+                    <p>닉네임 : {{ person.profile.nickname }}</p>
+                    <p>이름 : {{ person.first_name }}{{ person.last_name }}</p>
+                    <p>주소 : {{ person.profile.address }}</p>
+                    <p>전화번호 : {{ person.profile.phone }}</p>
+                    <p>자기소개 : {{ person.profile.description }}</p>
+                </div>
+            </div>
+            <div class="col">
+                3 </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col">
+                4 </div>
+            <div class="col">
+                5 </div>
+            <div class="col">
+                6 </div>
+        </div>
+        <div class="row align-items-end">
+            <div class="col">
+                7 </div>
+            <div class="col">
+                8 </div>
+            <div class="col">
+                9 </div>
+        </div>
     </div>
 </div>
 {% endblock %}
