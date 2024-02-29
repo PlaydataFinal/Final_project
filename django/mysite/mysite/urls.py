@@ -30,7 +30,7 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     # path('index/', index_view, name='index'),
     path('result/', views.result, name='result'),
-    path('main/', views.main),
+    path('main/', views.main, name='main'),
     path('find_similar_places/', find_similar_places, name='find_similar_places'),
 ]
 
