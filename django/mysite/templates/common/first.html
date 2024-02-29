@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+{% include 'chat.html' %}
+<div class="container my-3">
+    <h1>처음 로그인 한 사람을 위한 페이지</h1>
     <h2>hello! {{ user.username }} </h2>
     <h3>{{ user.profile.nickname }}</h3>
-</body>
-</html>
+</div>
+{% endblock %}
