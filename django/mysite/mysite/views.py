@@ -34,6 +34,7 @@ def recommend_view(request):
     print(f'user_input : {user_input}')
     if user_input:
         output_text = recommend_places(user_input)
-        return JsonResponse({'output': output_text})
+        print(output_text)
+        return JsonResponse({'output': output_text}, json_dumps_params={'ensure_ascii': False}, status=200)
     else:
         return JsonResponse({'error': 'No input provided.'})
