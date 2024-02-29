@@ -146,9 +146,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/'
-<<<<<<< HEAD
 
 CELERY_BROKER_URL = 'pyamqp://guest:guest@rabbitmq//'
-=======
-SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
->>>>>>> 66526a717ce1445670311a4bb76384a50e3a18f0
