@@ -91,6 +91,11 @@ def profile(request):
             'profile_form': profile_form
         })
         
-def first(request, username):
-    person = get_object_or_404(get_user_model(), username=username)
+def first(request):
+    # user = get_object_or_404(get_user_model(), username=username)
+    print(f'request : {request}')
+    # profile = get_object_or_404(Profile, user=request.user)
+    # profile = Profile.objects.get(user=request.user
+    # profile.is_first = False
+    # profile.save()
     return render(request, 'common/first.html')
