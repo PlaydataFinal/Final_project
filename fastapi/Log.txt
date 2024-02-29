@@ -1,0 +1,5 @@
+[2024.02.28/12:35:25] - Traceback (most recent call last):
+  File "/Users/krkim/playdata/project/Final_project/fastapi/ocr_model__________.py", line 86, in <module>
+    print(A)
+NameError: name 'A' is not defined
+
