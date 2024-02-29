@@ -1,3 +1,5 @@
+# ocr.py
+
 from fastapi import FastAPI, UploadFile, HTTPException, File
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -20,7 +22,7 @@ aws_secret_access_key = 'kviieRfRWi0qg/X2KgnvhoB3NpvhTEN3sj7OoB2J'
 s3_bucket = 'jeju-bucket' 
 s3_model_key = 'tour/ocr.h5'
 
-# 모델 다운로드
+# 모델 다운로드ex
 s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
 model_path_local = 'ocr.h5'
 s3.download_file(s3_bucket, s3_model_key, model_path_local)
