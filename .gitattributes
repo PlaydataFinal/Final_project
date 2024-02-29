@@ -13,3 +13,11 @@ travel filter=lfs diff=lfs merge=lfs -text
 cham_go filter=lfs diff=lfs merge=lfs -text
 fastapi filter=lfs diff=lfs merge=lfs -text
 240124_tag_simialrity_v1.ipynb filter=lfs diff=lfs merge=lfs -text
+fastapi/ocr.h5.9bA4C1a6 filter=lfs diff=lfs merge=lfs -text
+fastapi/ocr.h5.B66E0cF2 filter=lfs diff=lfs merge=lfs -text
+fastapi/ocr.h5.D1e7219E filter=lfs diff=lfs merge=lfs -text
+fastapi/ocr.h5.c841D9db filter=lfs diff=lfs merge=lfs -text
+fastapi/ocr.h5.fCAd5b45 filter=lfs diff=lfs merge=lfs -text
+fastapi/ocr_model__________.py filter=lfs diff=lfs merge=lfs -text
+fastapi/ocr.h5 filter=lfs diff=lfs merge=lfs -text
+fastapi/ocr.h5.4Cf23ae7 filter=lfs diff=lfs merge=lfs -text
