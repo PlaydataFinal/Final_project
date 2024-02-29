@@ -30,6 +30,8 @@ urlpatterns = [
     path('result/', views.result, name='result'),
     path('main/', views.main, name='main'),
     path('common/', include('common.urls')),
+    path('recommend/', views.recommend_view, name='recommend'),
+
 
 ]
 
