@@ -12442,7 +12442,7 @@ footer {
 header.masthead {
   position: relative;
   margin-bottom: 3rem;
-  padding-top: calc(8rem);
+  padding-top: 5rem;
   padding-bottom: 3rem;
   background: no-repeat center center;
   background-color: #6c757d;
@@ -12522,7 +12522,7 @@ header.masthead .post-heading .meta a {
 
 @media (min-width: 992px) {
   header.masthead {
-    padding-top: 3rem;
+    padding-top: 5rem;
     padding-bottom: 3rem;
   }
 
@@ -12596,7 +12596,6 @@ header.masthead .post-heading .meta a {
   }
 }
 
-.profile_photo {
-  border-radius: 50%;
-  margin-left: 23rem;
+.selector-for-some-widget {
+  box-sizing: content-box;
 }
