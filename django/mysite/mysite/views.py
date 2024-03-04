@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
+from django.contrib import messages
+
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .utils import recommend_places, get_answer
@@ -49,9 +51,7 @@ def test(request):
     
 @csrf_exempt
 def test2(request):
-    print(f'request : {request}')
     user_input = request.GET.get('input')
-    print(f'user_input : {user_input}')
     if user_input:
         # output_text = recommend_places(user_input)
         output_text = get_answer(user_input)
@@ -85,10 +85,16 @@ df = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mo
     
 def test3(request):
     input_num = request.GET.get('input_num')
+    print(f'input_num : {input_num}')
     if input_num == None:
         input_num = random.randrange(0, len(df) + 1)
     else:
-        input_num = int(input_num)
+        try:
+            input_num = int(input_num)
+        except:
+            print('error')
+            messages.warning(request, "숫자만 입력하세요")
+            return redirect('test3')
     df['addr_id'] = 0
     for x in range(0, len(df)):
         df.loc[x, 'addr_id'] = x

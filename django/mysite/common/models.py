@@ -20,3 +20,7 @@ class Profile(models.Model):
     address = models.CharField(max_length=50, choices=address_choices, verbose_name='주소',)
 
     is_first = models.BooleanField(default = True)
+
+    # class Meta:
+    #     app_label = "default"
+    #     db_table = 'Profile'
