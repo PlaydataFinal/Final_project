@@ -1,13 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-<<<<<<< HEAD
 
 
 
 
-=======
->>>>>>> 66526a717ce1445670311a4bb76384a50e3a18f0
 def home(request): 
     return render(request, 'main.html')
 
