@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="#" method="get">
-    <input type="text" name="input" placeholder="여기에 텍스트 입력">
-    <input type="submit" value="전송">
-</form>
+<div class="container my-3">
+    <form action="{% url 'test2' %}" method="get">
+        <input type="text" name="input" placeholder="여기에 텍스트 입력">
+        <input type="submit" value="전송">
+    </form>
+</div>
 {% endblock %}

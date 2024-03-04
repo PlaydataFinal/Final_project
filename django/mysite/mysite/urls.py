@@ -31,7 +31,8 @@ urlpatterns = [
     path('main/', views.main, name='main'),
     path('common/', include('common.urls')),
     path('recommend/', views.recommend_view, name='recommend'),
-    path('test/', views.test, name='test')
+    path('test/', views.test, name='test'),
+    path('test2/', views.test2, name='test2'),
 ]
 
 if settings.DEBUG:

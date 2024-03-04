@@ -41,10 +41,14 @@ def recommend_view(request):
 
 @csrf_exempt
 def test(request):
+    return render(request, 'recommend.html')
+    
+@csrf_exempt
+def test2(request):
     print(f'request : {request}')
     user_input = request.GET.get('input')
+    print(f'user_input : {user_input}')
     if user_input:
-        print(f'user_input : {user_input}')
         output_text = recommend_places(user_input)
         data = {
             'user_input' : user_input,
@@ -52,4 +56,4 @@ def test(request):
         }
         return render(request, 'recommend_result.html', data)
     else:
-        return render(request, 'recommend.html')
+        return redirect('test')

@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="#" method="post">
-    <input type="text" name="input" placeholder="여기에 텍스트 입력">
-    <input type="submit" value="전송">
-</form>
-{% if output_text %}
-<p>
-    입력하신 내용 : {{ user_input }}<br>
-    추천 내용 :<br>{{ output_text|linebreaksbr }}
-</p>
-{% endif %}
-<script>
-    history.replaceState({}, null, location.pathname);
-</script>
+<div class="container my-3 w-auto">
+    {% if output_text %}
+    <p>입력하신 내용 : {{ user_input }}<br>
+        추천 관광지 :<br>{{ output_text|linebreaksbr }}
+    </p>
+    {% endif %}
+    <script>
+        history.replaceState({}, null, location.pathname);
+    </script>
+</div>
+
 {% endblock %}
