@@ -14,7 +14,7 @@ from pathlib import Path
 import pymysql
 pymysql.install_as_MySQLdb()
 
-from .mysettings import MYDATABASES
+# from .mysettings import MYDATABASES
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,8 +83,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = MYDATABASES
-
+#DATABASES = MYDATABASES
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',  # SQLite 데이터베이스 엔진 사용
+        'NAME': BASE_DIR / "db.sqlite3",  # 데이터베이스 파일명 또는 경로
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
