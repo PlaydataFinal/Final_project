@@ -31,7 +31,7 @@ urlpatterns = [
     path('main/', views.main, name='main'),
     path('common/', include('common.urls')),
     path('kakaoapi/', include('kakaoapi.urls')),
-    path('ocr/', include('ocr.urls')),
+    path('ocr/', include('ocr.urls', namespace='ocr')), 
 ]
 
 if settings.DEBUG:
