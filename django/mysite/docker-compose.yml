@@ -4,6 +4,7 @@ services:
     build: ./nginx
     volumes:
       - static_volume:/usr/src/app/static
+      - ./:/usr/src/app/
     ports:
       - 80:80
     depends_on:
@@ -12,6 +13,7 @@ services:
       - web3
     networks:
       - backend
+
   web1:
     build: .
     command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8001
