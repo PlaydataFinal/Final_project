@@ -33,6 +33,8 @@ urlpatterns = [
     path('recommend/', views.recommend_view, name='recommend'),
     path('test/', views.test, name='test'),
     path('test2/', views.test2, name='test2'),
+    path('test3/', views.test3, name='test3'),
+    # path('test3/<int:addr_id>/', views.test3, name='test3'),
 ]
 
 if settings.DEBUG:
