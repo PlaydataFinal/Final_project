@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>숫자 입력
+<h3>
+{% for message in messages %}
+{% if message %}
+    <script>
+        alert("{{ message }}")
+    </script>
+{% endif %}
+{% endfor %}
+숫자 입력<br>
 <form action="#" method="get" name="input">
     <input type="number" name="input_num" placeholder="여기에 숫자 입력">
     <input type="submit" value="전송">
@@ -16,4 +24,5 @@
 <script>
     history.replaceState({}, null, location.pathname);
 </script>
+
 {% endblock %}
