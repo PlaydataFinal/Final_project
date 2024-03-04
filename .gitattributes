@@ -21,3 +21,4 @@ fastapi/ocr.h5.fCAd5b45 filter=lfs diff=lfs merge=lfs -text
 fastapi/ocr_model__________.py filter=lfs diff=lfs merge=lfs -text
 fastapi/ocr.h5 filter=lfs diff=lfs merge=lfs -text
 fastapi/ocr.h5.4Cf23ae7 filter=lfs diff=lfs merge=lfs -text
+django/mysite/ocr.h5 filter=lfs diff=lfs merge=lfs -text
