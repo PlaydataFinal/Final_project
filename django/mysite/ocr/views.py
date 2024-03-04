@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ocr1 import preprocess_image, loaded_model, label_encoder
 import base64
+import numpy as np
 
 
 # Create your views here.
