@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.views.decorators.csrf import csrf_exempt
@@ -38,3 +38,18 @@ def recommend_view(request):
         return JsonResponse({'output': output_text}, json_dumps_params={'ensure_ascii': False}, status=200)
     else:
         return JsonResponse({'error': 'No input provided.'})
+
+@csrf_exempt
+def test(request):
+    print(f'request : {request}')
+    user_input = request.GET.get('input')
+    if user_input:
+        print(f'user_input : {user_input}')
+        output_text = recommend_places(user_input)
+        data = {
+            'user_input' : user_input,
+            'output_text' : output_text
+        }
+        return render(request, 'recommend_result.html', data)
+    else:
+        return render(request, 'recommend.html')
