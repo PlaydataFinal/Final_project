@@ -2,7 +2,7 @@ version: '3'
 services:
   nginx:
     build: ./nginx
-    volumes:
+    volumes: 
       - static_volume:/usr/src/app/static
       - ./:/usr/src/app/
     ports:
