@@ -1,14 +1,10 @@
 # pull official base image
-FROM python:3.8-alpine
-# set work directory
-WORKDIR /usr/src/app
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-RUN apk update
-RUN apk add postgresql-dev mariadb-dev gcc g++ python3-dev musl-dev zlib-dev jpeg-dev  #--(5.2)
+FROM tensorflow/tensorflow:2.16.0rc0 
 COPY . /usr/src/app/
-# install dependencies
+WORKDIR /usr/src/app/
+RUN apt update
+RUN apt install python3-dev default-libmysqlclient-dev build-essential pkg-config -y
+#RUN apt add python3-dev musl-dev zlib-dev jpeg-dev  #--(5.2)
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
