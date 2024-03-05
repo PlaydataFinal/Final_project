@@ -55,9 +55,14 @@
     </header>
 
 
+
     <!-- 기본 템플릿 안에 삽입될 내용 Start -->
     {% block content %}
     {% endblock %}
+    <div id='inner'>
+        <h3 class="ftext">나중에 뭔가 추가할 부분</h3>
+    </div>
+    <footer></footer>
     <!-- 기본 템플릿 안에 삽입될 내용 End -->
     <!-- jQuery JS -->
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
