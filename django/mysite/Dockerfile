@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.10.13-alpine
+FROM python:3.8-alpine
 # set work directory
 WORKDIR /usr/src/app
 # set environment variables
