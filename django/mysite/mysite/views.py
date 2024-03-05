@@ -104,3 +104,6 @@ def test3(request):
         'address' : df['Address'][input_num]
     }
     return render(request, 'test3.html', data)
+
+def test4(request):
+    return render(request, "simple_chat.html")
