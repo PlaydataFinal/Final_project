@@ -5,6 +5,6 @@ from . import views
 app_name = 'ocr' 
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name='ocr'),
     path('predict/', views.predict, name='predict'),
 ]
