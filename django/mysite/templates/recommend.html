@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-3">
+    <form action="{% url 'test2' %}" method="get">
+        <h3>물어보기<br>
+            <input type="text" name="input" placeholder="여기에 텍스트 입력" onsubmit="return false;">
+            <input type="submit" value="전송" onsubmit="return false;">
+        </h3>
+    </form>
+</div>
+{% endblock %}

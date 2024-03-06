@@ -30,8 +30,14 @@ urlpatterns = [
     path('result/', views.result, name='result'),
     path('main/', views.main, name='main'),
     path('common/', include('common.urls')),
-    path('kakaoapi/', include('kakaoapi.urls')),
-    path('ocr/', include('ocr.urls', namespace='ocr')), 
+    path('recommend/', views.recommend_view, name='recommend'),
+    path('test/', views.test, name='test'),
+    path('test2/', views.test2, name='test2'),
+    path('test3/', views.test3, name='test3'),
+    path('test4/', views.test4, name='test4'),
+    path('kakaoapi/', include('kakaoapi.urls'), name = 'kakaoapi'),
+    #path('ocr/', include('ocr.urls', namespace='ocr')), 
+    # path('test3/<int:addr_id>/', views.test3, name='test3'),
 ]
 
 if settings.DEBUG:

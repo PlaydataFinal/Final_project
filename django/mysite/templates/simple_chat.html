@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/simple_chat.css' %}" />
+{% include 'navbar.html' %}
+<section class="msger">
+    <header class="msger-header">
+        <div class="msger-header-title">
+            <i class="fas fa-comment-alt"></i> SimpleChat
+        </div>
+        <div class="msger-header-options">
+            <span><i class="fas fa-cog"></i></span>
+        </div>
+    </header>
+    <main class="msger-chat">
+        <div class="msg left-msg">
+            <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)">
+            </div>
+            <div class="msg-bubble">
+                <div class="msg-info">
+                    <div class="msg-info-name">CHAT BOT</div>
+                    <div class="msg-info-time"></div>
+                </div>
+                <div class="msg-text">
+                    Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
+                </div>
+            </div>
+        </div>
+    </main>
+    <form class="msger-inputarea" method="post">
+        <input type="text" name="input" class="msger-input" placeholder="Enter your message...">
+        <button type="submit" value="전송" class="msger-send-btn">Send</button>
+    </form>
+</section>
+
+{% if user.is_authenticated %}
+<script type="text/javascript">var PERSON_NAME = "{{ user.profile.nickname }}"</script>
+{% else %}
+<script type="text/javascript">var PERSON_NAME = ""</script>
+{% endif %}
+<script src="{% static 'js/simple_chat.js' %}"></script>
+{% endblock %}

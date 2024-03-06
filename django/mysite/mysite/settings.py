@@ -14,7 +14,7 @@ from pathlib import Path
 import pymysql
 pymysql.install_as_MySQLdb()
 
-from .mysettings import MYDATABASES
+from .mysettings import MYDATABASES, MYDATABASE_ROUTERS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'sass_processor',
     'bootstrap4',
     'sweetify',
-    'ocr',
-    'mytourapp',
+    'kakaoapi',
 ]
 
 MIDDLEWARE = [
@@ -125,10 +124,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
-#STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+
 ]
 
 
@@ -152,5 +151,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/'
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 
-CELERY_BROKER_URL = 'pyamqp://guest:guest@rabbitmq//'
+DATABASE_ROUTERS = MYDATABASE_ROUTERS

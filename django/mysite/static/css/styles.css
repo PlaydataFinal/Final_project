@@ -12441,7 +12441,7 @@ footer {
 
 header.masthead {
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   padding-top: 5rem;
   padding-bottom: 3rem;
   background: no-repeat center center;
@@ -12598,4 +12598,24 @@ header.masthead .post-heading .meta a {
 
 .selector-for-some-widget {
   box-sizing: content-box;
+}
+
+#inner {
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 50px;
+  background-color: #ffbb80;
+}
+
+#inner .ftext {
+  color: #fff;
+  text-align: center;
+  position: relative;
+  top: 30px;
+}
+
+footer {
+  height: 100px;
+  position: fixed;
+  transform: translateY(-100%);
 }

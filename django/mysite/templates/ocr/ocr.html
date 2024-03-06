@@ -1,6 +1,7 @@
 <!-- templetes/ocr/ocr.html -->
 {% extends "base.html" %}
 {% block content %}
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,3 +20,15 @@
 </body>
 </html>
 {% endblock %}
+=======
+<h1>OCR Prediction</h1>
+<form action="{% url 'ocr:predict'%}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="file" accept=".jpg, .jpeg, .png">
+    <button type="submit">Predict</button>
+</form>
+{% if result %}
+<h2>Result: {{ result }}원</h2>
+{% endif %}
+{% endblock %}
+>>>>>>> 9be0e118dbf977fb4ce38ea9b41d1cbe61e8c7a6
