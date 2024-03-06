@@ -21,8 +21,8 @@ msgerForm.addEventListener("submit", event => {
 
   const msgText = msgerInput.value;
   if (!msgText) return;
-
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+  alert("wait a seconds...");
   // 여기서 ajax 통신을 통해 모델 호출
   // https://hooongs.tistory.com/23
   // https://shiningyouandme.tistory.com/23
@@ -46,13 +46,10 @@ msgerForm.addEventListener("submit", event => {
   });
 
   msgerInput.value = "";
-
-  botResponse(port_data_json.output_text);
 });
 
 function appendMessage(name, img, side, text) {
   //   Simple solution for small apps
-  text = text.replace(/\\n/g, '<br>')
   const msgHTML = `
     <div class="msg ${side}-msg">
       <div class="msg-img" style="background-image: url(${img})"></div>
@@ -74,7 +71,8 @@ function appendMessage(name, img, side, text) {
 
 function botResponse(text) {
   // const r = random(0, BOT_MSGS.length - 1);
-  const msgText = text;
+  const msgText = text.replace(/\n/g, '<br>');
+  // const msgText2 = msgText.replace(/\n/g, '<br>')
   // const delay = msgText.split(" ").length * 100;
   setTimeout(() => {
     appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
