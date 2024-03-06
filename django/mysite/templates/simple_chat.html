@@ -34,5 +34,10 @@
     </form>
 </section>
 
+{% if user.is_authenticated %}
+<script type="text/javascript">var PERSON_NAME = "{{ user.profile.nickname }}"</script>
+{% else %}
+<script type="text/javascript">var PERSON_NAME = ""</script>
+{% endif %}
 <script src="{% static 'js/simple_chat.js' %}"></script>
 {% endblock %}
