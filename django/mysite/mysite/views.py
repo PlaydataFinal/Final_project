@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .utils import recommend_places, get_answer
 
-from pymongo import MongoClient
+#from pymongo import MongoClient
 import pandas as pd
 import random
 
@@ -69,24 +69,24 @@ def test2(request):
         return JsonResponse('Error')
     
     
-def get_data_from_mongodb(host, username, password, db_name, collection_name):
-    # MongoDB 연결
-    client = MongoClient(host, username=username, password=password)
-    db = client[db_name]
+# def get_data_from_mongodb(host, username, password, db_name, collection_name):
+#     # MongoDB 연결
+#     client = MongoClient(host, username=username, password=password)
+#     db = client[db_name]
 
-    # 데이터 가져오기
-    collection = db[collection_name]
-    data = collection.find()
+#     # 데이터 가져오기
+#     collection = db[collection_name]
+#     data = collection.find()
 
-    # 데이터프레임으로 변환
-    df = pd.DataFrame(list(data))
+#     # 데이터프레임으로 변환
+#     df = pd.DataFrame(list(data))
 
-    return df
+#     return df
 
-# MongoDB에서 데이터 가져오기
-df = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext', 
-                        'admin', 'admin123', 'jejutext', 'df')
-
+# # MongoDB에서 데이터 가져오기
+# df = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext', 
+#                         'admin', 'admin123', 'jejutext', 'df')
+df = pd.read_csv('/home/ubuntu/Final_project/django/mysite/mysite/chatbot.csv')
     
 def test3(request):
     input_num = request.GET.get('input_num')

@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'sass_processor',
     'bootstrap4',
     'sweetify',
-    'kakaoapi.apps.KakaopaiConfig',
+    'kakaoapi.apps.KakaoapiConfig',
 ]
 
 MIDDLEWARE = [
