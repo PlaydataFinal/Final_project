@@ -2,14 +2,6 @@ const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
 
-const BOT_MSGS = [
-  "Hi, how are you?",
-  "Ohh... I can't understand what you trying to say. Sorry!",
-  "I like to play games... But I don't know how to play!",
-  "Sorry if my answers are not relevant. :))",
-  "I feel sleepy! :("
-];
-
 // Icons made by Freepik from www.flaticon.com
 const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
@@ -17,10 +9,22 @@ const BOT_NAME = "CHAT BOT";
 // const PERSON_NAME = "Sajad";
 
 // 비회원 가세요라 
-if (PERSON_NAME === "") {
-  alert("로그인 후 사용해주세요.")
-  location.href = "../common/login/"
-}
+if (PERSON_NAME == "") {
+  window.onload = function () {
+    Swal.fire({
+      icon: 'warning',
+      title: '로그인 하셈!',
+      text: '로그인하라고!!!',
+    }).then(function () {
+      // location.href = "../common/login/"
+      var link = window.location.href;
+      var list = link.split('/');
+      list.splice(0, 3);
+      var redir = '/'.concat(list.join('/'));
+      location.href = "../common/login/?next=" + redir;
+    })
+  };
+};
 
 msgerForm.addEventListener("submit", event => {
   event.preventDefault();

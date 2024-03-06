@@ -22,9 +22,16 @@
                     <div class="msg-info-name">CHAT BOT</div>
                     <div class="msg-info-time"></div>
                 </div>
+                {% if user.is_authenticated %}
                 <div class="msg-text">
-                    Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
+                    <!-- Hi, welcome to SimpleChat! Go ahead and send me a message. 😄 -->
+                    무엇을 도와드릴까요?
                 </div>
+                {% else %}
+                <div class="msg-text">
+                    로그인 하고오세영
+                </div>
+                {% endif %}
             </div>
         </div>
     </main>

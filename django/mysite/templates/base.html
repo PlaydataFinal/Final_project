@@ -1,4 +1,6 @@
 {% load static %}
+{% load sweetify %}
+{% sweetify %}
 <!doctype html>
 <html lang="en">
 
@@ -64,6 +66,9 @@
         <h3 class="ftext">나중에 뭔가 추가할 부분</h3>
     </div>
     <footer></footer>
+    <script>
+        history.replaceState({}, null, location.pathname);
+    </script>
     <!-- jQuery JS -->
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <!-- Bootstrap JS -->
@@ -84,5 +89,3 @@
 
 </html>
 
-{% load sweetify %}
-{% sweetify %}

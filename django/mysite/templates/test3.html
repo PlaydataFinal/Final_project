@@ -21,8 +21,4 @@
         <img class='photo h-auto' src={% if image_url %} "{{ image_url }}" {% else %} "https://i.stack.imgur.com/34AD2.jpg" {%endif %} width="1280px" height="720px" alt="">
     </div><br>
 </h3>
-<script>
-    history.replaceState({}, null, location.pathname);
-</script>
-
 {% endblock %}
