@@ -18,24 +18,17 @@ html {
     box-sizing: inherit;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: var(--body-bg);
-    font-family: Helvetica, sans-serif;
-}
-
 .msger {
     position: relative;
-    top: 85px;
     display: flex;
     flex-flow: column wrap;
     justify-content: space-between;
     width: 100%;
     /* max-width: 867px; */
     /* margin: 25px 10px; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-height: 480px;
     height: calc(100% - 50px);
     border: var(--border);
     border-radius: 5px;
@@ -46,7 +39,7 @@ body {
 .msger-header {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    /* padding: 10px; */
     border-bottom: var(--border);
     background: #eee;
     color: #666;

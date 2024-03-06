@@ -1,9 +1,8 @@
-
+{% extends "base.html" %}
 {% load static %}
 {% load bootstrap4 %}
-<!-- {% block content %} -->
+{% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/simple_chat.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}?after" />
 {% include 'navbar.html' %}
 <section class="msger">
     <header class="msger-header">
@@ -29,11 +28,11 @@
             </div>
         </div>
     </main>
-    <form class="msger-inputarea">
-        <input type="text" class="msger-input" placeholder="Enter your message...">
-        <button type="submit" class="msger-send-btn">Send</button>
+    <form class="msger-inputarea" method="post">
+        <input type="text" name="input" class="msger-input" placeholder="Enter your message...">
+        <button type="submit" value="전송" class="msger-send-btn">Send</button>
     </form>
 </section>
+
 <script src="{% static 'js/simple_chat.js' %}"></script>
-</html>
-<!-- {% endblock %} -->
+{% endblock %}
