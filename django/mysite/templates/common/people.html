@@ -2,13 +2,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row-cols-1">
+<div class="row-cols-1" style="min-height: 720px;">
 {% include 'chat.html' %}
     <div class="container">
         <div class="row align-items-start">
             <div class="col">
                 <div class="col-sm-4">
-                    <img class='profile_photo' src={% if person.profile.image %} "{{ person.profile.image.url }}" {% else %} "https://i.stack.imgur.com/34AD2.jpg" {%endif %} width="150rem"
+                    <img class='profile_photo' src={% if person.profile.image %} "{{ person.profile.image.url }}" {% else %} "https://i.stack.imgur.com/34AD2.jpg" {%endif %} width="250rem"
                         style="border-radius: 50%;" alt="">
                 </div>
             </div>
@@ -28,23 +28,7 @@
                 </div>
             </div>
             <div class="col">
-                3 </div>
-        </div>
-        <div class="row align-items-center">
-            <div class="col">
-                4 </div>
-            <div class="col">
-                5 </div>
-            <div class="col">
-                6 </div>
-        </div>
-        <div class="row align-items-end">
-            <div class="col">
-                7 </div>
-            <div class="col">
-                8 </div>
-            <div class="col">
-                9 </div>
+                </div>
         </div>
     </div>
 </div>
