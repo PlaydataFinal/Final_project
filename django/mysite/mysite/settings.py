@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'sass_processor',
     'bootstrap4',
     'sweetify',
-    'ocr',
 
 ]
 

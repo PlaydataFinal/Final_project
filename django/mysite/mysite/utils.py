@@ -15,24 +15,24 @@ from sklearn.preprocessing import StandardScaler
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 
-def get_data_from_mongodb(host, username, password, db_name, collection_name):
-    # MongoDB 연결
-    client = MongoClient(host, username=username, password=password)
-    db = client[db_name]
+# def get_data_from_mongodb(host, username, password, db_name, collection_name):
+#     # MongoDB 연결
+#     client = MongoClient(host, username=username, password=password)
+#     db = client[db_name]
 
-    # 데이터 가져오기
-    collection = db[collection_name]
-    data = collection.find()
+#     # 데이터 가져오기
+#     collection = db[collection_name]
+#     data = collection.find()
 
-    # 데이터프레임으로 변환
-    df = pd.DataFrame(list(data))
+#     # 데이터프레임으로 변환
+#     df = pd.DataFrame(list(data))
 
-    return df
+#     return df
 
 # MongoDB에서 데이터 가져오기
-df = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext', 
-                        'admin', 'admin123', 'jejutext', 'df')
-
+# df = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext', 
+#                         'admin', 'admin123', 'jejutext', 'df')
+df = pd.read_csv('./tour_index_vectorized_list.csv')
 # def recommend_places(user_input):
 #     model_name = "jhgan/ko-sbert-nli"
 #     model_kwargs = {'device': 'cpu'}

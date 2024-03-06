@@ -22,5 +22,5 @@ class Profile(models.Model):
     is_first = models.BooleanField(default = True)
 
     # class Meta:
-    #     app_label = "default"
+    #     app_label = "maria"
     #     db_table = 'Profile'

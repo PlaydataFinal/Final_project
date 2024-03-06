@@ -69,26 +69,26 @@ def test2(request):
         return JsonResponse('Error')
     
     
-def get_data_from_mongodb(host, username, password, db_name, collection_name):
-    # MongoDB 연결
-    client = MongoClient(host, username=username, password=password)
-    db = client[db_name]
+# def get_data_from_mongodb(host, username, password, db_name, collection_name):
+#     # MongoDB 연결
+#     client = MongoClient(host, username=username, password=password)
+#     db = client[db_name]
 
-    # 데이터 가져오기
-    collection = db[collection_name]
-    data = collection.find()
+#     # 데이터 가져오기
+#     collection = db[collection_name]
+#     data = collection.find()
 
-    # 데이터프레임으로 변환
-    df = pd.DataFrame(list(data))
+#     # 데이터프레임으로 변환
+#     df = pd.DataFrame(list(data))
 
-    return df
+#     return df
 
 # MongoDB에서 데이터 가져오기
-df = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext', 
-                        'admin', 'admin123', 'jejutext', 'df')
+# df = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext', 
+#                         'admin', 'admin123', 'jejutext', 'df')
 
-    
 def test3(request):
+    df = pd.read_csv('./tour_index_vectorized_list.csv')
     input_num = request.GET.get('input_num')
     print(f'input_num : {input_num}')
     if input_num == None:
