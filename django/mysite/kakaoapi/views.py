@@ -1,5 +1,7 @@
 from django.shortcuts import render
-
+from rest_framework import generics
+from .models import tour_kakao
+from .serializers import TourKakaoSerializer
 # Create your views here.
 from django.http import HttpResponse
 
@@ -7,9 +9,7 @@ from django.http import HttpResponse
 def index(request):
     return render(request, 'kakaoapi/kakao.html')# kakaoapi/views.py
 
-from rest_framework import generics
-from .models import tour_kakao
-from .serializers import TourKakaoSerializer
+
 
 class TourKakaoList(generics.ListAPIView):
     serializer_class = TourKakaoSerializer

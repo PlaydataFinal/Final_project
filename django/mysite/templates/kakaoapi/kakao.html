@@ -51,7 +51,7 @@
             <div class="option">
                 <div>
                     <form onsubmit="searchPlaces(); return false;">
-                        키워드 : <input type="text"  id="keyword" size="15"> 
+                        키워드 : <input type="text" value="성산일출봉" id="keyword" size="15"> 
                         <button type="submit">검색하기</button> 
                     </form>
                 </div>
@@ -64,42 +64,31 @@
     
 
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=5b475d258fb5e345e3944cb9418a3f5b&libraries=services"></script>
-<script>
+    <script>
+        var markers = [];
+        var mapContainer = document.getElementById('map'),
+            mapOption = {
+                center: new kakao.maps.LatLng(33.4996, 126.5312),
+                level: 2
+            };
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+        var ps = new kakao.maps.services.Places();
+        var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-// 마커를 담을 배열입니다
-var markers = [];
+        function searchPlaces() {
+            var keyword = document.getElementById('keyword').value;
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.4996, 126.5312), // 지도의 중심좌표
-        level: 4 // 지도의 확대 레벨
-    };  
-
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-// 장소 검색 객체를 생성합니다
-
-// 키워드로 장소를 검색합니다
-searchPlaces();
-        // 여기에 JavaScript 코드를 추가하세요.
-        // Django REST API에서 데이터를 받아오기 위한 함수
-// Django REST API에서 데이터를 받아오기 위한 함수
-function searchPlaces() {
-    // 초기에 아무런 키워드 없이 모든 관광지를 가져오도록 수정
-    var keyword = '';
-
-    // Django REST API 엔드포인트로 요청을 보내 데이터를 가져옵니다.
-    fetch(`/kakaoapi/get_tourist_spots/?keyword=${keyword}`)
-        .then(response => response.json())
-        .then(data => {
-            placesSearchCB(data, "OK", null);  // 가져온 데이터를 지도에 표시하는 콜백 함수 호출
-        })
-        .catch(error => {
-            console.error('데이터 가져오기 오류:', error);
-            alert('검색 중 오류가 발생했습니다.');
-        });
-}
+            // Django REST API 엔드포인트로 요청을 보내 데이터를 가져옵니다.
+            fetch(`/kakaoapi/get_tourist_spots/?keyword=${keyword}`)
+                .then(response => response.json())
+                .then(data => {
+                    placesSearchCB(data, "OK", null);
+                })
+                .catch(error => {
+                    console.error('데이터 가져오기 오류:', error);
+                    alert('검색 중 오류가 발생했습니다.');
+                });
+        }
 
 // Django REST API에서 받아온 데이터를 처리하여 지도에 표시하는 콜백 함수
 function placesSearchCB(places, status, pagination) {
@@ -115,7 +104,7 @@ function placesSearchCB(places, status, pagination) {
 
     // 받아온 데이터를 기반으로 목록과 마커를 생성합니다.
     places.forEach(function (spot, index) {
-        var placePosition = new kakao.maps.LatLng(spot.latitude, spot.longitude),
+        var placePosition = new kakao.maps.LatLng(spot.Latitude, spot.Longitude),
             marker = addMarker(placePosition, index),
             itemEl = getListItem(index, spot);
 
@@ -138,7 +127,7 @@ function placesSearchCB(places, status, pagination) {
             itemEl.onmouseout = function () {
                 infowindow.close();
             };
-        })(marker, spot.name);
+        })(marker, spot.Name);
 
         fragment.appendChild(itemEl);
     });
@@ -154,14 +143,14 @@ function getListItem(index, spot) {
     var el = document.createElement('li'),
         itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
             '<div class="info">' +
-            '   <h5>' + spot.name + '</h5>';
+            '   <h5>' + spot.Name + '</h5>';
 
-    if (spot.address) {
-        itemStr += '    <span>' + spot.address + '</span>' +
-            '   <span class="jibun gray">' + spot.address + '</span>';
+    if (spot.Address) {
+        itemStr += '    <span>' + spot.Address + '</span>' +
+            '   <span class="jibun gray">' + spot.Address + '</span>';
     }
 
-    itemStr += '  <span class="tel">' + spot.phone + '</span>' +
+    itemStr += '  <span class="tel">' + spot.Tel + '</span>' +
         '</div>';
 
     el.innerHTML = itemStr;
