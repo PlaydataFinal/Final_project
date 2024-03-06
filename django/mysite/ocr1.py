@@ -16,7 +16,7 @@ import joblib
 
 
 
-# S3 설정
+#S3 설정
 aws_access_key_id = 'AKIA2UYLYPVJMZYQGZW2'
 aws_secret_access_key = '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'
 s3_bucket = 'jeju-bucket' 
@@ -31,8 +31,8 @@ s3.download_file(s3_bucket, s3_model_key, model_path_local)
 
 # Load the trained OCR model
 loaded_model = load_model(model_path_local)
-# Load the label encoder
-# 저장된 라벨 인코더를 불러오기
+#Load the label encoder
+#저장된 라벨 인코더를 불러오기
 label_encoder = joblib.load('label_encoder.joblib')
 
 
