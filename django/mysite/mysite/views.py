@@ -51,17 +51,22 @@ def test(request):
     
 @csrf_exempt
 def test2(request):
-    user_input = request.GET.get('input')
+    print(f'request : {request}')
+    # user_input = request.GET.get('input')
+    user_input = request.POST.get('input')
     if user_input:
         # output_text = recommend_places(user_input)
         output_text = get_answer(user_input)
+        print(f'output_text : ' + output_text)
         data = {
             'user_input' : user_input,
             'output_text' : output_text
         }
-        return render(request, 'recommend_result.html', data)
+        # return render(request, 'recommend_result.html', data)
+        return JsonResponse(data)
     else:
-        return redirect('test')
+        # return redirect('test')
+        return JsonResponse('Error')
     
     
 def get_data_from_mongodb(host, username, password, db_name, collection_name):

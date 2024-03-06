@@ -38,7 +38,7 @@
 <!-- <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')"> -->
 
 <body class="h-auto">
-    <header class="masthead" style="background-color: rgb(255, 115, 0);">
+    <header class="masthead w-100" style="background-color: rgb(255, 115, 0);">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
@@ -57,12 +57,13 @@
 
     <!-- 기본 템플릿 안에 삽입될 내용 Start -->
     {% block content %}
+    
     {% endblock %}
-    <div id='inner'>
+    <!-- 기본 템플릿 안에 삽입될 내용 End -->
+    <div class="w-100" id='inner'>
         <h3 class="ftext">나중에 뭔가 추가할 부분</h3>
     </div>
     <footer></footer>
-    <!-- 기본 템플릿 안에 삽입될 내용 End -->
     <!-- jQuery JS -->
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <!-- Bootstrap JS -->
