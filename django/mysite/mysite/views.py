@@ -50,7 +50,7 @@ def test(request):
     return render(request, 'recommend.html')
     
 @csrf_exempt
-def test2(request):
+def chatbot_solve(request):
     print(f'request : {request}')
     # user_input = request.GET.get('input')
     user_input = request.POST.get('input')
@@ -110,5 +110,5 @@ def test3(request):
     }
     return render(request, 'test3.html', data)
 
-def test4(request):
+def chatbot(request):
     return render(request, "simple_chat.html")

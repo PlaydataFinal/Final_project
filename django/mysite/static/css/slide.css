@@ -82,7 +82,7 @@
 /* max-width랑 height로 크기 조절 */
 .shoe_test {
     max-width: 100%;
-    margin: 0 auto;
+    margin: 20px auto;
     background-color: aquamarine;
     overflow: hidden;
 }

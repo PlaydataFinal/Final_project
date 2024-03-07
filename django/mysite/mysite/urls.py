@@ -32,9 +32,9 @@ urlpatterns = [
     path('common/', include('common.urls')),
     path('recommend/', views.recommend_view, name='recommend'),
     path('test/', views.test, name='test'),
-    path('test2/', views.test2, name='test2'),
+    path('chatbot_solve/', views.chatbot_solve, name='chatbot_solve'),
     path('test3/', views.test3, name='test3'),
-    path('test4/', views.test4, name='test4'),
+    path('chatbot/', views.chatbot, name='chatbot'),
     # path('test3/<int:addr_id>/', views.test3, name='test3'),
 ]
 
