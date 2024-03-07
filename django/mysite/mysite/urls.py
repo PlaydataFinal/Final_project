@@ -35,7 +35,7 @@ urlpatterns = [
     path('chatbot_solve/', views.chatbot_solve, name='chatbot_solve'),
     path('test3/', views.test3, name='test3'),
     path('chatbot/', views.chatbot, name='chatbot'),
-    # path('test3/<int:addr_id>/', views.test3, name='test3'),
+    path('kakaoapi/', include('kakaoapi.urls')),
 ]
 
 if settings.DEBUG:
