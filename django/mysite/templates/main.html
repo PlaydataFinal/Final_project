@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Jeju</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            cursor: url(../../static/assets/img/dol_resize.png) 20 30, auto;
+
+        }
+
+        .bgimg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url("https://www.outlooktravelmag.com/media/jeju-island-1-1643649088.profileImage.2x-jpg.webp");
+            background-position: center;
+            background-size: cover;
+            text-align: center;
+            flex-direction: column;
+            /* 추가: 세로 방향으로 아이템 정렬 */
+        }
+
+        h1 {
+            color: white;
+        }
+
+        button {
+            background-color: skyblue;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            cursor: url(../../static/assets/img/dol_resize.png) 20 30, auto;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bgimg">
+        <h1>🍊Jeju trip🍊</h1>
+        <p>
+        <form action="{% url 'index' %}">
+            <button type="submit">Start !</button>
+        </form>
+        </p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include 'chat.html' %}
+<!-- 홈 페이지 고유의 내용을 추가합니다 -->
+<section>
+    <h2>Welcome to Jeju!</h2>
+    <p>This is the home page content.</p>
+    <!-- 여러분의 홈 페이지 콘텐츠를 추가하세요 -->
+    {% if user.profile.is_first %}
+    <script>
+        window.onload = function () {
+            Swal.fire({
+                icon: 'success',
+                title: '회원가입을 축하드립니다!',
+                text: '추가적인 정보를 입력해주세요!',
+            }).then(function () {
+                location.href = "{% url 'common:first' %}"
+            })
+        };
+    </script>
+    {% endif %}
+    <div class="container-fluid w-auto shoe_test">
+        <button class="btn_play">
+            <i>P</i>
+            <i>l</i>
+            <i>a</i>
+            <i>y</i>
+            <i>use</i>
+        </button>
+
+        <div class="shoe_carousel">
+            <div class="shoe_swiper">
+                <ul class="shoe_slide w-auto original">
+                    <li>1-1<img
+                            src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/db3fbc34a17e4494a21fb8d0f6a5f381/b7d9f72388c44a04a3c35dad8e8117c3_1649221052.gif" />
+                        <br>
+                        1-2<img
+                            src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/db3fbc34a17e4494a21fb8d0f6a5f381/b7d9f72388c44a04a3c35dad8e8117c3_1649221052.gif" />
+                    </li>
+                    <li>2<img
+                            src="https://i.namu.wiki/i/Vy3qaQ2IvMaXucz3oK3iI4ao0oA8FS-rJn8jPcgzxjW7YxMfpP4j6Hf0X21G1JYzcYX6UZOxd53kpZahTkAOpg.gif" />
+                    </li>
+                    <li>3<img
+                            src="https://media.fmkorea.com/files/attach/new3/20230406/1378413927/1645895930/5652222694/99b983892094b5c6d2fc3736e15da7d1_2.gif" />
+                    </li>
+                    <li>4<img
+                            src="https://i.namu.wiki/i/0zJK1DYQVdwEadmPinePaa0bbt4njADshwDp13ZX2yN_ZHSiR9XgOcRWcKBy-9d1e9h3wrXrpGlPwC0oywmNlw.gif" />
+                    </li>
+                </ul>
+                <ul class="shoe_slide w-auto clone">
+                    <li>1-1<img
+                            src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/db3fbc34a17e4494a21fb8d0f6a5f381/b7d9f72388c44a04a3c35dad8e8117c3_1649221052.gif" />
+                        <br>
+                        1-2<img
+                            src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/db3fbc34a17e4494a21fb8d0f6a5f381/b7d9f72388c44a04a3c35dad8e8117c3_1649221052.gif" />
+                    </li>
+                    <li>2<img
+                            src="https://i.namu.wiki/i/Vy3qaQ2IvMaXucz3oK3iI4ao0oA8FS-rJn8jPcgzxjW7YxMfpP4j6Hf0X21G1JYzcYX6UZOxd53kpZahTkAOpg.gif" />
+                    </li>
+                    <li>3<img
+                            src="https://media.fmkorea.com/files/attach/new3/20230406/1378413927/1645895930/5652222694/99b983892094b5c6d2fc3736e15da7d1_2.gif" />
+                    </li>
+                    <li>4<img
+                            src="https://i.namu.wiki/i/0zJK1DYQVdwEadmPinePaa0bbt4njADshwDp13ZX2yN_ZHSiR9XgOcRWcKBy-9d1e9h3wrXrpGlPwC0oywmNlw.gif" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+</section>
+{% endblock %}
