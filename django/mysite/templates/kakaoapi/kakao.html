@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -51,7 +55,7 @@
             <div class="option">
                 <div>
                     <form onsubmit="searchPlaces(); return false;">
-                        키워드 : <input type="text" value="성산일출봉" id="keyword" size="15"> 
+                        키워드 : <input type="text"  id="keyword" size="15"> 
                         <button type="submit">검색하기</button> 
                     </form>
                 </div>
@@ -65,16 +69,19 @@
 
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=5b475d258fb5e345e3944cb9418a3f5b&libraries=services"></script>
     <script>
+
+        var keyword = ''
         var markers = [];
         var mapContainer = document.getElementById('map'),
             mapOption = {
-                center: new kakao.maps.LatLng(33.4996, 126.5312),
-                level: 2
+                center: new kakao.maps.LatLng(33.3596, 126.5712),
+                level: 10
             };
         var map = new kakao.maps.Map(mapContainer, mapOption);
         var ps = new kakao.maps.services.Places();
         var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
+        searchPlaces() 
         function searchPlaces() {
             var keyword = document.getElementById('keyword').value;
 
@@ -194,7 +201,53 @@ function removeMarker() {
     }
     markers = [];
 }
+// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+function displayPagination(pagination) {
+    var paginationEl = document.getElementById('pagination'),
+        fragment = document.createDocumentFragment(),
+        i; 
 
+    // 기존에 추가된 페이지번호를 삭제합니다
+    while (paginationEl.hasChildNodes()) {
+        paginationEl.removeChild (paginationEl.lastChild);
+    }
+
+    for (i=1; i<=pagination.last; i++) {
+        var el = document.createElement('a');
+        el.href = "#";
+        el.innerHTML = i;
+
+        if (i===pagination.current) {
+            el.className = 'on';
+        } else {
+            el.onclick = (function(i) {
+                return function() {
+                    pagination.gotoPage(i);
+                }
+            })(i);
+        }
+
+        fragment.appendChild(el);
+    }
+    paginationEl.appendChild(fragment);
+}
+
+// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
+// 인포윈도우에 장소명을 표시합니다
+function displayInfowindow(marker, title) {
+    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+    infowindow.setContent(content);
+    infowindow.open(map, marker);
+}
+
+ // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+function removeAllChildNods(el) {   
+    while (el.hasChildNodes()) {
+        el.removeChild (el.lastChild);
+    }
+}
     </script>
 </body>
 </html>
+{% endblock %}
