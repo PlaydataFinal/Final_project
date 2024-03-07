@@ -30,7 +30,8 @@ urlpatterns = [
     path('result/', views.result, name='result'),
     path('main/', views.main, name='main'),
     path('common/', include('common.urls')),
-    path('kakaoapi/', include('kakaoapi.urls'))
+    path('kakaoapi/', include('kakaoapi.urls')),
+    path('tmapapi/', include('tmapapi.urls'))
 ]
 
 if settings.DEBUG:
