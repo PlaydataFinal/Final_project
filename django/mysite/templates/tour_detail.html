@@ -15,6 +15,12 @@
             style="width: 720px; min-height: 360px;" alt="">
         </div>
     </div>
-
+        <a href="javascript:void(0)"
+            class="recommend btn btn-sm btn-outline-secondary"> 추천
+            <span class="badge rounded-pill bg-success">{{question.voter.count}}</span>
+        </a>
+        <a href="javascript:void(0)" class="recommend btn btn-sm btn-outline-secondary"> 비추천
+            <span class="badge rounded-pill bg-success">{{question.voter.count}}</span>
+        </a>
 </div>
 {% endblock %}
