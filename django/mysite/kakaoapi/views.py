@@ -21,3 +21,10 @@ class TourKakaoList(generics.ListAPIView):
     def get_queryset(self):
         keyword = self.request.query_params.get('keyword', '')
         return tour_kakao.objects.filter(Name__icontains=keyword)
+
+
+
+def image(request):
+    # Get the first 10 tourist spots
+    spots = tour_kakao.objects.all()[:10]
+    return render(request, 'kakaoapi/kakao.html', {'spots': spots})

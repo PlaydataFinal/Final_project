@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'sweetify',
     'kakaoapi.apps.KakaoapiConfig',
+    'ezocr.apps.EzocrConfig'
 ]
 
 MIDDLEWARE = [
@@ -154,3 +155,6 @@ LOGIN_REDIRECT_URL = '/'
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 
 DATABASE_ROUTERS = MYDATABASE_ROUTERS
+
+# GOOGLE_API_KEY 설정
+GOOGLE_API_KEY = os.environ["GOOGLE_API_KEY"] = "AIzaSyAPWz4S7KJA0spMwfdwBBa6nA8XnsoeByw"

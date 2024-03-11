@@ -32,12 +32,11 @@ urlpatterns = [
     path('common/', include('common.urls')),
     path('recommend/', views.recommend_view, name='recommend'),
     path('test/', views.test, name='test'),
-    path('test2/', views.test2, name='test2'),
+    path('chatbot_solve/', views.chatbot_solve, name='chatbot_solve'),
     path('test3/', views.test3, name='test3'),
-    path('test4/', views.test4, name='test4'),
-    path('kakaoapi/', include('kakaoapi.urls'), name = 'kakaoapi'),
-    #path('ocr/', include('ocr.urls', namespace='ocr')), 
-    # path('test3/<int:addr_id>/', views.test3, name='test3'),
+    path('chatbot/', views.chatbot, name='chatbot'),
+    path('kakaoapi/', include('kakaoapi.urls', namespace='kakaoapi')),
+    path('ezocr/', include('ezocr.urls', namespace= 'ezocr')),
 ]
 
 if settings.DEBUG:
@@ -45,4 +44,3 @@ if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

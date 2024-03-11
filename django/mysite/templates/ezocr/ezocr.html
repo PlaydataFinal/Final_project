@@ -1,0 +1,79 @@
+<!-- ezocr/templates/ezocr/ezocr.html -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZOCR 페이지</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/ezocr.css' %}">
+</head>
+<body>
+    <h1>EZOCR 실행 페이지</h1>
+    <form id="ezocrForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">이미지 업로드 및 실행</button>
+    </form>
+
+    <!-- 결과를 테이블로 예쁘게 표시 -->
+    {% if answer %}
+        <div>
+            <h2>결과</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item, content in table_data %}
+                        <tr>
+                            <td>{{ item }}</td>
+                            <td>{{ content }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+    <div id="ezocrResult"></div>
+
+    <script>
+        document.getElementById("ezocrForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            var formData = new FormData(this);
+
+            fetch("/ezocr/", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 결과를 표시
+                var resultText = data.answer;
+                document.getElementById("ezocrResult").innerHTML = resultText;
+
+                // (선택) 결과를 테이블로 표시
+                var tableData = data.table_data;
+                if (tableData) {
+                    var tableHtml = "<h2>결과</h2><table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody>";
+                    for (var i = 0; i < tableData.length; i++) {
+                        tableHtml += "<tr><td>" + tableData[i][0] + "</td><td>" + tableData[i][1] + "</td></tr>";
+                    }
+                    tableHtml += "</tbody></table>";
+                    document.getElementById("ezocrResult").innerHTML = tableHtml;
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>

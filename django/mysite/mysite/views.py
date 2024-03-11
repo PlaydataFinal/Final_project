@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .utils import recommend_places, get_answer
 
-#from pymongo import MongoClient
+from pymongo import MongoClient
 import pandas as pd
 import random
 
@@ -50,7 +50,7 @@ def test(request):
     return render(request, 'recommend.html')
     
 @csrf_exempt
-def test2(request):
+def chatbot_solve(request):
     print(f'request : {request}')
     # user_input = request.GET.get('input')
     user_input = request.POST.get('input')
@@ -83,12 +83,12 @@ def test2(request):
 
 #     return df
 
-# # MongoDB에서 데이터 가져오기
+# MongoDB에서 데이터 가져오기
 # df = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext', 
 #                         'admin', 'admin123', 'jejutext', 'df')
-df = pd.read_csv('/home/ubuntu/Final_project/django/mysite/mysite/chatbot.csv')
-    
+
 def test3(request):
+    df = pd.read_csv('./tour_index_vectorized_list.csv')
     input_num = request.GET.get('input_num')
     print(f'input_num : {input_num}')
     if input_num == None:
@@ -110,5 +110,5 @@ def test3(request):
     }
     return render(request, 'test3.html', data)
 
-def test4(request):
+def chatbot(request):
     return render(request, "simple_chat.html")

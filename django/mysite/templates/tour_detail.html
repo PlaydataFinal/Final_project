@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>이름 : {{ tour.Name }}<br></h3>
+            <h4>주소 : <br>{{ tour.Address }}<br></h4>
+            <h5>전화번호 : {{ tour.Tel }}</h5>
+        </div>
+        <div class="col-md-auto">
+            <img class='img-fluid'
+            src={% if tour.Image_URL %} {{ tour.Image_URL }}
+            {% else %} "https://i.stack.imgur.com/34AD2.jpg" 
+            {% endif %} 
+            style="width: 720px; min-height: 360px;" alt="">
+        </div>
+    </div>
+
+</div>
+{% endblock %}
