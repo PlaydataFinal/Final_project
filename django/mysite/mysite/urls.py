@@ -31,9 +31,7 @@ urlpatterns = [
     path('main/', views.main, name='main'),
     path('common/', include('common.urls')),
     path('recommend/', views.recommend_view, name='recommend'),
-    path('tour/<int:tour_id>/', views.tour_detail, name='tour_detail'),
     path('chatbot_solve/', views.chatbot_solve, name='chatbot_solve'),
-    path('test3/', views.test3, name='test3'),
     path('chatbot/', views.chatbot, name='chatbot'),
     path('kakaoapi/', include('kakaoapi.urls')),
 ]

@@ -93,33 +93,5 @@ def chatbot_solve(request):
 # df = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext', 
 #                         'admin', 'admin123', 'jejutext', 'df')
 
-def test3(request):
-    df = pd.read_csv('./tour_index_vectorized_list.csv')
-    input_num = request.GET.get('input_num')
-    print(f'input_num : {input_num}')
-    if input_num == None:
-        input_num = random.randrange(0, len(df) + 1)
-    else:
-        try:
-            input_num = int(input_num)
-        except:
-            print('error')
-            messages.warning(request, "숫자만 입력하세요")
-            return redirect('test3')
-    df['addr_id'] = 0
-    for x in range(0, len(df)):
-        df.loc[x, 'addr_id'] = x
-    data = {
-        'name' : df['Name'][input_num],
-        'image_url' : df['Image URL'][input_num].replace('"', ''),
-        'address' : df['Address'][input_num]
-    }
-    return render(request, 'test3.html', data)
-
 def chatbot(request):
     return render(request, "simple_chat.html")
-
-def tour_detail(request, tour_id):
-    tour_list = tour_kakao.objects.get(id=tour_id)
-    tour = {"tour" : tour_list}
-    return render(request, "tour_detail.html", tour)
