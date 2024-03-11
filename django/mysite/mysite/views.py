@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .utils import recommend_places, get_answer
+from kakaoapi.models import tour_kakao
 
 from pymongo import MongoClient
 import pandas as pd
@@ -21,8 +22,13 @@ def predict(request):
 #     import numpy as np
 #     import pickle
 
+# def index(request):
+#     return  render(request, 'index.html')
+
 def index(request):
-    return  render(request, 'index.html')
+    kakao = tour_kakao.objects
+    tour = {"tour" : kakao}
+    return  render(request, 'index.html', tour)
 
 def index_view(request):
     return render(request, 'main.html')
@@ -112,3 +118,8 @@ def test3(request):
 
 def chatbot(request):
     return render(request, "simple_chat.html")
+
+def tour_detail(request, tour_id):
+    tour_list = tour_kakao.objects.get(id=tour_id)
+    tour = {"tour" : tour_list}
+    return render(request, "tour_detail.html", tour)

@@ -12601,6 +12601,7 @@ header.masthead .post-heading .meta a {
 }
 
 #inner {
+  margin-top: 20px;
   height: auto;
   min-height: 100%;
   padding-bottom: 50px;
