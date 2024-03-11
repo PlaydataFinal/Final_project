@@ -3,7 +3,7 @@ const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
 
 // Icons made by Freepik from www.flaticon.com
-const BOT_IMG = "https://cdn3.vectorstock.com/i/1000x1000/31/67/robot-icon-bot-sign-design-chatbot-symbol-vector-27973167.jpg";
+// const BOT_IMG = "https://cdn3.vectorstock.com/i/1000x1000/31/67/robot-icon-bot-sign-design-chatbot-symbol-vector-27973167.jpg";
 // const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
 const BOT_NAME = "CHAT BOT";
 
