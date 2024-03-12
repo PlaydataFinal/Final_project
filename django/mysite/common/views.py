@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 from .forms import CustomUserChangeForm, ProfileForm
-
+from django.contrib import messages
 
 from django.contrib.auth.forms import UserCreationForm
 # Django 프레임워크가 구현해 놓은 회원가입 폼을 import 한다.

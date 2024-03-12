@@ -12,7 +12,8 @@
                 %} "https://i.stack.imgur.com/34AD2.jpg" {% endif %} style="width: 720px; min-height: 360px;" alt="">
         </div>
     </div>
-    <a href="javascript:void(0)" class="recommend btn btn-sm btn-outline-secondary"> 추천
+    <a href="javascript:void(0)" data-uri="{% url 'kakaoapi:tour_like' tour.id  %}"
+        class="like btn btn-sm btn-outline-secondary"> 추천
         <span class="badge rounded-pill bg-success">{{tour.like.count}}</span>
     </a>
     <!-- 답변 -->
@@ -40,8 +41,11 @@
                     </div>
                     {{ comment.create_date }}
                 </div>
-
                 <div class="my-3">
+                    <a href="javascript:void(0)" data-uri="{% url 'kakaoapi:comment_like' comment.id  %}"
+                        class="like btn btn-sm btn-outline-secondary"> 추천
+                        <span class="badge rounded-pill bg-success">{{comment.comment_like.count}}</span>
+                    </a>
                     {% if request.user == comment.author %}
                     <a href="{% url 'kakaoapi:comment_modify' comment.id  %}"
                         class="btn btn-sm btn-outline-secondary">수정</a>
@@ -78,7 +82,6 @@
     </form>
 </div>
 
-</div>
 {% endblock %}
 {% block script %}
 <script type='text/javascript'>
@@ -86,6 +89,14 @@
     Array.from(delete_elements).forEach(function (element) {
         element.addEventListener('click', function () {
             if (confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+    const like_elements = document.getElementsByClassName("like");
+    Array.from(like_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 추천하시겠습니까?")) {
                 location.href = this.dataset.uri;
             };
         });

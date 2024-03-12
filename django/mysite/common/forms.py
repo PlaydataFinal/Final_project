@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserChangeForm
 from .models import Profile
 
 from common.custom_widgets import PreviewImageFileWidget
+from django.core.validators import RegexValidator
 
 
 class UserForm(UserCreationForm):
@@ -38,8 +39,11 @@ class UserForm(UserCreationForm):
             "placeholder" : "이메일",
         })
     )
+    phoneNumberRegex = RegexValidator(regex = r'^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$', message='숫자만 입력해주세요.')
     phone = forms.CharField(
         label="전화번호",
+        validators=[phoneNumberRegex],
+        max_length=11,
         widget=forms.TextInput(attrs={
             "placeholder" : "전화번호",
         })

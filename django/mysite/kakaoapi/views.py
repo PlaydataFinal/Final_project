@@ -80,3 +80,19 @@ def comment_delete(request, comment_id):
     else:
         comment.delete()
     return redirect('kakaoapi:tour_detail', tour_id=comment.tour.id)
+
+
+@login_required(login_url='common:login')
+def comment_like(request, comment_id):
+    comment = get_object_or_404(tour_comment, pk=comment_id)
+    if request.user == comment.author:
+        messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
+    else:
+        comment.comment_like.add(request.user)
+    return redirect('kakaoapi:tour_detail', tour_id=comment.tour.id)
+
+@login_required(login_url='common:login')
+def tour_like(request, tour_id):
+    tour = get_object_or_404(tour_kakao, pk=tour_id)
+    tour.like.add(request.user)
+    return redirect('kakaoapi:tour_detail', tour_id=tour.id)
