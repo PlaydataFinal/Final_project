@@ -25,6 +25,7 @@ mysettings.py
 *.so
 
 # Distribution / packaging
+vector_csv4.csv
 .Python
 build/
 develop-eggs/
