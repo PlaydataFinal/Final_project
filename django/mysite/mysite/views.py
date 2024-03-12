@@ -98,5 +98,7 @@ def chatbot(request):
 
 def tour_detail(request, tour_id):
     tour_list = tour_kakao.objects.get(id=tour_id)
-    tour = {"tour" : tour_list}
-    return render(request, "tour_detail.html", tour)
+    tour_all = tour_kakao.objects.all()
+    content = {"tour" : tour_list, "tour_all" : tour_all}
+    return render(request, "tour_detail.html", content)
+

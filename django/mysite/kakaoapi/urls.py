@@ -11,6 +11,8 @@ urlpatterns = [
     path('comment_create/<int:tour_id>/', views.comment_create, name='comment_create'),
     path('comment/modify/<int:comment_id>/', views.comment_modify, name='comment_modify'),
     path('comment/delete/<int:comment_id>/', views.comment_delete, name='comment_delete'),
+    path('tour/like/<int:tour_id>/', views.tour_like, name='tour_like'),
+    path('comment/like/<int:comment_id>/', views.comment_like, name='comment_like'),
 
 
 ]

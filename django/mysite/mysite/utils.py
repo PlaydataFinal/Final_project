@@ -33,7 +33,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 # df = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext', 
 #                         'admin', 'admin123', 'jejutext', 'df')
 
-df = pd.read_csv('/home/ubuntu/Final_project/django/mysite/mysite/chatbot.csv')
+df = pd.read_csv('./tour_index_vectorized_list.csv')
 
 # def recommend_places(user_input):
 #     model_name = "jhgan/ko-sbert-nli"
@@ -152,3 +152,11 @@ def get_answer(user_input):
     result = chain.invoke({'text_data': text_data, 'question': user_input})
     
     return result.content
+
+
+
+
+
+
+
+

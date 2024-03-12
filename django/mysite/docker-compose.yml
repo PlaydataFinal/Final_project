@@ -30,7 +30,6 @@ services:
     command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8002
     volumes:
       - static_volume:/usr/src/app/static
-      - ./:/usr/src/app/
     expose:
       - "8002"
     networks:
@@ -41,7 +40,6 @@ services:
     command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8003
     volumes:
       - static_volume:/usr/src/app/static
-      - ./:/usr/src/app/
     expose:
       - "8003"
     networks:
