@@ -33,15 +33,19 @@
             <div class="shoe_swiper">
                 <ul class="shoe_slide w-auto original">
                     {% for x in tour %}
-                    <li><img src="{{ x.Image_URL }}" onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
-                        {{ x.Name }}
+                    <li style="margin: 10px;">
+                        <h3>{{ x.Name }}<br></h3>
+                        <img class="img-fluid" style="min-width: 360px;" src="{{ x.Image_URL }}"
+                            onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
                     </li>
                     {% endfor %}
                 </ul>
                 <ul class="shoe_slide w-auto clone">
                     {% for x in tour %}
-                    <li><img src="{{ x.Image_URL }}" onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
-                        {{ x.Name }}
+                    <li style="margin: 10px;">
+                        <h3>{{ x.Name }}<br></h3>
+                        <img class="img-fluid" src="{{ x.Image_URL }}"
+                            onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
                     </li>
                     {% endfor %}
                 </ul>
