@@ -6,7 +6,27 @@
             <h3>이름 : {{ tour.Name }}<br></h3>
             <h4>주소 : <br>{{ tour.Address }}<br></h4>
             <h5>전화번호 : {{ tour.Tel }}</h5>
+            <h6>
+                추천관광지:
+                {% for test in tour_all %}
+                {% if test.id == tour.rec1 %}
+                <a href="../{{ test.id }}/">{{ test.Name }}</a>
+                {% endif %}
+
+                {% if test.id == tour.rec2 %}
+                <a href="../{{ test.id }}/">{{ test.Name }}</a>
+                {% endif %}
+
+                {% if test.id == tour.rec3 %}
+                <a href="../{{ test.id }}/">{{ test.Name }}</a>
+                {% endif %}
+
+                {% endfor %}
+            </h6>
         </div>
+        <h4>
+
+        </h4>
         <div class="col-md-auto">
             <img class='img-fluid' src={% if tour.Image_URL %} {{ tour.Image_URL }} {% else
                 %} "https://i.stack.imgur.com/34AD2.jpg" {% endif %} style="width: 720px; min-height: 360px;" alt="">

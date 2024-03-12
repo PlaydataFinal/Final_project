@@ -26,9 +26,9 @@ def predict(request):
 #     return  render(request, 'index.html')
 
 def index(request):
-    kakao = tour_kakao.objects
-    tour = {"tour" : kakao}
-    return  render(request, 'index.html', tour)
+    tour = tour_kakao.objects.all()
+    content = {"tour" : tour}
+    return  render(request, 'index.html', content)
 
 def index_view(request):
     return render(request, 'main.html')
