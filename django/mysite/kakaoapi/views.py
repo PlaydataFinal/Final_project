@@ -38,6 +38,7 @@ def tour_detail(request, tour_id):
     content = {"tour" : tour_list, "tour_all" : tour_all}
     return render(request, "tour_detail.html", content)
 
+@login_required(login_url='common:login')
 def comment_create(request, tour_id):
     tour = get_object_or_404(tour_kakao, pk=tour_id)
     if request.method == "POST":
