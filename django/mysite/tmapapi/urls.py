@@ -1,9 +1,8 @@
 from django.urls import path
-
 from . import views
-from .views import TourKakaoList
+from .views import TourTmapList
 
 urlpatterns = [
     path('', views.index),
-    path('get_tourist_spots/', TourKakaoList.as_view(), name='get_tourist_spots'),
+    path('get_tourist_spots/', TourTmapList.as_view(), name='get_tourist_spots'),
 ]

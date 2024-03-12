@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class KakaoapiConfig(AppConfig):
+class TmapapiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'kakaoapi'
+    name = 'tmapapi'

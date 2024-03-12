@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import pymysql
 pymysql.install_as_MySQLdb()
+from .mysettings import MYDATABASES
 
 # from .mysettings import MYDATABASES
 
@@ -45,7 +46,8 @@ INSTALLED_APPS = [
     'sass_processor',
     'bootstrap4',
     'sweetify',
-    'kakaoapi.apps.KakaoapiConfig',
+    'rest_framework',
+    'tmapapi.apps.TmapapiConfig',
 ]
 
 MIDDLEWARE = [
@@ -83,13 +85,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-#DATABASES = MYDATABASES
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # SQLite 데이터베이스 엔진 사용
-        'NAME': BASE_DIR / "db.sqlite3",  # 데이터베이스 파일명 또는 경로
-    }
-}
+DATABASES = MYDATABASES
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',  # SQLite 데이터베이스 엔진 사용
+#         'NAME': BASE_DIR / "db.sqlite3",  # 데이터베이스 파일명 또는 경로
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -125,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-# STATIC_ROOT = BASE_DIR / 'static'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]

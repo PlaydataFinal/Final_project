@@ -1,9 +1,9 @@
 # tmapapi/serializers.py
-
+from dataclasses import field
 from rest_framework import serializers
-from .models import tour_kakao
+from .models import tour_tmap
 
-class TourKakaoSerializer(serializers.ModelSerializer):
+class TourTmapSerializer(serializers.ModelSerializer):
     class Meta:
-        model = tour_kakao
+        model = tour_tmap
         fields = '__all__'

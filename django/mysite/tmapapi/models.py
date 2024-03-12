@@ -2,8 +2,7 @@
 from django.db import models
 from django.conf import settings
 
-# Create your models here.
-class tour_kakao(models.Model):
+class tour_tmap(models.Model):
     id = models.AutoField(primary_key=True, editable=False)
     Name = models.CharField(max_length=255, db_column='Name')
     Address = models.CharField(max_length=255, db_column='Address')
