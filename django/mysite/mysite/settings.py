@@ -85,12 +85,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = MYDATABASES
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',  # SQLite 데이터베이스 엔진 사용
-#         'NAME': BASE_DIR / "db.sqlite3",  # 데이터베이스 파일명 또는 경로
-#     }
-# }
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -113,13 +108,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
-USE_I18N = True
+USE_I18N = False
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -157,4 +152,4 @@ SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 DATABASE_ROUTERS = MYDATABASE_ROUTERS
 
 # GOOGLE_API_KEY 설정
-GOOGLE_API_KEY = os.environ["GOOGLE_API_KEY"] = "AIzaSyAPWz4S7KJA0spMwfdwBBa6nA8XnsoeByw"
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "AIzaSyAPWz4S7KJA0spMwfdwBBa6nA8XnsoeByw")

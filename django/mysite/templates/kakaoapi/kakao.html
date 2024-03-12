@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관광지 검색</title>
     <style>
+        *,
+        *:hover {
+            cursor: unset;
+        }
+
         .map_wrap,
         .map_wrap * {
             margin: 0;
@@ -235,7 +240,11 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.results.length == 0) {
-                        alert('검색 결과가 존재하지 않습니다.');
+                        Swal.fire({
+                            icon: 'error',
+                            title: '검색 결과가 존재하지 않습니다.',
+                            text: '다른 키워드로 검색해주세요.',
+                        })
                         return;
                     };
                     placesSearchCB(data.results, "OK", pageNumber, data.count);
@@ -271,6 +280,9 @@
                     });
                     kakao.maps.event.addListener(marker, 'mouseout', function () {
                         infowindow.close();
+                    });
+                    kakao.maps.event.addListener(marker, 'click', function () {
+                        location.href = '../kakaoapi/tour/' + spot.id + '/';
                     });
                     itemEl.onmouseover = function () {
                         displayInfowindow(marker, title);
