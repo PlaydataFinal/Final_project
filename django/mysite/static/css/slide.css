@@ -72,11 +72,11 @@
 }
 
 .original {
-    animation: 90s linear 0s infinite normal forwards running rollingoriginal;
+    animation: 180s linear 0s infinite normal forwards running rollingoriginal;
 }
 
 .clone {
-    animation: 90s linear 0s infinite normal none running rollingclone;
+    animation: 180s linear 0s infinite normal none running rollingclone;
 }
 
 /* max-width랑 height로 크기 조절 */
