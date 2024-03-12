@@ -1,70 +1,112 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            
-            <h3>이름 : {{ tour.Name }}<br></h3>
-            <h4>주소 : <br>{{ tour.Address }}<br></h4>
-            <h5>전화번호 : {{ tour.Tel }}</h5>
-        </div>
-        </div>
-        <div class="col-md-auto">
-            <img class='img-fluid' src={% if tour.Image_URL %} {{ tour.Image_URL }} {% else
-                %} "https://i.stack.imgur.com/34AD2.jpg" {% endif %} style="width: 720px; min-height: 360px;" alt="">
+<style>
+    @media screen and (max-width : 480px) {
+        .fly {
+            display: none;
+        }
+    }
 
-        <h6 style="float:right; margin-left: 50px;">
-            추천관광지:
-            <br>
-            {% for test in tour_all %}
-            {% if test.id == tour.rec1 %}
-            <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="300" height="200"> <br>{{ test.Name }}</a><br>
-            {% endif %}
-            
-            {% if test.id == tour.rec2 %}
-            <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="300" height="200"> <br>{{ test.Name }}</a><br>
-            {% endif %}
-        
-            {% if test.id == tour.rec3 %}
-            <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="300" height="200"> <br>{{ test.Name }}</a><br>
-            {% endif %}
-        
-            {% endfor %}
-        </h6>
+    .fly {
+
+        border: 2px purple;
+
+        border-style: solid;
+
+        padding: 10px;
+
+        position: absolute;
+
+        left: 99%;
+
+        width: auto;
+
+        height: auto;
+
+        background: transparent
+    }
+</style>
+<div class="container-xxl" style="position: relative;">
+    <div class="row">
+        <div class="col-6 text-wrap">
+            <h3>이름 : {{ tour.Name }}<br></h3>
+            <h3>주소 : <br>{{ tour.Address }}<br></h3>
+            <h4>전화번호 : {{ tour.Tel }}</h4>
+            <h4>태그<br> {{ tour.Tag }} </h4>
+        </div>
+
+        <div class="col-6">
+            <img class='img-fluid' src={% if tour.Image_URL %} {{ tour.Image_URL }} {% else
+                %} "https://i.stack.imgur.com/34AD2.jpg" {% endif %}
+                style="min-height: 480px; margin-bottom: 10px;" alt="">
+        </div>
+        <div class="col text-center">
+            <a href="javascript:void(0)" data-uri="{% url 'kakaoapi:tour_like' tour.id  %}"
+                class="like btn btn-sm btn-outline-secondary text-center"> 추천
+                <span class="badge rounded-pill bg-success">{{tour.like.count}}</span>
+            </a>
         </div>
     </div>
+    <div class="row text-center" style="margin: 15px;">
+        <h3>
+            유사한 관광지<br>
+            </h4>
+            {% for test in tour_all %}
+            {% if test.id == tour.rec1 %}
+            <div class="col">
+                <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
+                    <h4>{{ test.Name }}</h4>
+                </a>
+            </div>
+            {% endif %}
 
-    <a href="javascript:void(0)" data-uri="{% url 'kakaoapi:tour_like' tour.id  %}"
-        class="like btn btn-sm btn-outline-secondary"> 추천
-        <span class="badge rounded-pill bg-success">{{tour.like.count}}</span>
-    </a>
+
+            {% if test.id == tour.rec2 %}
+            <div class="col">
+                <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
+                    <h4>{{ test.Name }}</h4>
+                </a>
+            </div>
+            {% endif %}
+
+
+            {% if test.id == tour.rec3 %}
+            <div class="col">
+                <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
+                    <h4>{{ test.Name }}</h4>
+                </a>
+            </div>
+            {% endif %}
+
+            {% endfor %}
+    </div>
+
 
     <!-- 답변 -->
-
     <h5 class="border-bottom my-3 py-2">{{tour.tour_comment_set.count}}개의 의견이 있습니다.</h5>
     {% for comment in tour.tour_comment_set.all %}
     <div class="card my-3">
         <div class="card-body">
-            <div class="d-flex justify-content-start">{{ comment.author.profile.nickname }}
-                <div class="badge bg-light text-dark p-2 text-end mx-3">
-                    {{ comment.create_date }}
+            <div class="row align-items-start">
+                <div class="col">
+                    <div class="d-flex justify-content-start">
+                        {{ comment.author.profile.nickname }}</div>
+                </div>
+                <div class="col text-end">
+                    {% if comment.modify_date %}
+                    <div class="badge bg-light text-dark p-2 text-start mx-3">
+                        <div class="mb-2">수정된 시간</div>
+                        <div>{{ comment.modify_date }}</div>
+                    </div>
+                    <div class="badge bg-light text-dark p-2 text-start mx-3">
+                        <div class="mb-2"> 작성된 시간<br></div>
+                        {{ comment.create_date }}
+                    </div>
                 </div>
             </div>
             <div class="card-text" style="white-space: pre-line;">{{ comment.comment }}</div>
             <div class="d-flex justify-content-end">
-                {% if comment.modify_date %}
-                <div class="badge bg-light text-dark p-2 text-start mx-3">
-                    <div class="mb-2">수정된 시간 : </div>
-                    <div>{{ comment.modify_date }}</div>
-                </div>
                 {% endif %}
-
-                <div class="badge bg-light text-dark p-2 text-start mx-3">
-                    <div class="mb-2">
-                        작성된 시간 :
-                    </div>
-                    {{ comment.create_date }}
-                </div>
                 <div class="my-3">
                     <a href="javascript:void(0)" data-uri="{% url 'kakaoapi:comment_like' comment.id  %}"
                         class="like btn btn-sm btn-outline-secondary"> 추천
@@ -81,6 +123,7 @@
         </div>
     </div>
     {% endfor %}
+
     <!-- 답변 등록 -->
     <form action="{% url 'kakaoapi:comment_create' tour.id %}" method="post" class="my-3">
         {% csrf_token %}
@@ -105,6 +148,7 @@
         <input type="submit" value="답변등록" class="btn btn-primary">
     </form>
 </div>
+
 {% endblock %}
 
 {% block script %}
@@ -125,5 +169,23 @@
             };
         });
     });
+
+    $(function () {
+
+        $(window).scroll(function () {
+
+            var sct = $(this).scrollTop();
+
+            //console.log(sct);
+
+            $('.fly').stop().animate({
+
+                top: sct
+
+            })
+
+        })
+
+    })
 </script>
 {% endblock %}
