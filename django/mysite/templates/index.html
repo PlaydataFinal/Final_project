@@ -21,7 +21,7 @@
     </script>
     {% endif %}
     <div class="container-fluid w-75 shoe_test">
-        <h3 style="  text-align: center; position: relative; top: 30px;">나중에 여행지 사진 및 소개로 변경 될 영역</h3>
+        <h3 style="  text-align: center; position: relative; top: 30px;">  ‼️‼️ 요기 어때? 역대 추천 TOP 10  ‼️‼️ </h3>
         <button class="btn_play">
             <i>P</i>
             <i>l</i>
@@ -44,7 +44,7 @@
                     {% for x in tour %}
                     <li style="margin: 10px;">
                         <h3>{{ x.Name }}<br></h3>
-                        <img class="img-fluid" src="{{ x.Image_URL }}"
+                        <img class="img-fluid" style="min-width: 360px;" src="{{ x.Image_URL }}"
                             onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
                     </li>
                     {% endfor %}

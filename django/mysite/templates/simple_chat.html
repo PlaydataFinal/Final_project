@@ -1,3 +1,4 @@
+<!-- simple_chat.html -->
 {% extends "base.html" %}
 {% load static %}
 {% load bootstrap4 %}
@@ -39,8 +40,17 @@
     {% if user.is_authenticated %}
     <form class="msger-inputarea" method="post">
         {% csrf_token %}
+        {% if user.is_authenticated %}
+        <select name="selected_number" class="msger-select">
+            <option value="1">1번: 관광지</option>
+            <option value="2">2번: 음식점</option>
+            <option value="3">3번: 숙박업소</option>
+        </select>
         <input type="text" name="input" class="msger-input" placeholder="질문하실 내용을 입력해주세요.">
-        <button type="submit" value="전송" class="msger-send-btn">Send</button>
+        <button type="submit" class="msger-send-btn">Send</button>
+        {% else %}
+        <!-- ... (기존 코드 유지) ... -->
+        {% endif %}
     </form>
     {% if user.profile.image %}
     <script type="text/javascript">

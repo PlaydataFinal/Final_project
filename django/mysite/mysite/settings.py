@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'sweetify',
     'kakaoapi.apps.KakaoapiConfig',
-    'ezocr.apps.EzocrConfig',
 ]
 
 MIDDLEWARE = [
