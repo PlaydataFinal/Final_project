@@ -22,22 +22,14 @@
 }
 
 .shoe_slide {
-    border: 2px solid red;
     display: flex;
     margin-top: 1%;
     width: 75%;
     list-style-type: none;
 }
 
-/* 
-.shoe_slide:hover {
-    animation-play-state: paused;
-    cursor: pointer;
-} */
-
 /* width : 사이즈 조절 */
 .shoe_slide li img {
-    border: 2px solid blue;
     aspect-ratio: 3 / 2;
     width: 480px;
     margin: 5px;

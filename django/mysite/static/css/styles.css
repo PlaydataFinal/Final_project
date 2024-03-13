@@ -12620,3 +12620,21 @@ footer {
   position: fixed;
   transform: translateY(-100%);
 }
+
+.playdata {
+  a:link {
+    color: black;
+  }
+
+  a:visited {
+    color: black;
+  }
+
+  a:hover {
+    color: black;
+  }
+
+  a:active {
+    color: black;
+  }
+}

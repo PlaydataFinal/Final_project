@@ -7,7 +7,7 @@ const msgerChat = get(".msger-chat");
 // const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
 const BOT_NAME = "CHAT BOT";
 
-  // 비로그인 시 로그인 요청
+// 비로그인 시 로그인 요청
 if (PERSON_NAME == "비회원") {
   window.onload = function () {
     Swal.fire({
@@ -19,7 +19,7 @@ if (PERSON_NAME == "비회원") {
       var list = link.split('/');
       list.splice(0, 3);
       var redir = '/'.concat(list.join('/'));
-      location.href = "../common/login/?next=" + redir;
+      location.href = loginURL + redir;
     })
   };
 
@@ -35,7 +35,7 @@ if (PERSON_NAME == "비회원") {
         var list = link.split('/');
         list.splice(0, 3);
         var redir = '/'.concat(list.join('/'));
-        location.href = "../common/login/?next=" + redir;
+        location.href = loginURL + redir;
       })
     }
   }
