@@ -1,7 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-
-from django.contrib import messages
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -17,13 +14,6 @@ def home(request):
 
 def predict(request): 
     return render(request, 'predict.html')
-
-# def result(request):
-#     import numpy as np
-#     import pickle
-
-# def index(request):
-#     return  render(request, 'index.html')
 
 def index(request):
     tour = tour_kakao.objects.all().annotate(like_count=Count('like')).order_by('-like_count').distinct()[:10]
@@ -58,20 +48,16 @@ def test(request):
 @csrf_exempt
 def chatbot_solve(request):
     print(f'request : {request}')
-    # user_input = request.GET.get('input')
     user_input = request.POST.get('input')
     if user_input:
-        # output_text = recommend_places(user_input)
         output_text = get_answer(user_input)
         print(f'output_text : ' + output_text)
         data = {
             'user_input' : user_input,
             'output_text' : output_text
         }
-        # return render(request, 'recommend_result.html', data)
         return JsonResponse(data)
     else:
-        # return redirect('test')
         return JsonResponse('Error')
     
     

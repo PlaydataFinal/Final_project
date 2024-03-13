@@ -22,6 +22,7 @@
 }
 
 .shoe_slide {
+    border: 2px solid red;
     display: flex;
     margin-top: 1%;
     width: 75%;
@@ -36,6 +37,7 @@
 
 /* width : 사이즈 조절 */
 .shoe_slide li img {
+    border: 2px solid blue;
     aspect-ratio: 3 / 2;
     width: 480px;
     margin: 5px;

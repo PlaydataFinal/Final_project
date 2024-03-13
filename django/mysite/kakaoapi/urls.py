@@ -14,5 +14,4 @@ urlpatterns = [
     path('tour/like/<int:tour_id>/', views.tour_like, name='tour_like'),
     path('comment/like/<int:comment_id>/', views.comment_like, name='comment_like'),
 
-
 ]

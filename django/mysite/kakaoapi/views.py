@@ -4,14 +4,11 @@ from .models import tour_kakao, tour_comment
 from .serializers import TourKakaoSerializer
 from rest_framework.pagination import PageNumberPagination
 # Create your views here.
-from django.http import HttpResponse
 
 from django.http import HttpResponseNotAllowed
 from .forms import CommentForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from django.contrib.auth.models import User
-from common.models import Profile
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
