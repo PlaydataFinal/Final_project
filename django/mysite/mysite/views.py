@@ -76,7 +76,7 @@ def test(request):
     
     # MongoDB에서 데이터 가져오기
 df1 = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext',
-                            'admin', 'admin123', 'jejutext', 'tour_df')
+                            'admin', 'admin123', 'jejutext', 'df')
 
 df2 = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext',
                             'admin', 'admin123', 'jejutext', 'food_df')
@@ -115,9 +115,8 @@ def chatbot_solve(request):
         
         if user_input:
             text_data = recommend_places(selected_df, user_input)
-
             # 수정된 부분: get_answer 함수 호출 시 사용자의 질문 전달
-            result = get_answer(user_input)
+            result = get_answer(user_input, text_data)
             
             return JsonResponse({'output': result}, json_dumps_params={'ensure_ascii': False}, status=200)
         else:
@@ -134,4 +133,3 @@ def tour_detail(request, tour_id):
     tour_all = tour_kakao.objects.all()
     content = {"tour" : tour_list, "tour_all" : tour_all}
     return render(request, "tour_detail.html", content)
-

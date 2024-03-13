@@ -1,6 +1,5 @@
 const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
-
 const msgerSelect = get(".msger-select");
 const msgerChat = get(".msger-chat");
 
@@ -45,11 +44,10 @@ if (PERSON_NAME == "비회원") {
 
 msgerForm.addEventListener("submit", event => {
   event.preventDefault();
-
   const msgText = msgerInput.value;
   const msgSelect = msgerSelect.value;
   alert("msgSelect : " + msgSelect);
-  alert("msgText" + msgText);
+  alert("msgText : " + msgText);
   if (!msgText) return;
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
   // alert("wait a seconds...");
@@ -68,10 +66,14 @@ msgerForm.addEventListener("submit", event => {
     },
     success: function (data) {
       const port_data = JSON.stringify(data);
+      alert("port_data : " + port_data);
       var port_data_json = JSON.parse(port_data);
-      botResponse(port_data_json.output_text);
+      alert("port_data_json : " + port_data_json);
+      alert("port_data_json.output : " + port_data_json.output);
+      botResponse(port_data_json.output);
     },
     error: function (xhr, textStatus, thrownError) {
+      alert(textStatus)
       alert("Could not send URL to Django. Error: " + xhr.status + ": " + xhr.responseText);
     }
   });
@@ -139,4 +141,3 @@ function formatDate(date) {
 //     alert("Could not send URL to Django. Error: " + xhr.status + ": " + xhr.responseText);
 //   }
 // });
-

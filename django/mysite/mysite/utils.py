@@ -89,7 +89,7 @@ def recommend_places(df,user_input):
     
     return text_data
 
-def get_answer(user_input):
+def get_answer(user_input, text_data):
     os.environ["GOOGLE_API_KEY"] = "AIzaSyAPWz4S7KJA0spMwfdwBBa6nA8XnsoeByw"
     llm = ChatGoogleGenerativeAI(model="gemini-pro")
     
@@ -122,8 +122,6 @@ def get_answer(user_input):
         "question": lambda x: x['question']  # Use the provided question
     }) | prompt | gemini
         
-    # 사용자의 질문에 대한 관련 장소 추천
-    text_data = recommend_places(user_input)
         
     # 챗봇이 답변 생성
     result = chain.invoke({'text_data': text_data, 'question': user_input})
@@ -206,11 +204,3 @@ def get_answer(user_input):
 #     result = chain.invoke({'text_data': text_data, 'question': user_input})
     
 #     return result.content
-
-
-
-
-
-
-
-
