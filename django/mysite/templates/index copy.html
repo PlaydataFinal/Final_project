@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include 'top_bottom.html' %}
+<!-- 홈 페이지 고유의 내용을 추가합니다 -->
+<section>
+    <h2>Welcome to Jeju!</h2>
+    <p>This is the home page content.</p>
+    <!-- 여러분의 홈 페이지 콘텐츠를 추가하세요 -->
+    {% if user.profile.is_first %}
+    <script>
+        window.onload = function () {
+            Swal.fire({
+                icon: 'success',
+                title: '회원가입을 축하드립니다!',
+                text: '추가적인 정보를 입력해주세요!',
+            }).then(function () {
+                location.href = "{% url 'common:first' %}"
+            })
+        };
+    </script>
+    {% endif %}
+    <div class="container-fluid w-75 shoe_test">
+        <h3 style="  text-align: center; position: relative; top: 30px;">나중에 여행지 사진 및 소개로 변경 될 영역</h3>
+        <button class="btn_play">
+            <i>P</i>
+            <i>l</i>
+            <i>a</i>
+            <i>y</i>
+            <i>use</i>
+        </button>
+        <div class="shoe_carousel">
+            <div class="shoe_swiper">
+                <ul class="shoe_slide w-auto original">
+                    {% for x in tour %}
+                    <li style="margin: 10px;">
+                        <h3>{{ x.Name }}<br></h3>
+                        <img class="img-fluid" style="min-width: 360px;" src="{{ x.Image_URL }}"
+                            onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <ul class="shoe_slide w-auto clone">
+                    {% for x in tour %}
+                    <li style="margin: 10px;">
+                        <h3>{{ x.Name }}<br></h3>
+                        <img class="img-fluid" style="min-width: 360px;" src="{{ x.Image_URL }}"
+                            onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
