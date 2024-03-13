@@ -35,6 +35,7 @@ urlpatterns = [
     path('tour/<int:tour_id>/', views.tour_detail, name='tour_detail'),
     path('chatbot/', views.chatbot, name='chatbot'),
     path('kakaoapi/', include('kakaoapi.urls')),
+    path('tmapapi/', include('tmapapi.urls')),
 ]
 
 if settings.DEBUG:

@@ -46,8 +46,6 @@ msgerForm.addEventListener("submit", event => {
   event.preventDefault();
   const msgText = msgerInput.value;
   const msgSelect = msgerSelect.value;
-  alert("msgSelect : " + msgSelect);
-  alert("msgText : " + msgText);
   if (!msgText) return;
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
   // alert("wait a seconds...");
@@ -66,10 +64,7 @@ msgerForm.addEventListener("submit", event => {
     },
     success: function (data) {
       const port_data = JSON.stringify(data);
-      alert("port_data : " + port_data);
       var port_data_json = JSON.parse(port_data);
-      alert("port_data_json : " + port_data_json);
-      alert("port_data_json.output : " + port_data_json.output);
       botResponse(port_data_json.output);
     },
     error: function (xhr, textStatus, thrownError) {
@@ -102,12 +97,20 @@ function appendMessage(name, img, side, text) {
   msgerChat.scrollTop += 500;
 }
 
+// function botResponse(text) {
+//   const msgText = text.replace(/\n/g, '<br>').replace(/\. /g, '.<br>');
+//   setTimeout(() => {
+//     appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+//   });
+// }
+
 function botResponse(text) {
   const msgText = text.replace(/\n/g, '<br>').replace(/\. /g, '.<br>');
   setTimeout(() => {
-    appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+      appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
   });
 }
+
 
 // Utils
 function get(selector, root = document) {
@@ -120,6 +123,8 @@ function formatDate(date) {
 
   return `${h.slice(-2)}:${m.slice(-2)}`;
 }
+
+
 
 // $.ajax({
 //   //요청이 전송될 URL 주소
