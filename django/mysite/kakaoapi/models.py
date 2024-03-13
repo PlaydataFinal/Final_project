@@ -11,11 +11,11 @@ class tour_kakao(models.Model):
     Longitude = models.FloatField(db_column='Longitude')
     Tel = models.CharField(max_length=255, db_column='Tel')  
     Image_URL = models.URLField(db_column='Image_URL')
-    #Tag = models.TextField(db_column='Tag', default='')
-    # Hits = models.IntegerField(db_column='Hits', default=0)
-    # rec1 = models.IntegerField(db_column = 'rec1', default=0)
-    # rec2 = models.IntegerField(db_column = 'rec2', default=0)
-    # rec3 = models.IntegerField(db_column = 'rec3', default=0)
+    Tag = models.TextField(db_column='Tag', default='')
+    Hits = models.IntegerField(db_column='Hits', default=0)
+    rec1 = models.IntegerField(db_column = 'rec1', default=0)
+    rec2 = models.IntegerField(db_column = 'rec2', default=0)
+    rec3 = models.IntegerField(db_column = 'rec3', default=0)
     
     # 240311 추가내용
     like = models.ManyToManyField(User, related_name='like_tour_kakao')

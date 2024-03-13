@@ -97,3 +97,10 @@ def tour_like(request, tour_id):
     tour = get_object_or_404(tour_kakao, pk=tour_id)
     tour.like.add(request.user)
     return redirect('kakaoapi:tour_detail', tour_id=tour.id)
+
+
+def tour_detail(request, tour_id):
+    tour_list = tour_kakao.objects.get(id=tour_id)
+    tour_all = tour_kakao.objects.all()
+    content = {"tour" : tour_list, "tour_all" : tour_all}
+    return render(request, "tour_detail.html", content)

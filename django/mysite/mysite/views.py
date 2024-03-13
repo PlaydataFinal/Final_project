@@ -10,7 +10,7 @@ from kakaoapi.models import tour_kakao
 
 from pymongo import MongoClient
 import pandas as pd
-import random
+from django.db.models import Count
 
 def home(request): 
     return render(request, 'main.html')
@@ -26,9 +26,9 @@ def predict(request):
 #     return  render(request, 'index.html')
 
 def index(request):
-    kakao = tour_kakao.objects
-    tour = {"tour" : kakao}
-    return  render(request, 'index.html', tour)
+    tour = tour_kakao.objects.all().annotate(like_count=Count('like')).order_by('-like_count').distinct()[:10]
+    content = {"tour" : tour}
+    return  render(request, 'index.html', content)
 
 def index_view(request):
     return render(request, 'main.html')
