@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'sweetify',
     'kakaoapi.apps.KakaoapiConfig',
     'tmapapi.apps.TmapapiConfig',
-    'markdown_deux',
+    'recommandservice.apps.RecommandserviceConfig',
 ]
 
 MIDDLEWARE = [

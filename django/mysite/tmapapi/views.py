@@ -3,18 +3,13 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import tour_tmap
 from .serializers import TourTmapSerializer
-import json
-# Create your views here.
 from django.http import HttpResponse
 from rest_framework.response import Response
-from django.http import JsonResponse
-
 from django.db.models import Q
 
-# Create your views here.
+
 def index(request):
     return render(request, 'tmapapi/tmap.html')
-
 
 class TourTmapList(generics.ListAPIView):
     serializer_class = TourTmapSerializer
@@ -28,7 +23,7 @@ class TourTmapList(generics.ListAPIView):
         queryset = tour_tmap.objects.all()
 
         if departure or destination:
-            queryset = queryset.filter(Q(Name__icontains=departure) | Q(Name__icontains=destination))
+            queryset = queryset.filter(Q(Name__iexact=departure) | Q(Name__iexact=destination))
             print(queryset)
 
         return queryset
@@ -37,13 +32,4 @@ class TourTmapList(generics.ListAPIView):
         queryset = self.get_queryset()
         serializer = self.serializer_class(queryset, many=True)
         print(serializer.data)
-
-        return Response()
-
-
-
-    def tour_detail(request, tour_id):
-        tour_list = tour_tmap.objects.get(id=tour_id) 
-        tour_all = tour_tmap.objects.all()
-        content = {"tour" : tour_list, "tour_all" : tour_all}
-        return render(request, "tmap.html", content)
+        return Response(serializer.data)

@@ -83,7 +83,7 @@
 										},
 										success : function(response) {
 
-											var resultData = response.features;
+											var resultData = response.json();
 
 											var tDistance = "총 거리 : "
 													+ (resultData[0].properties.totalDistance / 1000)
