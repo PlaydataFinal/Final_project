@@ -16,8 +16,11 @@ def predict(request):
     return render(request, 'predict.html')
 
 def index(request):
-    tour = tour_kakao.objects.all().annotate(like_count=Count('like')).order_by('-like_count').distinct()[:10]
-    content = {"tour" : tour}
+    tour_even = tour_kakao.objects.all().annotate(like_count=Count('like')).order_by('-like_count').distinct()[:10:2]
+    tour_odd = tour_kakao.objects.all().annotate(like_count=Count('like')).order_by('-like_count').distinct()[1:10:2]
+    content = {
+        'content' : dict(zip(tour_even, tour_odd))
+    }
     return  render(request, 'index.html', content)
 
 def index_view(request):

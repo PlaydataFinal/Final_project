@@ -572,13 +572,13 @@
     }
 
     /* .product-details .image { */
-        /* position: relative; */
-        /* width: 100px; */
-        /* height: 125px; */
-        /* top: 134px; */
-        /* left: 132px; */
-        /* background-color: #d9d9d9; */
-        /* border-radius: 6px; */
+    /* position: relative; */
+    /* width: 100px; */
+    /* height: 125px; */
+    /* top: 134px; */
+    /* left: 132px; */
+    /* background-color: #d9d9d9; */
+    /* border-radius: 6px; */
     /* } */
 
     .product-details .image-2 {
@@ -1821,11 +1821,23 @@
         white-space: nowrap;
     }
 
+    .create_date {
+        position: absolute;
+        right: 0;
+        height: 70px;
+    }
+
+    .modify_date {
+        position: absolute;
+        right: 190px;
+        height: 70px;
+    }
+
     .product-details .text-wrapper-58 {
-        position: relative;
+        position: absolute;
         /* width: 778px; */
         /* top: 53px; */
-        /* left: 0; */
+        left: 0;
         font-family: "Manrope-Regular", Helvetica;
         font-weight: 400;
         color: #1c1918;

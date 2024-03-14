@@ -1203,7 +1203,7 @@
 .mainpage .text-wrapper-42 {
     position: relative;
     /* top: 8px; */
-    left: 27px;
+    /* left: 27px; */
     font-family: "Manrope-Regular", Helvetica;
     font-weight: 400;
     color: #ffffff;
@@ -2098,7 +2098,7 @@
     overflow: hidden;
 }
 
-.projects .end_div {
+.mainpage .end_div {
     position: relative;
     /* width: 1440px; */
     height: auto;

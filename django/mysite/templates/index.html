@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 {% include 'top_bottom.html' %}
+
+
 <!-- 홈 페이지 고유의 내용을 추가합니다 -->
 <!-- 여러분의 홈 페이지 콘텐츠를 추가하세요 -->
 {% if user.profile.is_first %}
@@ -35,52 +37,109 @@
     </div>
 </div>
 <div class="projects">
-    <div class="container">
-        <img class="image-2"
-            src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-        <div class="text-wrapper-16">Forest Restoration and Rehabilitation</div>
-        <p class="text-wrapper-18">Deserunt anim cupidatat nisi officia exercitation nostrud ea non</p>
+    <div class="container-fluid w-75 shoe_test">
+        <h3 style="text-align: center; position: relative; top: 30px;">실시간 여행지 랭킹</h3>
+        <button class="btn_play">
+            <i>P</i>
+            <i>l</i>
+            <i>a</i>
+            <i>y</i>
+            <i>use</i>
+        </button>
+        <div class="shoe_carousel">
+            <div class="shoe_swiper">
+                <ul class="shoe_slide original">
+                    {% for x, y in content.items %}
+                    <li>
+                        <div class="row w-100" style="height: 420px;">
+                            <img class="img-fluid" style="min-width: 360px;" src="{{ x.Image_URL }}"
+                                onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
+                            <div class="text-wrapper-16">{{ x.Name }}
+                                <div class="fs-6 fw-lighter">추천 수 : {{ x.like.count }}</div>
+                            </div>
+                            <p class="text-wrap text-wrapper-18">{{ x.Tag }}</p>
+                        </div>
+                        <br><br><br>
+                        <div class="row w-100" style="height: 420px;">
+                            <img class="img-fluid" style="min-width: 360px;" src="{{ y.Image_URL }}"
+                                onclick="location.href='../kakaoapi/tour/{{ y.id }}/'"><br>
+                            <div class="text-wrapper-16">{{ y.Name }}
+                                <div class="fs-6 fw-lighter">추천 수 : {{ y.like.count }}</div>
+                            </div>
+                            <p class="text-wrap text-wrapper-18">{{ y.Tag }}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <ul class="shoe_slide clone">
+                    {% for x, y in content.items %}
+                    <li>
+                        <div class="row w-100" style="height: 420px;">
+                            <img class="img-fluid" style="min-width: 360px;" src="{{ x.Image_URL }}"
+                                onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
+                            <div class="text-wrapper-16">{{ x.Name }}
+                                <div class="fs-6 fw-lighter">추천 수 : {{ x.like.count }}</div>
+                            </div>
+                            <p class="text-wrap text-wrapper-18">{{ x.Tag }}</p>
+                        </div>
+                        <br><br><br>
+                        <div class="row w-100" style="height: 420px;">
+                            <img class="img-fluid" style="min-width: 360px;" src="{{ y.Image_URL }}"
+                                onclick="location.href='../kakaoapi/tour/{{ y.id }}/'"><br>
+                            <div class="text-wrapper-16">{{ y.Name }}
+                                <div class="fs-6 fw-lighter">추천 수 : {{ y.like.count }}</div>
+                            </div>
+                            <p class="text-wrap text-wrapper-18">{{ y.Tag }}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
-
-    <div class="container">
-
-        <img class="image-2"
-            src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-        <div class="text-wrapper-16">The Clean-Up Team</div>
-        <p class="text-wrapper-18">Deserunt anim cupidatat nisi officia exercitation nostrud ea non</p>
-    </div>
-
-    <div class="container">
-        <img class="image-2"
-            src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-        <div class="text-wrapper-16">Panda Conservation: Promoting Protection</div>
-        <p class="text-wrapper-18">Deserunt anim cupidatat nisi officia exercitation nostrud ea non</p>
-    </div>
-
-    <div class="container">
-        <img class="image-2"
-            src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-        <div class="text-wrapper-16">Helping Hands for the Land</div>
-        <p class="text-wrapper-18">Irure nisi proident duis nulla nisi commodo ullamco ipsum nisi aliqua pariatur nu
-        </p>
-    </div>
-
-    <div class="container">
-        <img class="image-2"
-            src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-        <div class="text-wrapper-16">Volunteers: Community Scientists</div>
-        <p class="text-wrapper-18">Deserunt anim cupidatat nisi officia exercitation nostrud ea non</p>
-    </div>
-
-    <div class="container">
-        <img class="image-2"
-            src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-        <div class="text-wrapper-16">Providing Care for Injured or Stranded Dolphins</div>
-        <p class="text-wrapper-18">Deserunt anim cupidatat nisi officia exercitation nostrud ea non</p>
-    </div>
-
 </div>
 <div class="mainpage">
+    <div class="overlap w-100">
+        <div class="container w-100">
+            <div class="feature">기능1</div>
+            <p class="text-wrapper-43">
+                Do consectetur proident proident id eiusmod deserunt consequat pariatur ad ex velit do Lorem
+                reprehenderit.
+                id eiusmod deserunt consequat pariatur ad ex velit do Lorem reprehenderit.
+            </p>
+            <img class="image"
+                src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
+            <button type="button" class="btn btn-warning btn-lg">
+                <div class="text-wrapper-42">Try now</div>
+            </button>
+
+            <div class="feature-2">기능2</div>
+            <p class="text-wrapper-44">
+                Do consectetur proident proident id eiusmod deserunt consequat pariatur ad ex velit do Lorem
+                reprehenderit.
+                id eiusmod deserunt consequat pariatur ad ex velit do Lorem reprehenderit.
+            </p>
+            <img class="image"
+                src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
+            <button type="button" class="btn btn-warning btn-lg">
+                <div class="text-wrapper-42">Try now</div>
+            </button>
+
+            <div class="feature-3">기능3</div>
+            <p class="text-wrapper-46">
+                Do consectetur proident proident id eiusmod deserunt consequat pariatur ad ex velit do Lorem
+                reprehenderit.
+                id eiusmod deserunt consequat pariatur ad ex velit do Lorem reprehenderit.
+            </p>
+            <img class="image"
+                src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
+
+            <button type="button" class="btn btn-warning btn-lg">
+                <div class="text-wrapper-42">Try now</div>
+            </button>
+
+        </div>
+    </div>
     <div class="container text-center">
         <div class="text-wrapper-33">Our Team</div>
         <p class="text-wrapper-32">
@@ -131,76 +190,6 @@
                 <div class="text-wrap text-wrapper-34">Professional title</div>
                 <div class="text-wrap text-wrapper-35">Full name</div>
                 <p class="text-wrap text-wrapper-36">Commodo qui nulla ipsum ea cupidatat sit aliquip dolor.</p>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="overlap w-100">
-        <div class="container w-100">
-            <div class="feature">Feature</div>
-            <p class="text-wrapper-43">
-                Do consectetur proident proident id eiusmod deserunt consequat pariatur ad ex velit do Lorem
-                reprehenderit.
-                id eiusmod deserunt consequat pariatur ad ex velit do Lorem reprehenderit.
-            </p>
-            <img class="image"
-                src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-            <button class="button-10">
-                <div class="text-wrapper-42">Try now</div>
-            </button>
-            <button class="button-12">
-                <div class="text-wrapper-45">Learn more</div>
-            </button>
-
-            <div class="feature-2">Feature</div>
-            <p class="text-wrapper-44">
-                Do consectetur proident proident id eiusmod deserunt consequat pariatur ad ex velit do Lorem
-                reprehenderit.
-                id eiusmod deserunt consequat pariatur ad ex velit do Lorem reprehenderit.
-            </p>
-            <img class="image"
-                src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-            <button class="button-11">
-                <div class="text-wrapper-42">Try now</div>
-            </button>
-            <button class="button-13">
-                <div class="text-wrapper-45">Learn more</div>
-            </button>
-
-
-            <div class="feature-3">Feature</div>
-            <p class="text-wrapper-46">
-                Do consectetur proident proident id eiusmod deserunt consequat pariatur ad ex velit do Lorem
-                reprehenderit.
-                id eiusmod deserunt consequat pariatur ad ex velit do Lorem reprehenderit.
-            </p>
-            <img class="image"
-                src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-            <button class="button-14">
-                <div class="text-wrapper-42">Try now</div>
-            </button>
-            <button class="button-15">
-                <div class="text-wrapper-45">Learn more</div>
-            </button>
-        </div>
-    </div>
-    <div class="container end_div">
-        <div class="row" style="background-color: #ff8615;">
-            <div class="col-6">
-                <div class="text-wrap text-wrapper-25 w-100">Get started!</div>
-                <p class="text-wrap text-wrapper-26">
-                    Do consectetur proident proident id eiusmod deserunt consequat pariatur ad ex velit do Lorem
-                    reprehenderit.
-                </p>
-                <button class="button-4">
-                    <div class="text-wrapper-24">Sign up</div>
-                </button>
-            </div>
-            <div class="col text-end">
-                <img class="img-fluid"
-                    src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
             </div>
         </div>
     </div>

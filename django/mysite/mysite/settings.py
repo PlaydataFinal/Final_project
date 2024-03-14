@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'sweetify',
     'kakaoapi.apps.KakaoapiConfig',
+    'multiforloop',
 ]
 
 MIDDLEWARE = [

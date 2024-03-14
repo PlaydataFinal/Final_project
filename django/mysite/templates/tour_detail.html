@@ -3,86 +3,123 @@
 {% include 'top_bottom.html' %}
 
 <div class="product-details">
-    <div class="row w-100">
-        <div class="col-7 text-center">
-            <img class="img-fluid"
-                src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-        </div>
-        <div class="col">
-            <div class="text-wrapper">Product name</div>
-            <p class="div">Aliquip fugiat ipsum nostrud ex et eu incididunt</p>
-            <p class="p">
-                In ullamco labore mollit et exercitation fugiat exercitation minim ex sint ullamco exercitation amet
-                officia
-                mollit. Qui cillum pariatur in con
-            </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-7">
+                <img class='img-fluid' src={% if tour.Image_URL %} {{ tour.Image_URL }} {% endif %}
+                    style="min-height: 480px; margin-bottom: 10px;" alt="">
+            </div>
+
+            <div class="col-5 text-wrap">
+                <div class="text-wrap fs-1 fw-bolder">이름 : {{ tour.Name }}</div>
+                <div class="text-wrap fs-3 fw-bold">주소 : <br>{{ tour.Address }}<br></div>
+                <div class="text-wrap fs-3 fw-bold">전화번호 : {{ tour.Tel }}</div>
+                <div class="text-wrap fs-4 fw-light">태그<br> {{ tour.Tag }} </div>
+            </div>
         </div>
     </div>
+
     <div class="container text-center">
-        <div class="text-wrapper-23">Related products</div>
-        <div class="row w-100">
+        <div class="text-wrapper-23">유사한 관광지</div>
+        <div class="row w-100 text-center">
+            {% for test in tour_all %}
+            {% if test.id == tour.rec1 %}
             <div class="col">
-                <img class="image-6" src="img/image-188.png" />
-                <div class="text-wrapper-24">Product title</div>
-                <div class="text-wrapper-25">Commodo labor</div>
+                <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
+                    <h4>{{ test.Name }}</h4>
+                </a>
             </div>
+            {% endif %}
 
+            {% if test.id == tour.rec2 %}
             <div class="col">
-                <img class="image-6" src="img/image-188.png" />
-                <div class="text-wrapper-24">Product title</div>
-                <div class="text-wrapper-25">Commodo ullamco amet</div>
+                <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
+                    <h4>{{ test.Name }}</h4>
+                </a>
             </div>
+            {% endif %}
 
+            {% if test.id == tour.rec3 %}
             <div class="col">
-                <img class="image-6" src="img/image-188.png" />
-                <div class="text-wrapper-24">Product title</div>
-                <div class="text-wrapper-25">Laborum qu</div>
+                <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
+                    <h4>{{ test.Name }}</h4>
+                </a>
             </div>
+            {% endif %}
+
+            {% endfor %}
         </div>
     </div>
 
     <div class="container">
         <div class="text-wrapper-38">Reviews</div>
-        <div class="text-wrapper-54">368 Reviews</div>
+        <div class="text-wrapper-54">{{ tour.tour_comment_set.count }} Reviews</div>
 
-        <div class="container">
-            <div class="img-wrapper"><img class="rectangle-6" src="img/rectangle-2.png" /></div>
-            <div class="text-wrapper-56">Annie Haley</div>
-            <img class="rating-8" src="img/rating-9.svg" />
-            <div class="text-wrapper-57">3d ago</div>
-            <p class="text-wrapper-58">
-                Commodo consequat quis nisi dolor laboris in aute occaecat quis consequat culpa consectetur aliqua.
-                Laborum
-                cupidatat id reprehenderit non cillum irure sunt commodo.
-            </p>
+        {% for comment in tour.tour_comment_set.all %}
+        <div class="container" style="border: 1px dotted black; margin: 10px 0px; padding: 10px;">
+            <div class="row">
+                <div class="col-2">
+                    <img class="img-thumbnail"
+                    src={% if comment.author.profile.image %} "{{ comment.author.profile.image.url }}" {% else %} "https://i.stack.imgur.com/34AD2.jpg" {% endif %}" />
+                </div>
+                <div class="col fs-5 text-wrapper-56">{{ comment.author.profile.nickname }}
+                    {% if comment.modify_date %}
+                    <div class="modify_date badge bg-light text-dark p-2 text-start mx-3">
+                        <div class="mb-2 lh-base">수정된 시간</div>
+                        <div>{{ comment.modify_date }}</div>
+                    </div>
+                    {% endif %}
+                    <div class="create_date badge bg-light text-dark p-2 text-start mx-3">
+                        <div class="mb-2 lh-base"> 작성된 시간<br>
+                            {{ comment.create_date }}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col fs-6 text-wrapper-58">
+                        {{ comment.comment }}
+                    </div>
+                </div>
+            </div>
+            {% if request.user == comment.author %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{% url 'kakaoapi:comment_modify' comment.id  %}"
+                class="btn btn-sm btn-outline-secondary btn-primary" style="color: aliceblue;">수정</a>
+                <a href="#" class="delete btn btn-sm btn-outline-secondary btn-danger"
+                    data-uri="{% url 'kakaoapi:comment_delete' comment.id  %}" style="color: aliceblue;">삭제</a>
+            </div>
+            {% endif %}
         </div>
-        <div class="container">
-            <div class="avatar-2"><img class="rectangle-6" src="img/rectangle.png" /></div>
-            <div class="text-wrapper-56">Green William</div>
-            <img class="rating-8" src="img/rating-10.svg" />
-            <div class="text-wrapper-59">3d ago</div>
-            <p class="text-wrapper-58">
-                Consectetur tempor nulla veniam duis nostrud non. Non qui minim Lorem adipisicing qui veniam commodo
-                non
-                irure aute elit incididunt qui excepteur officia sunt.
-            </p>
-        </div>
-        <div class="container">
-            <div class="avatar-3"><img class="rectangle-6" src="img/image.png" /></div>
-            <div class="text-wrapper-56">James Rower</div>
-            <img class="rating-8" src="img/rating-11.svg" />
-            <div class="text-wrapper-60">3d ago</div>
-            <p class="text-wrapper-58">
-                Ullamco enim ut culpa irure non qui est duis et aute proident reprehenderit tempor mollit. Aliquip
-                excepteur
-                nisi culpa reprehenderit adipisicing aliquip excepteur nulla minim.
-            </p>
-        </div>
-        <button class="button-8">
-            <div class="text-wrapper-55">Write a review</div>
-            <img class="img-2" src="img/pencil-line.svg" />
-        </button>
+        {% endfor %}
+        {% if request.user.is_authenticated %}
+        <!-- 답변 등록 -->
+        <form action="{% url 'kakaoapi:comment_create' tour.id %}" method="post" class="my-3">
+            {% csrf_token %}
+            <!-- 오류표시 Start -->
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                {% if field.errors %}
+                <div>
+                    <strong>{{ field.label }}</strong>
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <!-- 오류표시 End -->
+            <div class="mb-3">
+                <label for="comment" class="form-label fs-3">리뷰 작성</label>
+                <textarea name="comment" id="comment" class="form-control" rows="10"></textarea>
+            </div>
+            <input type="submit" value="리뷰 등록" class="btn btn-primary">
+        </form>
+        {% endif %}
+
     </div>
+
+
+</div>
 
 </div>
 
