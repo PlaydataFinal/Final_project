@@ -3,6 +3,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import tour_tmap
 from .serializers import TourTmapSerializer
+
 from django.http import HttpResponse
 from rest_framework.response import Response
 from django.db.models import Q
@@ -31,5 +32,4 @@ class TourTmapList(generics.ListAPIView):
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         serializer = self.serializer_class(queryset, many=True)
-        print(serializer.data)
         return Response(serializer.data)
