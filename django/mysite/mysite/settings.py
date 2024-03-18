@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'sweetify',
     'kakaoapi.apps.KakaoapiConfig',
     'tmapapi.apps.TmapapiConfig',
-    'recommandservice.apps.RecommandserviceConfig',
 ]
 
 MIDDLEWARE = [

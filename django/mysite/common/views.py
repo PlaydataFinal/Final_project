@@ -51,8 +51,7 @@ def signup(request):
             nickname = request.POST["nickname"]
             email = request.POST["email"]
             phone = request.POST["phone"]
-            address = request.POST["address"]
-            profile = Profile(user=user, nickname=nickname, phone=phone, email=email, address=address)
+            profile = Profile(user=user, nickname=nickname, phone=phone, email=email, is_first=is_first)
             profile.save()
             login(request,user)
             return redirect('main')

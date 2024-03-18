@@ -36,7 +36,6 @@ urlpatterns = [
     path('chatbot/', views.chatbot, name='chatbot'),
     path('kakaoapi/', include('kakaoapi.urls')),
     path('tmapapi/', include('tmapapi.urls')),
-    path('recommandservice/', include('recommandservice.urls')),
 ]
 
 if settings.DEBUG:

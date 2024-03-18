@@ -3,8 +3,7 @@ services:
   nginx:
     build: ./nginx
     volumes: 
-      - static_volume:/usr/src/app/static
-      - ./:/usr/src/app/
+      - static_volume:/usr/src/app/
     ports:
       - 80:80
     depends_on:
@@ -15,31 +14,30 @@ services:
       - backend
 
   web1:
-    build: .
+    image: mysite_image
     command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8001
     volumes:
-      - static_volume:/usr/src/app/static
-      - ./:/usr/src/app/
+      - static_volume:/usr/src/app/
     expose:
       - "8001"
     networks:
       - backend
       
   web2:
-    build: .
+    image: mysite_image
     command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8002
     volumes:
-      - static_volume:/usr/src/app/static
+      - static_volume:/usr/src/app/
     expose:
       - "8002"
     networks:
       - backend
 
   web3:
-    build: .
+    image: mysite_image
     command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8003
     volumes:
-      - static_volume:/usr/src/app/static
+      - static_volume:/usr/src/app/
     expose:
       - "8003"
     networks:
@@ -66,11 +64,11 @@ services:
       - .:/code    
 
   celery_worker:
-    build: .
+    image: mysite_image
     command: celery -A mysite worker --loglevel=info
     volumes:
-      - static_volume:/usr/src/app/static
-      - ./:/usr/src/app/
+      - static_volume:/usr/src/app/
+
     networks:
       - backend
     environment:
@@ -79,17 +77,18 @@ services:
       - rabbitmq
 
   celery_beat:
-    build: .
+    image: mysite_image
     command: celery -A mysite beat --loglevel=info
     volumes:
-      - static_volume:/usr/src/app/static
-      - ./:/usr/src/app/
+      - static_volume:/usr/src/app/
+
     environment:
       - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq
     networks:
       - backend
     depends_on:
       - rabbitmq
+
   flower:
     image: mher/flower
     environment:
