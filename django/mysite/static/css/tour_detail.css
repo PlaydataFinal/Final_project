@@ -1829,15 +1829,15 @@
 
     .modify_date {
         position: absolute;
-        right: 190px;
+        right: 170px;
         height: 70px;
     }
 
     .product-details .text-wrapper-58 {
-        position: absolute;
+        /* position: absolute; */
         /* width: 778px; */
         /* top: 53px; */
-        left: 0;
+        /* left: 0; */
         font-family: "Manrope-Regular", Helvetica;
         font-weight: 400;
         color: #1c1918;

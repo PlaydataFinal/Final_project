@@ -732,6 +732,7 @@
     position: relative;
     width: 100%;
     height: auto;
+    margin: 20px;
     /* top: 354px; */
     /* left: 132px; */
 }
@@ -1263,6 +1264,7 @@
     letter-spacing: 0;
     /* line-height: 56px; */
     white-space: nowrap;
+    overflow: auto;
 }
 
 .mainpage .text-wrapper-44 {
