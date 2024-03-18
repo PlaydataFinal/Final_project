@@ -42,25 +42,25 @@
         <div class="row w-100 text-center">
             {% for test in tour_all %}
             {% if test.id == tour.rec1 %}
-            <div class="col">
+            <div class="col rec">
                 <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
-                    <h4>{{ test.Name }}</h4>
+                    <div class="fs-4">{{ test.Name }}</div>
                 </a>
             </div>
             {% endif %}
 
             {% if test.id == tour.rec2 %}
-            <div class="col">
+            <div class="col rec">
                 <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
-                    <h4>{{ test.Name }}</h4>
+                    <div class="fs-4">{{ test.Name }}</div>
                 </a>
             </div>
             {% endif %}
 
             {% if test.id == tour.rec3 %}
-            <div class="col">
+            <div class="col rec">
                 <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
-                    <h4>{{ test.Name }}</h4>
+                    <div class="fs-4">{{ test.Name }}</div>
                 </a>
             </div>
             {% endif %}
@@ -70,14 +70,22 @@
     </div>
 
     <div class="container">
+        
         <div class="fs-1 text-wrapper-38">Reviews</div>
+        <select id="form-select sort-select" onchange="location = this.value;">
+            <option class="sort-date" {% if sort == '' or sort == 'date' %}selected{% endif %} value="?sort=date">최신순</option>
+            <option class="sort-likes" {% if sort == 'likes' %}selected{% endif %} value="?sort=likes">좋아요순</option>
+            {% if user.is_authenticated %}
+            <option class="sort-mypost" {% if sort == 'mypost' %}selected{% endif %} value="?sort=mypost">내가쓴글</option>
+            {% endif %}
+        </select>
         <div class="row">
-        <div class="col fs-4 text-wrapper-54">{{ tour.tour_comment_set.count }} Reviews</div>
+            <div class="col fs-4 text-wrapper-54">{{ tour.tour_comment_set.count }} Reviews</div>
         </div>
-        {% for comment in tour.tour_comment_set.all %}
+        {% for comment in comment %}
         <div class="container" style="border: 1px dotted black; margin: 10px 0px; padding: 10px;">
             <div class="row">
-<div class="col-2 fs-4 text-center text-wrapper-56">{{ comment.author.profile.nickname }}</div>
+                <div class="col-2 fs-4 text-center text-wrapper-56">{{ comment.author.profile.nickname }}</div>
 
                 <div class="col-5 fs-5 text-wrapper-56"></div>
                 <div class="col-5">
@@ -95,52 +103,65 @@
                     <br>
                 </div>
                 <div class="col-2">
-                    <img class="img-thumbnail" src={% if comment.author.profile.image %} "{{ comment.author.profile.image.url }}" {% else
-                        %} "https://i.stack.imgur.com/34AD2.jpg" {% endif %}" />
+                    <img class="img-thumbnail" src={% if comment.author.profile.image %}
+                        "{{ comment.author.profile.image.url }}" {% else %} "https://i.stack.imgur.com/34AD2.jpg" {% endif %}" />
                 </div>
                 <div class="col-6 fs-6 text-wrap text-wrapper-58">
                     {{ comment.comment }}
                 </div>
             </div>
-                    {% if request.user == comment.author %}
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{% url 'kakaoapi:comment_modify' comment.id  %}" class="btn btn-sm btn-outline-secondary btn-primary"
-                            style="color: aliceblue;">수정</a>
-                        <a href="#" class="delete btn btn-sm btn-outline-secondary btn-danger"
-                            data-uri="{% url 'kakaoapi:comment_delete' comment.id  %}" style="color: aliceblue;">삭제</a>
-                    </div>
-                    {% endif %}
+            {% if request.user == comment.author %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{% url 'kakaoapi:comment_modify' comment.id  %}"
+                    class="btn btn-sm btn-outline-secondary btn-primary" style="color: aliceblue;">수정</a>
+                <a href="#" class="delete btn btn-sm btn-outline-secondary btn-danger"
+                    data-uri="{% url 'kakaoapi:comment_delete' comment.id  %}" style="color: aliceblue;">삭제</a>
+            </div>
+            {% elif not request.user.is_authenticated %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="javascript:void(0)" onclick="notLogin()" class="btn btn-sm btn-outline-secondary"> 추천
+                    <span class="badge rounded-pill bg-success">{{comment.comment_like.count}}</span>
+                </a>
+            </div>
+            {% else %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="javascript:void(0)" data-uri="{% url 'kakaoapi:comment_like' comment.id  %}"
+                    class="like btn btn-sm btn-outline-secondary"> 추천
+                    <span class="badge rounded-pill bg-success">{{comment.comment_like.count}}</span>
+                </a>
+            </div>
+            {% endif %}
         </div>
 
         {% endfor %}
-    
-    {% if request.user.is_authenticated %}
-    <!-- 답변 등록 -->
-    <form action="{% url 'kakaoapi:comment_create' tour.id %}" method="post" class="my-3">
-        {% csrf_token %}
-        <!-- 오류표시 Start -->
-        {% if form.errors %}
-        <div class="alert alert-danger" role="alert">
-            {% for field in form %}
-            {% if field.errors %}
-            <div>
-                <strong>{{ field.label }}</strong>
-                {{ field.errors }}
+
+        {% if request.user.is_authenticated %}
+        <!-- 답변 등록 -->
+        <form action="{% url 'kakaoapi:comment_create' tour.id %}" method="post" class="my-3">
+            {% csrf_token %}
+            <!-- 오류표시 Start -->
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                {% if field.errors %}
+                <div>
+                    <strong>{{ field.label }}</strong>
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
             {% endif %}
-            {% endfor %}
-        </div>
+            <!-- 오류표시 End -->
+            <div class="mb-3">
+                <label for="comment" class="form-label fs-3">리뷰 작성</label>
+                <textarea name="comment" id="comment" class="form-control" rows="10"></textarea>
+            </div>
+            <input type="submit" value="리뷰 등록" class="btn btn-primary">
+        </form>
         {% endif %}
-        <!-- 오류표시 End -->
-        <div class="mb-3">
-            <label for="comment" class="form-label fs-3">리뷰 작성</label>
-            <textarea name="comment" id="comment" class="form-control" rows="10"></textarea>
-        </div>
-        <input type="submit" value="리뷰 등록" class="btn btn-primary">
-    </form>
-    {% endif %}
 
-</div>
+    </div>
 
 
 </div>
@@ -170,10 +191,10 @@
             });
         });
     });
+
     const like_elements = document.getElementsByClassName("like");
     Array.from(like_elements).forEach(function (element) {
         element.addEventListener('click', function () {
-            alert(dataset.uri);
             Swal.fire({
                 title: '정말로 추천하시겠습니까?',
                 html: "추천은 한번만 적용되고<br>취소가 불가능합니다.",
@@ -206,8 +227,8 @@
     };
     function notLogin() {
         Swal.fire({
-            title: '비회원 추천',
-            html: "추천은 로그인 후 가능합니다.",
+            title: '추천은 로그인 후 가능합니다.',
+            html: "로그인 페이지로 이동합니다.",
             icon: 'error'
         }).then(function () {
             var link = window.location.href;
@@ -301,5 +322,31 @@
         });
     });
 
+    // get url query string
+    // var getUrlParameter = function getUrlParameter(sParam) {
+    //     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+    //         sURLVariables = sPageURL.split('&'),
+    //         sParameterName,
+    //         i;
+
+    //     for (i = 0; i < sURLVariables.length; i++) {
+    //         sParameterName = sURLVariables[i].split('=');
+
+    //         if (sParameterName[0] === sParam) {
+    //             return sParameterName[1] === undefined ? true : sParameterName[1];
+    //         }
+    //     }
+    // };
+    // 정렬방식 셀렉트 박스 유지
+    // $(document).ready(function () {
+    //     var sort = getUrlParameter('sort');
+    //     if (sort == 'likes') {
+    //         $('.sort-likes').prop('selected', 'selected')
+    //     } else if (sort == 'mypost') {
+    //         $('.sort-mypost').prop('selected', 'selected')
+    //     } else {
+    //         $('.sort-date').prop('selected', 'selected')
+    //     }
+    // });
 </script>
 {% endblock %}

@@ -6,29 +6,60 @@
 <!-- 홈 페이지 고유의 내용을 추가합니다 -->
 <!-- 여러분의 홈 페이지 콘텐츠를 추가하세요 -->
 {% if user.profile.is_first %}
-<script>
-    window.onload = function () {
-        Swal.fire({
-            icon: 'success',
-            title: '회원가입을 축하드립니다!',
-            text: '추가적인 정보를 입력해주세요!',
-        }).then(function () {
-            location.href = "{% url 'common:first' %}"
-        })
-    };
+<script type="text/javascript">
+    // window.onload = function () {
+    //     Swal.fire({
+    //         icon: 'success',
+    //         title: '회원가입을 축하드립니다!',
+    //         text: '추가적인 정보를 입력해주세요!',
+    //     }).then(function () {
+    //         location.href = "{% url 'common:first' %}"
+    //     })
+    // };
 </script>
 {% endif %}
+<script type="text/javascript">
 
+    function alreadyLogin() {
+        Swal.fire({
+            icon: 'info',
+            title: '로그인 상태',
+            text: '이미 회원이십니다.',
+        })
+    }
+
+    function goSignup(){
+        Swal.fire({
+            title: '아직 회원이 아니시군요',
+            html: "회원가입을 하러가실까요?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '네!',
+            cancelButtonText: '안할래요',
+            reverseButtons: true, // 버튼 순서 거꾸로
+        }).then((confirmed) => {
+            if (Object.values(confirmed)[0])
+                location.href = '{% url "common:signup" %}';
+        });
+    }
+</script>
 <div class="mainpage">
     <div class="container text-center">
-        <div class="text-wrapper-30">JEJU</div>
-        <p class="text-wrapper-31">
-            Occaecat est ipsum reprehenderit reprehenderit veniam anim laborum est esse duis occaecat reprehenderit
-            pariatur.
+        <div class="text-wrap text-wrapper-30">JEJU</div>
+        <p class="text-wrap text-wrapper-31">
+            간략한 페이지 소개문 작성
         </p>
-        <button type="button" class="btn btn-primary btn-lg" onclick="location.href='../common/signup/'">
+        {% if request.user.is_authenticated %}
+        <button type="button" class="btn btn-primary btn-lg" onclick="alreadyLogin()">
             <div class="text-wrapper-28">Join us now</div>
         </button>
+        {% else %}
+        <button type="button" class="btn btn-primary btn-lg" onclick="goSignup()">
+            <div class="text-wrapper-28">Join us now</div>
+        </button>
+        {% endif %}
         <img class="main_image"
             src="https://as1.ftcdn.net/v2/jpg/03/39/38/48/1000_F_339384818_tgKTbP0V3YA2iEzYJqB7yPHDkF2IpJpY.jpg" />
     </div>
@@ -101,8 +132,8 @@
 
             <div class="row text-start" style="margin: 30px 10px;">
                 <div class="col-5 feature">챗봇
-                    <p class="text-wrapper-43">
-                        기능 설명1
+                    <p class="text-wrap text-wrapper-43">
+                        챗봇과 관련된 설명 작성
                     </p>
                     <button type="button" class="btn btn-warning btn-lg" onclick="location.href='../chatbot/'">
                         <div class="text-wrapper-42">Try now</div>
@@ -113,12 +144,8 @@
             <div class="d-grid gap-2 d-md-flex justify-content-md-end text-end">
                 <div class="row" style="margin: 30px 10px;">
                     <div class="text-wrap feature-2">여행지 검색
-                        <p class="text-wrapper-44">
-                            기능 설명2
-                            기능 설명2
-                            기능 설명2
-                            기능 설명2
-                            기능 설명2
+                        <p class="text-wrap text-wrapper-44">
+                            여행지 검색 관련 설명 작성
                         </p>
                         <button type="button" class="btn btn-warning btn-lg" onclick="location.href='../kakaoapi/'">
                             <div class="text-wrapper-42">Try now</div>
@@ -128,11 +155,11 @@
             </div>
 
             <div class="row text-start" style="margin: 30px 10px;">
-                <div class="col-5 feature-3">기능3
-                    <p class="text-wrapper-43">
-                        기능 설명3
+                <div class="col-5 text-wrap feature-3">길찾기
+                    <p class="text-wrap text-wrapper-43">
+                        길찾기 관련 설명 작성
                     </p>
-                    <button type="button" class="btn btn-warning btn-lg">
+                    <button type="button" class="btn btn-warning btn-lg" onclick="location.href='../tmapapi/'">
                         <div class="text-wrapper-42">Try now</div>
                     </button>
                 </div>
@@ -142,16 +169,15 @@
     <div class="container text-center">
         <div class="text-wrapper-33">Our Team</div>
         <p class="text-wrapper-32">
-            Do consectetur proident proident id eiusmod deserunt consequat pariatur ad ex velit do Lorem
-            reprehenderit.
+            팀 설명 작성
         </p>
         <div class="row">
             <div class="col">
                 <img class="img-fluid team_image"
                     src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-                <div class="text-wrap text-wrapper-34">Professional title</div>
-                <div class="text-wrap text-wrapper-35">Full name</div>
-                <p class="text-wrap text-wrapper-36">Commodo qui nulla ipsum ea cupidatat sit aliquip dolor.</p>
+                <div class="text-wrap text-wrapper-34">주요 업무 작성</div>
+                <div class="text-wrap text-wrapper-35">이름</div>
+                <p class="text-wrap text-wrapper-36">간략한 소개?</p>
             </div>
             <div class="col">
                 <img class="img-fluid team_image"

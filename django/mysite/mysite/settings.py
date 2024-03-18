@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'sweetify',
     'kakaoapi.apps.KakaoapiConfig',
+    'tmapapi.apps.TmapapiConfig',
 ]
 
 MIDDLEWARE = [

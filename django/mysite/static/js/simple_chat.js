@@ -12,8 +12,8 @@ if (PERSON_NAME == "비회원") {
   window.onload = function () {
     Swal.fire({
       icon: 'warning',
-      title: '로그인 하셈!',
-      text: '로그인하라고!!!',
+      title: '로그인 후 사용가능합니다.',
+      text: '로그인 페이지로 이동합니다.',
     }).then(function () {
       var link = window.location.href;
       var list = link.split('/');
@@ -28,8 +28,8 @@ if (PERSON_NAME == "비회원") {
     if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
       Swal.fire({
         icon: 'error',
-        title: '뒤로가기 ㄴㄴ',
-        text: '로그인 하고 오세요',
+        title: '로그인 후 사용가능합니다.',
+        text: '로그인 페이지로 이동합니다.',
       }).then(function () {
         var link = window.location.href;
         var list = link.split('/');

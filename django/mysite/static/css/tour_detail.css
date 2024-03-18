@@ -2679,3 +2679,21 @@
         /* line-height: 26px; */
         white-space: nowrap;
     }
+
+    .rec {
+        a:link {
+            color: black;
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        a:hover {
+            color: black;
+        }
+
+        a:active {
+            color: black;
+        }
+    }

@@ -33,7 +33,20 @@ class TourKakaoList(generics.ListAPIView):
 def tour_detail(request, tour_id):
     tour_list = tour_kakao.objects.get(id=tour_id)
     tour_all = tour_kakao.objects.all()
-    content = {"tour" : tour_list, "tour_all" : tour_all}
+    sort = request.GET.get('sort', '')
+    if sort == 'likes':
+        comment = tour_comment.objects.all().annotate(like_count=Count('comment_like')).order_by('-like_count')
+
+    elif sort == 'mypost':
+        user = request.user.id
+        comment = tour_comment.objects.filter(author_id = user).order_by('-create_date') #복수를 가져올수 있음
+
+    else:
+        sort = 'date'
+        comment = tour_comment.objects.order_by('-create_date')
+
+    content = {"tour" : tour_list, "tour_all" : tour_all, "comment" : comment, "sort" : sort}
+    print(f'sort : {content["sort"]}')
     return render(request, "tour_detail.html", content)
 
 @login_required(login_url='common:login')

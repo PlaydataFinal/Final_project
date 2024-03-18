@@ -4,66 +4,67 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/simple_chat.css' %}" />
 {% include 'navbar.html' %}
-<section class="msger">
-    <header class="msger-header">
-        <div class="msger-header-title">
-            <i class="fas fa-comment-alt"></i> SimpleChat
-        </div>
-        <div class="msger-header-options">
-            <span><i class="fas fa-cog"></i></span>
-        </div>
-    </header>
-    <main class="msger-chat">
-        <div class="msg left-msg">
-            <div class="msg-img"
-                style="background-image: url(../static/assets/img/bot_image.jpg); background-size: 100% 100%">
+<div class="col">
+    <section class="msger">
+        <header class="msger-header">
+            <div class="msger-header-title">
+                <i class="fas fa-comment-alt"></i> SimpleChat
             </div>
-            <div class="msg-bubble">
-                <div class="msg-info">
-                    <div class="msg-info-name">CHAT BOT</div>
-                    <div class="msg-info-time"></div>
-                </div>
-                {% if user.is_authenticated %}
-                <div class="msg-text">
-                    <!-- Hi, welcome to SimpleChat! Go ahead and send me a message. 😄 -->
-                    {{ user.profile.nickname }}님, 무엇을 도와드릴까요?
-                </div>
-                {% else %}
-                <div class="msg-text">
-                    로그인 하고오세영
-                </div>
-                {% endif %}
+            <div class="msger-header-options">
+                <span><i class="fas fa-cog"></i></span>
             </div>
-        </div>
-    </main>
-    {% if user.is_authenticated %}
-    <form class="msger-inputarea" method="post">
-        {% csrf_token %}
-        <input type="text" name="input" class="msger-input" placeholder="질문하실 내용을 입력해주세요.">
-        <button type="submit" value="전송" class="msger-send-btn">Send</button>
-    </form>
-    {% if user.profile.image %}
-    <script type="text/javascript">
-        var PERSON_NAME = "{{ user.profile.nickname }}";
-        var PERSON_IMG = "{{ user.profile.image.url }}";
-        var BOT_IMG = "{% static '/assets/img/bot_image.jpg' %}"
-    </script>
-    {% else %}
-    <script type="text/javascript">
-        var PERSON_NAME = "{{ user.profile.nickname }}";
-        var PERSON_IMG = "https://i.stack.imgur.com/34AD2.jpg";
-        var BOT_IMG = "{% static '/assets/img/bot_image.jpg' %}"
-    </script>
-    {% endif %}
-    {% else %}
-    <form class="msger-inputarea" method="post">
-        {% csrf_token %}
-        <input type="text" name="input" class="msger-input" placeholder="로그인 하고 오세영..." disabled>
-        <button type="submit" value="전송" class="msger-send-btn" disabled>Send</button>
-    </form>
-    <script type="text/javascript">var PERSON_NAME = "비회원"</script>
-    {% endif %}
-</section>
-
+        </header>
+        <main class="msger-chat">
+            <div class="msg left-msg">
+                <div class="msg-img"
+                    style="background-image: url(../static/assets/img/bot_image.jpg); background-size: 100% 100%">
+                </div>
+                <div class="msg-bubble">
+                    <div class="msg-info">
+                        <div class="msg-info-name">CHAT BOT</div>
+                        <div class="msg-info-time"></div>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="msg-text">
+                        <!-- Hi, welcome to SimpleChat! Go ahead and send me a message. 😄 -->
+                        {{ user.profile.nickname }}님, 무엇을 도와드릴까요?
+                    </div>
+                    {% else %}
+                    <div class="msg-text">
+                        로그인 후 이용해주세요.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </main>
+        {% if user.is_authenticated %}
+        <form class="msger-inputarea" method="post">
+            {% csrf_token %}
+            <input type="text" name="input" class="msger-input" placeholder="질문하실 내용을 입력해주세요.">
+            <button type="submit" value="전송" class="msger-send-btn">Send</button>
+        </form>
+        {% if user.profile.image %}
+        <script type="text/javascript">
+            var PERSON_NAME = "{{ user.profile.nickname }}";
+            var PERSON_IMG = "{{ user.profile.image.url }}";
+            var BOT_IMG = "{% static '/assets/img/bot_image.jpg' %}"
+        </script>
+        {% else %}
+        <script type="text/javascript">
+            var PERSON_NAME = "{{ user.profile.nickname }}";
+            var PERSON_IMG = "https://i.stack.imgur.com/34AD2.jpg";
+            var BOT_IMG = "{% static '/assets/img/bot_image.jpg' %}"
+        </script>
+        {% endif %}
+        {% else %}
+        <form class="msger-inputarea" method="post">
+            {% csrf_token %}
+            <input type="text" name="input" class="msger-input" placeholder="로그인 후 이용해주세요." disabled>
+            <button type="submit" value="전송" class="msger-send-btn" disabled>Send</button>
+        </form>
+        <script type="text/javascript">var PERSON_NAME = "비회원"</script>
+        {% endif %}
+    </section>
+</div>
 <script src="{% static 'js/simple_chat.js' %}"></script>
 {% endblock %}

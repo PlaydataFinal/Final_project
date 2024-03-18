@@ -197,7 +197,7 @@
                 <div class="my-3">
                     {% if not request.user.is_authenticated %}
                     <a href="javascript:void(0)" onclick="notLogin()" class="btn btn-sm btn-outline-secondary"> 추천
-                        <span class="like_self badge rounded-pill bg-success">{{comment.comment_like.count}}</span>
+                        <span class="badge rounded-pill bg-success">{{comment.comment_like.count}}</span>
                     </a>
                     {% elif request.user == comment.author %}
                     <a href="javascript:void(0)" onclick="like_self()" class="btn btn-sm btn-outline-secondary"> 추천

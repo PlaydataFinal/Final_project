@@ -22,15 +22,17 @@ from django.contrib.auth.forms import UserCreationForm
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
+        print(f'form : {form}')
         if form.is_valid():
             user = User.objects.create_user(
                 username=request.POST["username"],
-                password=request.POST["password1"])
+                password=request.POST["password1"],
+                first_name=request.POST["first_name"],
+                last_name=request.POST["last_name"],)
             nickname = request.POST["nickname"]
             email = request.POST["email"]
             phone = request.POST["phone"]
-            address = request.POST["address"]
-            profile = Profile(user=user, nickname=nickname, phone=phone, email=email, address=address)
+            profile = Profile(user=user, nickname=nickname, phone=phone, email=email)
             profile.save()
             login(request,user)
             return redirect('main')
