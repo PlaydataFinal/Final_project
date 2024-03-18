@@ -27,7 +27,7 @@
     background-position: 0% 0%;
     transition: background 0.8s, box-shadow 0.3s, transform 0.3s;
     float: right;
-    top: 10%;
+    top: 8%;
     z-index: 10;
 }
 
