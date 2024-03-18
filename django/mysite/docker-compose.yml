@@ -15,7 +15,7 @@ services:
 
   web1:
     image: mysite_image
-    command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8001
+    command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8001 --timeout 600
     volumes:
       - static_volume:/usr/src/app/
     expose:
@@ -25,7 +25,7 @@ services:
       
   web2:
     image: mysite_image
-    command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8002
+    command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8002  --timeout 600
     volumes:
       - static_volume:/usr/src/app/
     expose:
@@ -35,7 +35,7 @@ services:
 
   web3:
     image: mysite_image
-    command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8003
+    command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8003  --timeout 600
     volumes:
       - static_volume:/usr/src/app/
     expose:
