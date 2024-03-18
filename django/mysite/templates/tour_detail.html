@@ -70,7 +70,6 @@
     </div>
 
     <div class="container">
-        
         <div class="fs-1 text-wrapper-38">Reviews</div>
         <select id="form-select sort-select" onchange="location = this.value;">
             <option class="sort-date" {% if sort == '' or sort == 'date' %}selected{% endif %} value="?sort=date">최신순</option>
@@ -80,7 +79,7 @@
             {% endif %}
         </select>
         <div class="row">
-            <div class="col fs-4 text-wrapper-54">{{ tour.tour_comment_set.count }} Reviews</div>
+            <div class="col fs-4 text-wrapper-54">{{ comment.count }} Reviews</div>
         </div>
         {% for comment in comment %}
         <div class="container" style="border: 1px dotted black; margin: 10px 0px; padding: 10px;">
