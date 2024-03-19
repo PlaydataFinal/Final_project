@@ -208,7 +208,12 @@
             <div class="option">
                 <div>
                     <form onsubmit="searchPlaces(); return false;">
-                        키워드 : <input type="text" id="keyword" size="15">
+                        키워드 : <input type="text" id="keyword" list="searchOption" size="15">
+                        <datalist id="searchOption">
+                            {% for x in tour %}
+                            <option value="{{ x.Name }}"/>
+                            {% endfor %}
+                        </datalist>
                         <button type="submit">검색하기</button>
                     </form>
                 </div>

@@ -42,6 +42,24 @@ if (PERSON_NAME == "비회원") {
   }
 };
 
+function preAnswer(msgText, msgSelect) {
+  if (msgSelect == 1) {
+    returnText = "관광지와 관련된 질문\n'" + msgText + "'\n 에 대한 답변을 준비중입니다.\n잠시만 기다려주세요.";
+    return returnText;
+  }
+  else if (msgSelect == 2) {
+    returnText = "음식점과 관련된 질문\n'" + msgText + "'\n 에 대한 답변을 준비중입니다.\n잠시만 기다려주세요.";
+    return returnText;
+  }
+  else if (msgSelect == 3) {
+    returnText = "숙박업소와 관련된 질문\n'" + msgText + "'\n 에 대한 답변을 준비중입니다.\n잠시만 기다려주세요.";
+    return returnText;
+  }
+  else {
+    return "질문 내용을 확인해주세요."
+  }
+}
+
 msgerForm.addEventListener("submit", event => {
   event.preventDefault();
 
@@ -54,7 +72,7 @@ msgerForm.addEventListener("submit", event => {
   // 여기서 ajax 통신을 통해 모델 호출
   // https://hooongs.tistory.com/23
   // https://shiningyouandme.tistory.com/23
-
+  botResponse(preAnswer(msgText, msgSelect));
   $.ajax({
     //요청이 전송될 URL 주소
     url: '../chatbot_solve/',
