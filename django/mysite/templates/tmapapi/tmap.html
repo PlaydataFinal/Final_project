@@ -2,12 +2,15 @@
 {% block content %}
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>SimpleMap</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=xlL1KP3xjQ1wWTjuJ7LXV3fgy9ceMjcW8hLpqLWP"></script>
+    <script
+        src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=xlL1KP3xjQ1wWTjuJ7LXV3fgy9ceMjcW8hLpqLWP"></script>
 </head>
+
 <body>
     <div class="map_wrap">
         <div id="map_div" style="width:100%;height:400px;position:relative;overflow:hidden;"></div>
@@ -15,21 +18,31 @@
             <div class="option">
                 <div>
                     <form id="route_form">
-                        출발지 : <input type="text" id="departure" size="15">
-                        도착지 : <input type="text" id="destination" size="15">
+                        출발지 : <input type="text" id="departure" size="15" list="searchOption">
+                        <datalist id="searchOption">
+                            {% for x in tour %}
+                            <option value="{{ x.Name }}" />
+                            {% endfor %}
+                        </datalist>
+                        도착지 : <input type="text" id="destination" size="15" list="searchOption">
+                        <datalist id="searchOption">
+                            {% for x in tour %}
+                            <option value="{{ x.Name }}" />
+                            {% endfor %}
+                        </datalist>
                         <select id="selectLevel">
                             <option value="0" selected="selected">교통최적+추천</option>
                             <option value="2">교통최적+최소시간</option>
                             <option value="3">교통최적+초보</option>
                             <option value="12">이륜차도로우선</option>
                             <option value="19">교통최적+어린이보호구역 회피</option>
-                        </select> 
+                        </select>
                         <select id="year">
                             <option value="N" selected="selected">교통정보 표출 옵션</option>
                             <option value="Y">Y</option>
                             <option value="N">N</option>
                         </select>
-                        <button type="button" id="btn_apply">검색</button> 
+                        <button type="button" id="btn_apply" class="btn btn-primary">검색</button>
                     </form>
                 </div>
             </div>
@@ -46,7 +59,7 @@
         //경로그림정보
         var drawInfoArr = [];
         var drawInfoArr2 = [];
-    
+
         var chktraffic = [];
         var resultdrawArr = [];
         var resultMarkerArr = [];
@@ -62,8 +75,8 @@
             });
         }
 
-        $(document).ready(function() {
-            $("#btn_apply").click(function() {
+        $(document).ready(function () {
+            $("#btn_apply").click(function () {
                 event.preventDefault(); // 기본 동작 방지
 
                 // 이전에 추가된 마커와 라인 제거
@@ -82,24 +95,36 @@
                 $.ajax({
                     type: "GET",
                     url: `/tmapapi/get_tourist_spots/?departure=${departure}&destination=${destination}`,
-                    success: function(data) {
+                    success: function (data) {
                         console.log("받아온 데이터:", data);
 
                         // 출발지와 도착지 정보가 모두 없는 경우 처리
                         if (!departure && !destination) {
-                            alert("출발지와 도착지 정보가 올바르지 않습니다.");
+                            Swal.fire({
+                                icon: 'error',
+                                title: '출발지와 도착지 정보가\n올바르지 않습니다.',
+                                text: '출발지와 도착지를 확인해주세요.',
+                            })
                             return;
                         }
 
                         // 출발지 정보가 없는 경우 처리
                         if (!departure) {
-                            alert("출발지 정보가 올바르지 않습니다.");
+                            Swal.fire({
+                                icon: 'error',
+                                title: '출발지 정보가 올바르지 않습니다.',
+                                text: '출발지를 확인해주세요.',
+                            })
                             return;
                         }
 
                         // 도착지 정보가 없는 경우 처리
                         if (!destination) {
-                            alert("도착지 정보가 올바르지 않습니다.");
+                            Swal.fire({
+                                icon: 'error',
+                                title: '도착지 정보가 올바르지 않습니다.',
+                                text: '도착지를 확인해주세요.',
+                            })
                             return;
                         }
 
@@ -124,16 +149,28 @@
                             searchRoute(departureLongitude, departureLatitude, destinationLongitude, destinationLatitude, searchOption, trafficInfochk);
                         } else {
                             if (!departureData) {
-                                alert("출발지 정보가 올바르지 않습니다.");
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '출발지 정보가 올바르지 않습니다.',
+                                    text: '출발지를 확인해주세요.',
+                                })
                             }
                             if (!destinationData) {
-                                alert("도착지 정보가 올바르지 않습니다.");
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '도착지 정보가 올바르지 않습니다.',
+                                    text: '도착지를 확인해주세요.',
+                                })
                             }
                         }
                     },
                     error: function (xhr, status, error) {
                         console.error("오류 발생:", error);
-                        alert("검색 중 오류가 발생했습니다.");
+                        Swal.fire({
+                            icon: 'error',
+                            title: '검색 중 오류가 발생했습니다.',
+                            text: '잠시 후 다시 시도해주세요.',
+                        })
                     }
                 });
             });
@@ -152,14 +189,14 @@
             // 출발지 마커 생성
             marker_s = new Tmapv2.Marker({
                 position: new Tmapv2.LatLng(departureLatitude, departureLongitude), // 출발지의 위도와 경도
-                icon: "../static/assets/img/pin_r_m_s.png/pin_r_m_s.png",
+                icon: "../static/assets/img/pin_r_m_s.png",
                 map: map
             });
 
             // 도착지 마커 생성
             marker_e = new Tmapv2.Marker({
                 position: new Tmapv2.LatLng(destinationLatitude, destinationLongitude), // 도착지의 위도와 경도
-                icon: "../static/assets/img/pin_r_m_s.png/pin_r_m_e.png",
+                icon: "../static/assets/img/pin_r_m_e.png/",
                 map: map
             });
 
@@ -195,7 +232,7 @@
                     // var tFare = " 총 요금 : " + resultData[0].properties.totalFare + "원,";
                     var taxiFare = " 예상 택시 요금 : " + resultData[0].properties.taxiFare + "원";
 
-                    $("#result").text(tDistance + tTime +  taxiFare);
+                    $("#result").text(tDistance + tTime + taxiFare);
 
                     for (var i in resultData) {
                         var geometry = resultData[i].geometry;
@@ -217,10 +254,10 @@
                             var pType = "";
 
                             if (properties.pointType == "S") {
-                                markerImg = "../static/assets/img/pin_r_m_s.png/pin_r_m_s.png";
+                                markerImg = "../static/assets/img/pin_r_m_s.png";
                                 pType = "S";
                             } else if (properties.pointType == "E") {
-                                markerImg = "../static/assets/img/pin_r_m_s.png/pin_r_m_e.png";
+                                markerImg = "../static/assets/img/pin_r_m_e.png";
                                 pType = "E";
                             } else {
                                 markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
@@ -391,5 +428,6 @@
         initTmap();
     </script>
 </body>
+
 </html>
 {% endblock %}

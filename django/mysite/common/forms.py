@@ -32,6 +32,18 @@ class UserForm(UserCreationForm):
             "placeholder": "비밀번호 확인",
         })
     )
+    first_name = forms.CharField(
+        label="성",
+        widget=forms.TextInput(attrs={
+            "placeholder": "성",
+        })
+    )
+    last_name = forms.CharField(
+        label="이름",
+        widget=forms.TextInput(attrs={
+            "placeholder": "이름",
+        })
+    )
     email = forms.EmailField(
         label="이메일",
         required=False,
@@ -50,6 +62,7 @@ class UserForm(UserCreationForm):
     )
     nickname = forms.CharField(
         label="닉네임",
+        required=True,
         widget=forms.TextInput(attrs={
             "placeholder" : "닉네임",
         })
@@ -60,17 +73,16 @@ class UserForm(UserCreationForm):
         widget=PreviewImageFileWidget,
     )
     
-    # address_choices = ((None, '선택'), ('서울', '서울'), ('인천', '인천'))
-    # address = forms.ChoiceField(
-    #     label='주소',
-    #     choices=address_choices,
-    # )
-    
     description = forms.CharField(label="자기소개", required=False, widget=forms.Textarea())
 
     class Meta:
         model = get_user_model()
-        fields = ['username', 'password1', 'password2', 'nickname', 'phone', 'email', 'description']
+        fields = ['username', 'password1', 'password2', 'first_name', 'last_name', 'nickname', 'phone', 'email', 'description']
+        labels = {
+            'first_name' : '성',
+            'last_name' : '이름'
+        }
+        
 
 class CustomUserChangeForm(UserChangeForm):
     password = None
@@ -88,7 +100,7 @@ class CustomUserChangeForm(UserChangeForm):
 
         
 class ProfileForm(forms.ModelForm):
-    nickname = forms.CharField(label="닉네임", required=False)
+    nickname = forms.CharField(label="닉네임")
     description = forms.CharField(label="자기소개", required=False, widget=forms.Textarea())
     image = forms.ImageField(label="프로필사진", required=False, widget=PreviewImageFileWidget,)
     # 위의 내용을 정의하지 않아도 상관없지만, 화면에 출력될 때 label이 영문으로 출력되는 것이 싫어서 수정한 것이다..
@@ -98,5 +110,4 @@ class ProfileForm(forms.ModelForm):
         fields = ['nickname', 'phone', 'description','image',]
         labels = {
             'phone' : '전화번호',
-            # 'address' : '주소'
         }

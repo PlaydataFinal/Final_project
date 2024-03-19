@@ -13,13 +13,15 @@
             style="cursor: pointer;">
         <label for="{{ id }}" class="custom-file-label">파일 선택</label>
     </div>
-    <button id='imageClearBtn' type='button'>삭제</button>
+    <button id='imageClearBtn' type='button' hidden="true">삭제</button>
+
     <!-- 여기서부터 스크립트 -->
     <script>
         <!-- 삭제 버튼이 클릭되면 이미지 안보이게 한 후 숨겨진 삭제 체크박스 값 변경 -->
         document.getElementById('imageClearBtn').addEventListener('click', function (e) {
             document.getElementById('imagePreview').src = "";
             document.getElementById('chk-{{ name }}').checked = true;
+            document.getElementById('imageClearBtn').hidden = true;
         });
 
         // 파일 선택 이벤트 등록
@@ -29,6 +31,7 @@
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     document.getElementById('imagePreview').src = e.target.result;
+                    document.getElementById('imageClearBtn').hidden = false;
                 }
 
                 // convert to base64 string

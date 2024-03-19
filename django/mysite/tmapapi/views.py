@@ -7,9 +7,14 @@ from .serializers import TourTmapSerializer
 from rest_framework.response import Response
 from django.db.models import Q
 
+from kakaoapi.models import tour_kakao
 
 def index(request):
-    return render(request, 'tmapapi/tmap.html')
+    tour_all = tour_tmap.objects.all()
+    content = {
+        "tour" : tour_all
+    }
+    return render(request, 'tmapapi/tmap.html', content)
 
 class TourTmapList(generics.ListAPIView):
     serializer_class = TourTmapSerializer

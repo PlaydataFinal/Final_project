@@ -17,7 +17,11 @@ from django.db.models import Count
 
 # Create your views here.
 def index(request):
-    return render(request, 'kakaoapi/kakao.html')# kakaoapi/views.py
+    tour_all = tour_kakao.objects.all()
+    content = {
+        "tour" : tour_all
+    }
+    return render(request, 'kakaoapi/kakao.html', content)# kakaoapi/views.py
 class CustomPageNumberPagination(PageNumberPagination):
     page_size = 15  # 한 페이지당 아이템 수
     page_size_query_param = 'page_size'
