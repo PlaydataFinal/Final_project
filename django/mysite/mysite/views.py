@@ -30,7 +30,6 @@ def chatbot_solve(request):
     if request.method == 'POST':
         user_input = request.POST.get('input')
         selected_number = request.POST.get('selected_number')
-        
         if selected_number is None:
             return JsonResponse({'error': 'Please select a number (1, 2, or 3).'}, status=400)
 
@@ -45,7 +44,6 @@ def chatbot_solve(request):
             text_data = recommend_places(selected_df, user_input)
             # 수정된 부분: get_answer 함수 호출 시 사용자의 질문 전달
             result = get_answer(user_input, text_data)
-            
             return JsonResponse({'output': result}, json_dumps_params={'ensure_ascii': False}, status=200)
         else:
             return JsonResponse({'error': 'Invalid input. Please try again.'}, status=400)

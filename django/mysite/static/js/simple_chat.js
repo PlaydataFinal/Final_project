@@ -67,7 +67,7 @@ msgerForm.addEventListener("submit", event => {
     success: function (data) {
       const port_data = JSON.stringify(data);
       var port_data_json = JSON.parse(port_data);
-      botResponse(port_data_json.output_text);
+      botResponse(port_data_json.output);
     },
     error: function (xhr, textStatus, thrownError) {
       alert("Could not send URL to Django. Error: " + xhr.status + ": " + xhr.responseText);
@@ -99,7 +99,7 @@ function appendMessage(name, img, side, text) {
 }
 
 function botResponse(text) {
-  const msgText = text.replace(/\n/g, '<br>').replace(/\. /g, '.<br>');
+  const msgText = text.replace(/\n/g, '<br>').replace(/^[0-9]\. /g, '.<br>');
   setTimeout(() => {
     appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
   });
