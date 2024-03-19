@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from .utils import recommend_places, get_answer
+from .utils import recommend_places, get_answer, get_selected_df
 from kakaoapi.models import tour_kakao
 
 from django.db.models import Count
@@ -20,28 +20,34 @@ def index(request):
 
 def main(request):
     return render(request, 'main.html')
-
-@csrf_exempt
-def recommend_view(request):
-    user_input = request.GET.get('input')
-    if user_input:
-        output_text = recommend_places(user_input)
-        return JsonResponse({'output': output_text}, json_dumps_params={'ensure_ascii': False}, status=200)
-    else:
-        return JsonResponse({'error': 'No input provided.'})
     
 def chatbot(request):
     return render(request, "simple_chat.html")
-    
+
+
 @csrf_exempt
 def chatbot_solve(request):
-    user_input = request.POST.get('input')
-    if user_input:
-        output_text = get_answer(user_input)
-        data = {
-            'user_input' : user_input,
-            'output_text' : output_text
-        }
-        return JsonResponse(data)
+    if request.method == 'POST':
+        user_input = request.POST.get('input')
+        selected_number = request.POST.get('selected_number')
+        
+        if selected_number is None:
+            return JsonResponse({'error': 'Please select a number (1, 2, or 3).'}, status=400)
+
+        selected_number = int(selected_number)
+        
+        try:
+            selected_df = get_selected_df(selected_number)
+        except ValueError as e:
+            return JsonResponse({'error': str(e)}, status=400)
+        
+        if user_input:
+            text_data = recommend_places(selected_df, user_input)
+            # 수정된 부분: get_answer 함수 호출 시 사용자의 질문 전달
+            result = get_answer(user_input, text_data)
+            
+            return JsonResponse({'output': result}, json_dumps_params={'ensure_ascii': False}, status=200)
+        else:
+            return JsonResponse({'error': 'Invalid input. Please try again.'}, status=400)
     else:
-        return JsonResponse('Error')
+        return JsonResponse({'error': 'Invalid request method.'}, status=400)

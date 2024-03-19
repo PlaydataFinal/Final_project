@@ -1,5 +1,6 @@
 const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
+const msgerSelect = get(".msger-select");
 const msgerChat = get(".msger-chat");
 
 // Icons made by Freepik from www.flaticon.com
@@ -45,6 +46,8 @@ msgerForm.addEventListener("submit", event => {
   event.preventDefault();
 
   const msgText = msgerInput.value;
+  const msgSelect = msgerSelect.value;
+
   if (!msgText) return;
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
   // alert("wait a seconds...");
@@ -59,6 +62,7 @@ msgerForm.addEventListener("submit", event => {
     dataType: "JSON",
     data: {
       'input': msgText,
+      'selected_number': msgSelect,
     },
     success: function (data) {
       const port_data = JSON.stringify(data);

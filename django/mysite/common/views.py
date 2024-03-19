@@ -1,5 +1,5 @@
 # common/views.py
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
 
 from .forms import UserForm
@@ -15,14 +15,10 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 from .forms import CustomUserChangeForm, ProfileForm
-from django.contrib import messages
-
-from django.contrib.auth.forms import UserCreationForm
 
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
-        print(f'form : {form}')
         if form.is_valid():
             user = User.objects.create_user(
                 username=request.POST["username"],
