@@ -2,7 +2,7 @@
 
 .shoe_test {
     max-width: 750px;
-    height: 900px;
+    height: 1200px;
     margin: 0 auto;
     background-color: black;
 }
@@ -22,18 +22,17 @@
 }
 
 .shoe_slide {
+    padding: 0px;
     display: flex;
     margin-top: 1%;
     width: 75%;
     list-style-type: none;
 }
 
-/* 
-.shoe_slide:hover {
-    animation-play-state: paused;
-    cursor: pointer;
-} */
-
+.shoe_slide li {
+    width: 100%;
+    /* margin: 75px; */
+}
 /* width : 사이즈 조절 */
 .shoe_slide li img {
     aspect-ratio: 3 / 2;
@@ -70,11 +69,11 @@
 }
 
 .original {
-    animation: 180s linear 0s infinite normal forwards running rollingoriginal;
+    animation: 90s linear 0s infinite normal forwards running rollingoriginal;
 }
 
 .clone {
-    animation: 180s linear 0s infinite normal none running rollingclone;
+    animation: 90s linear 0s infinite normal none running rollingclone;
 }
 
 /* max-width랑 height로 크기 조절 */

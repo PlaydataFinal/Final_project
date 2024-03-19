@@ -1,337 +1,174 @@
 {% extends "base.html" %}
 {% block content %}
-<style>
-    @media screen and (max-width : 480px) {
-        .fly {
-            display: none;
-        }
-    }
+{% include 'top_bottom.html' %}
 
-    .fly {
+<div class="product-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-7">
+                <img class='img-fluid' src={% if tour.Image_URL %} {{ tour.Image_URL }} {% endif %}
+                    style="min-height: 480px; margin-bottom: 10px;" alt="">
+            </div>
 
-        border: 2px purple;
-
-        border-style: solid;
-
-        padding: 10px;
-
-        position: absolute;
-
-        left: 99%;
-
-        width: auto;
-
-        height: auto;
-
-        background: transparent
-    }
-    
-    /* span {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-} */
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-span::after {
-  content: attr(data-text);
-  position: absolute;
-  background-color: #FC4F4F;
-  border-radius: 10px;
-  padding: 6px 20px;
-  font-size: 22px;
-  cursor: pointer;
-  color: #fff;
-  user-select: none;
-  box-shadow: 0 7px 15px -1px #ccc;
-  transition: transform 100ms ease-in;
-}
-
-span:active::after { transform: scale(0.9); }
-
-.pumping::after {
-  animation: pumping 100ms ease-in-out infinite;
-}
-
-@keyframes pumping {
-  50% { transform: scale(0.95); }
-}
-
-.shape {
-  --size: 8px;
-  position: absolute;
-  top: calc(50% - var(--size));
-  left: calc(50% - var(--size));
-  width: calc(var(--size) * 2);
-  height: calc(var(--size) * 2);
-  animation: popup var(--d) cubic-bezier(.08,.56,.53,.98) forwards;
-}
-
-.square {
-  border-radius: 4px;
-  background-color: var(--c);
-}
-
-.circle {
-  border-radius: 50%;
-  background-color: var(--c);
-}
-
-.triangle {
-  width: 0px;
-  height: 0px;
-  background-color: none;
-  border-top: var(--size) solid transparent;
-  border-bottom: calc(var(--size) * 2) solid var(--c);
-  border-left: var(--size) solid transparent;
-  border-right: var(--size) solid transparent;
-}
-
-.heart {
-  --size: 6px;
-  background-color: var(--c);
-}
-.heart::before, .heart::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: var(--c);
-  border-radius: 50%;
-}
-.heart::before { left: -50%; }
-.heart::after { top: -50%; }
-
-@keyframes popup {
-  0% { opacity: 0; }
-  60% { opacity: 1; }
-  100% {
-    opacity: 0;
-    transform: translate(var(--x), var(--y)) rotate(var(--r));
-  }
-}
-</style>
-<div class="container-xxl" style="position: relative;">
-    <div class="row">
-        <div class="col-6 text-wrap">
-            <h3>이름 : {{ tour.Name }}<br></h3>
-            <h3>주소 : <br>{{ tour.Address }}<br></h3>
-            <h4>전화번호 : {{ tour.Tel }}</h4>
-            <h4>태그<br> {{ tour.Tag }} </h4>
-        </div>
-
-        <div class="col-6">
-            <img class='img-fluid' src={% if tour.Image_URL %} {{ tour.Image_URL }} {% else
-                %} "https://i.stack.imgur.com/34AD2.jpg" {% endif %}
-                style="min-height: 480px; margin-bottom: 10px;" alt="">
-        </div>
-        <div class="col text-center">
-            <a href="javascript:void(0)" data-uri="{% url 'kakaoapi:tour_like' tour.id  %}"
-                class="like text-center"> 
-                <span class="pumping" data-text="추천 {{tour.like.count}}" ></span>
-            </a>
-            
+            <div class="col-5 text-wrap">
+                <div class="text-wrap fs-1 fw-bolder">이름 : {{ tour.Name }}</div>
+                <div class="text-wrap fs-3 fw-bold">주소 : <br>{{ tour.Address }}<br></div>
+                <div class="text-wrap fs-3 fw-bold">전화번호 : {{ tour.Tel }}</div>
+                <div class="text-wrap fs-4 fw-light">태그<br> {{ tour.Tag }} </div>
+            </div>
+            <div class="col text-center" style="margin: 20px;">
+                {% if not request.user.is_authenticated %}
+                <a href="javascript:void(0)" onclick="notLogin()">
+                    <span2 class="pumping" data-text="추천 {{tour.like.count}}"></span2>
+                </a>
+                {% elif request.user in tour.like.all %}
+                <a href="javascript:void(0)" onclick="duplicatedLike()">
+                    <span2 class="pumping" data-text="추천 {{tour.like.count}}"></span2>
+                </a>
+                {% else %}
+                <a href="javascript:void(0)" data-uri="{% url 'kakaoapi:tour_like' tour.id  %}"
+                    class="like text-center">
+                    <span2 class="pumping" data-uri="{% url 'kakaoapi:tour_like' tour.id  %}"
+                        data-text="추천 {{tour.like.count}}">
+                    </span2>
+                </a>
+                {% endif %}
+            </div>
         </div>
     </div>
-    <br>
-    <br>
-    <div class="row text-center" style="margin: 15px;">
-        
-        <h3>
-            유사한 관광지<br>
-            </h4>
+
+    <div class="container text-center">
+        <div class="text-wrapper-23">유사한 관광지</div>
+        <div class="row w-100 text-center">
             {% for test in tour_all %}
             {% if test.id == tour.rec1 %}
-            <div class="col">
+            <div class="col rec">
                 <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
-                    <h4>{{ test.Name }}</h4>
+                    <div class="fs-4">{{ test.Name }}</div>
                 </a>
             </div>
             {% endif %}
-
 
             {% if test.id == tour.rec2 %}
-            <div class="col">
+            <div class="col rec">
                 <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
-                    <h4>{{ test.Name }}</h4>
+                    <div class="fs-4">{{ test.Name }}</div>
                 </a>
             </div>
             {% endif %}
 
-
             {% if test.id == tour.rec3 %}
-            <div class="col">
+            <div class="col rec">
                 <a href="../{{ test.id }}/"><img src="{{ test.Image_URL }}" alt="" width="280" height="200">
-                    <h4>{{ test.Name }}</h4>
+                    <div class="fs-4">{{ test.Name }}</div>
                 </a>
             </div>
             {% endif %}
 
             {% endfor %}
+        </div>
     </div>
 
+    <div class="container">
+        <div class="fs-1 text-wrapper-38">Reviews</div>
+        <select id="form-select sort-select" onchange="location = this.value;">
+            <option class="sort-date" {% if sort == '' or sort == 'date' %}selected{% endif %} value="?sort=date">최신순</option>
+            <option class="sort-likes" {% if sort == 'likes' %}selected{% endif %} value="?sort=likes">좋아요순</option>
+            {% if user.is_authenticated %}
+            <option class="sort-mypost" {% if sort == 'mypost' %}selected{% endif %} value="?sort=mypost">내가쓴글</option>
+            {% endif %}
+        </select>
+        <div class="row">
+            <div class="col fs-4 text-wrapper-54">{{ comment.count }} Reviews</div>
+        </div>
+        {% for comment in comment %}
+        <div class="container" style="border: 1px dotted black; margin: 10px 0px; padding: 10px;">
+            <div class="row">
+                <div class="col-2 fs-4 text-center text-wrapper-56">{{ comment.author.profile.nickname }}</div>
 
-    <!-- 답변 -->
-    <h5 class="border-bottom my-3 py-2">{{tour.tour_comment_set.count}}개의 의견이 있습니다.</h5>
-    {% for comment in tour.tour_comment_set.all %}
-    <div class="card my-3">
-        <div class="card-body">
-            <div class="row align-items-start">
-                <div class="col">
-                    <div class="d-flex justify-content-start">
-                        {{ comment.author.profile.nickname }}</div>
-                </div>
-                <div class="col text-end">
+                <div class="col-5 fs-5 text-wrapper-56"></div>
+                <div class="col-5">
                     {% if comment.modify_date %}
-                    <div class="badge bg-light text-dark p-2 text-start mx-3">
-                        <div class="mb-2">수정된 시간</div>
+                    <div class="modify_date badge bg-light text-dark p-2 text-start mx-3">
+                        <div class="mb-2 lh-base">수정된 시간</div>
                         <div>{{ comment.modify_date }}</div>
                     </div>
                     {% endif %}
-                    <div class="badge bg-light text-dark p-2 text-start mx-3">
-                        <div class="mb-2"> 작성된 시간<br></div>
-                        {{ comment.create_date }}
+                    <div class="create_date badge bg-light text-dark p-2 text-start mx-3">
+                        <div class="mb-2 lh-base"> 작성된 시간<br>
+                            {{ comment.create_date }}
+                        </div>
                     </div>
+                    <br>
+                </div>
+                <div class="col-2">
+                    <img class="img-thumbnail" src={% if comment.author.profile.image %}
+                        "{{ comment.author.profile.image.url }}" {% else %} "https://i.stack.imgur.com/34AD2.jpg" {% endif %}" />
+                </div>
+                <div class="col-6 fs-6 text-wrap text-wrapper-58">
+                    {{ comment.comment }}
                 </div>
             </div>
-            <div class="card-text" style="white-space: pre-line;">{{ comment.comment }}</div>
-            <div class="d-flex justify-content-end">
-                
-                <div class="my-3">
-                    <a href="javascript:void(0)" data-uri="{% url 'kakaoapi:comment_like' comment.id  %}"
-                        class="like btn btn-sm btn-outline-secondary"> 추천
-                        <span class="badge rounded-pill bg-success">{{comment.comment_like.count}}</span>
-                    </a>
-                    {% if request.user == comment.author %}
-                    <a href="{% url 'kakaoapi:comment_modify' comment.id  %}"
-                        class="btn btn-sm btn-outline-secondary">수정</a>
-                    <a href="#" class="delete btn btn-sm btn-outline-secondary "
-                        data-uri="{% url 'kakaoapi:comment_delete' comment.id  %}">삭제</a>
-                    {% endif %}
-                </div>
+            {% if request.user == comment.author %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{% url 'kakaoapi:comment_modify' comment.id  %}"
+                    class="btn btn-sm btn-outline-secondary btn-primary" style="color: aliceblue;">수정</a>
+                <a href="#" class="delete btn btn-sm btn-outline-secondary btn-danger"
+                    data-uri="{% url 'kakaoapi:comment_delete' comment.id  %}" style="color: aliceblue;">삭제</a>
             </div>
-        </div>
-    </div>
-    {% endfor %}
-
-    <!-- 답변 등록 -->
-    <form action="{% url 'kakaoapi:comment_create' tour.id %}" method="post" class="my-3">
-        {% csrf_token %}
-        <!-- 오류표시 Start -->
-        {% if form.errors %}
-        <div class="alert alert-danger" role="alert">
-            {% for field in form %}
-            {% if field.errors %}
-            <div>
-                <strong>{{ field.label }}</strong>
-                {{ field.errors }}
+            {% elif not request.user.is_authenticated %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="javascript:void(0)" onclick="notLogin()" class="btn btn-sm btn-outline-secondary"> 추천
+                    <span class="badge rounded-pill bg-success">{{comment.comment_like.count}}</span>
+                </a>
+            </div>
+            {% else %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="javascript:void(0)" data-uri="{% url 'kakaoapi:comment_like' comment.id  %}"
+                    class="like btn btn-sm btn-outline-secondary"> 추천
+                    <span class="badge rounded-pill bg-success">{{comment.comment_like.count}}</span>
+                </a>
             </div>
             {% endif %}
-            {% endfor %}
         </div>
+
+        {% endfor %}
+
+        {% if request.user.is_authenticated %}
+        <!-- 답변 등록 -->
+        <form action="{% url 'kakaoapi:comment_create' tour.id %}" method="post" class="my-3">
+            {% csrf_token %}
+            <!-- 오류표시 Start -->
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                {% if field.errors %}
+                <div>
+                    <strong>{{ field.label }}</strong>
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <!-- 오류표시 End -->
+            <div class="mb-3">
+                <label for="comment" class="form-label fs-3">리뷰 작성</label>
+                <textarea name="comment" id="comment" class="form-control" rows="10"></textarea>
+            </div>
+            <input type="submit" value="리뷰 등록" class="btn btn-primary">
+        </form>
         {% endif %}
-        <!-- 오류표시 End -->
-        <div class="mb-3">
-            <label for="comment" class="form-label">답변내용</label>
-            <textarea name="comment" id="comment" class="form-control" rows="10"></textarea>
-        </div>
-        <input type="submit" value="답변등록" class="btn btn-primary">
-    </form>
+
+    </div>
+
+
+</div>
+
 </div>
 
 {% endblock %}
 
 {% block script %}
-<script type='text/javascript'>
-    const delete_elements = document.getElementsByClassName("delete");
-    Array.from(delete_elements).forEach(function (element) {
-        element.addEventListener('click', function () {
-            if (confirm("정말로 삭제하시겠습니까?")) {
-                location.href = this.dataset.uri;
-            };
-        });
-    });
-    const like_elements = document.getElementsByClassName("like");
-    Array.from(like_elements).forEach(function (element) {
-        element.addEventListener('click', function () {
-            if (confirm("정말로 추천하시겠습니까?")) {
-                location.href = this.dataset.uri;
-            };
-        });
-    });
 
-const colors = ['#FC4F4F', '#FFBC80', '#FF9F45', '#F76E11']
-// const shapes = ['square', 'circle', 'triangle', 'heart']
-const shapes = ['heart']
-
-const randomIntBetween = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
-class Particle {
-  constructor({ x, y, rotation, shape, color, size, duration, parent }) {
-    this.x = x
-    this.y = y
-    this.parent = parent
-    this.rotation = rotation
-    this.shape = shape
-    this.color = color
-    this.size = size
-    this.duration = duration
-    this.children = document.createElement('div')
-  }
-
-  draw() {
-    this.children.style.setProperty('--x', this.x + 'px')
-    this.children.style.setProperty('--y', this.y + 'px')
-    this.children.style.setProperty('--r', this.rotation + 'deg')
-    this.children.style.setProperty('--c', this.color)
-    this.children.style.setProperty('--size', this.size + 'px')
-    this.children.style.setProperty('--d', this.duration + 'ms')
-    this.children.className = `shape ${this.shape}`
-    this.parent.append(this.children)
-  }
-
-  animate() {
-    this.draw()
-
-    const timer = setTimeout(() => {
-      this.parent.removeChild(this.children)
-      clearTimeout(timer)
-    }, this.duration)
-    }
-}
-
-function animateParticles({ total }) {
-  for (let i = 0; i < total; i++) {
-    const particle = new Particle({
-      x: randomIntBetween(-200, 200),
-      y: randomIntBetween(-100, -300),
-      rotation: randomIntBetween(-360 * 5, 360 * 5),
-      shape: shapes[randomIntBetween(0, shapes.length - 1)],
-      color: colors[randomIntBetween(0, colors.length - 1)],
-      size: randomIntBetween(4, 7),
-      duration: randomIntBetween(400, 800),
-      parent
-    })
-    particle.animate()
-  }
-}
-
-let intervalTimer = setInterval(() => {
-  animateParticles({ total: 8 })
-}, 100)
-
-const parent = document.querySelector('span')
-parent.addEventListener("touchstart", () => {}, false);
-parent.addEventListener('click', e => {
-  if (intervalTimer) {
-    clearInterval(intervalTimer)
-    intervalTimer = null
-    parent.classList.remove('pumping')
-  }
-  animateParticles({ total: 40 })
-})
-</script>
 {% endblock %}

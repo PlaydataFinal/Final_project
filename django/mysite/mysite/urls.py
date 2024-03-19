@@ -27,19 +27,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
     path('index/', views.index, name='index'),
-    path('result/', views.result, name='result'),
     path('main/', views.main, name='main'),
-    path('common/', include('common.urls')),
-    path('recommend/', views.recommend_view, name='recommend'),
-    path('chatbot_solve/', views.chatbot_solve, name='chatbot_solve'),
-    path('tour/<int:tour_id>/', views.tour_detail, name='tour_detail'),
     path('chatbot/', views.chatbot, name='chatbot'),
+    path('chatbot_solve/', views.chatbot_solve, name='chatbot_solve'),
+    path('common/', include('common.urls')),
     path('kakaoapi/', include('kakaoapi.urls')),
     path('tmapapi/', include('tmapapi.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

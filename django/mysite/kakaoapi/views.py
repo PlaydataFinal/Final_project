@@ -4,17 +4,15 @@ from .models import tour_kakao, tour_comment
 from .serializers import TourKakaoSerializer
 from rest_framework.pagination import PageNumberPagination
 # Create your views here.
-from django.http import HttpResponse
 
 from django.http import HttpResponseNotAllowed
 from .forms import CommentForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from django.contrib.auth.models import User
-from common.models import Profile
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from django.db.models import Count
 
 
 # Create your views here.
@@ -35,9 +33,22 @@ class TourKakaoList(generics.ListAPIView):
 def tour_detail(request, tour_id):
     tour_list = tour_kakao.objects.get(id=tour_id)
     tour_all = tour_kakao.objects.all()
-    content = {"tour" : tour_list, "tour_all" : tour_all}
+    sort = request.GET.get('sort', '')
+    if sort == 'likes':
+        comment = tour_comment.objects.all().annotate(like_count=Count('comment_like')).order_by('-like_count')
+
+    elif sort == 'mypost':
+        user = request.user.id
+        comment = tour_comment.objects.filter(author_id = user).order_by('-create_date') #복수를 가져올수 있음
+
+    else:
+        sort = 'date'
+        comment = tour_comment.objects.order_by('-create_date')
+
+    content = {"tour" : tour_list, "tour_all" : tour_all, "comment" : comment, "sort" : sort}
     return render(request, "tour_detail.html", content)
 
+@login_required(login_url='common:login')
 def comment_create(request, tour_id):
     tour = get_object_or_404(tour_kakao, pk=tour_id)
     if request.method == "POST":
@@ -97,10 +108,3 @@ def tour_like(request, tour_id):
     tour = get_object_or_404(tour_kakao, pk=tour_id)
     tour.like.add(request.user)
     return redirect('kakaoapi:tour_detail', tour_id=tour.id)
-
-
-def tour_detail(request, tour_id):
-    tour_list = tour_kakao.objects.get(id=tour_id)
-    tour_all = tour_kakao.objects.all()
-    content = {"tour" : tour_list, "tour_all" : tour_all}
-    return render(request, "tour_detail.html", content)

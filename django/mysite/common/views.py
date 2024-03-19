@@ -1,5 +1,5 @@
 # common/views.py
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
 
 from .forms import UserForm
@@ -16,38 +16,15 @@ from .models import Profile
 
 from .forms import CustomUserChangeForm, ProfileForm
 
-
-from django.contrib.auth.forms import UserCreationForm
-# Django 프레임워크가 구현해 놓은 회원가입 폼을 import 한다.
-
-# def signup(request):
-#     """
-#     계정생성
-#     """
-#     if request.method == "POST":
-#         form = UserForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             print(form)
-#             print('-'*50)
-#             print('phone : ' + form.cleaned_data.get('phone'))
-#             username = form.cleaned_data.get('username')
-#             raw_password = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=raw_password)
-#             login(request, user)
-#             return redirect('index')
-#     else:
-#         form = UserForm()
-#     return render(request, 'common/signup.html', {'form': form})
-# views.py
-
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
             user = User.objects.create_user(
                 username=request.POST["username"],
-                password=request.POST["password1"])
+                password=request.POST["password1"],
+                first_name=request.POST["first_name"],
+                last_name=request.POST["last_name"],)
             nickname = request.POST["nickname"]
             email = request.POST["email"]
             phone = request.POST["phone"]
@@ -89,12 +66,3 @@ def profile(request):
             'user_change_form': user_change_form,
             'profile_form': profile_form
         })
-        
-def first(request):
-    # user = get_object_or_404(get_user_model(), username=username)
-    # print(f'request : {request}')
-    # profile = get_object_or_404(Profile, user=request.user)
-    profile = Profile.objects.get(user=request.user)
-    profile.is_first = False
-    profile.save()
-    return render(request, 'common/first.html')

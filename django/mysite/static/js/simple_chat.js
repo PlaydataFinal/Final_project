@@ -8,19 +8,19 @@ const msgerChat = get(".msger-chat");
 // const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
 const BOT_NAME = "CHAT BOT";
 
-  // 비로그인 시 로그인 요청
+// 비로그인 시 로그인 요청
 if (PERSON_NAME == "비회원") {
   window.onload = function () {
     Swal.fire({
       icon: 'warning',
-      title: '로그인 하셈!',
-      text: '로그인하라고!!!',
+      title: '로그인 후 사용가능합니다.',
+      text: '로그인 페이지로 이동합니다.',
     }).then(function () {
       var link = window.location.href;
       var list = link.split('/');
       list.splice(0, 3);
       var redir = '/'.concat(list.join('/'));
-      location.href = "../common/login/?next=" + redir;
+      location.href = loginURL + redir;
     })
   };
 
@@ -29,14 +29,14 @@ if (PERSON_NAME == "비회원") {
     if (event.persisted || (window.performance && window.performance.navigation.type == 2)) {
       Swal.fire({
         icon: 'error',
-        title: '뒤로가기 ㄴㄴ',
-        text: '로그인 하고 오세요',
+        title: '로그인 후 사용가능합니다.',
+        text: '로그인 페이지로 이동합니다.',
       }).then(function () {
         var link = window.location.href;
         var list = link.split('/');
         list.splice(0, 3);
         var redir = '/'.concat(list.join('/'));
-        location.href = "../common/login/?next=" + redir;
+        location.href = loginURL + redir;
       })
     }
   }
@@ -44,8 +44,10 @@ if (PERSON_NAME == "비회원") {
 
 msgerForm.addEventListener("submit", event => {
   event.preventDefault();
+
   const msgText = msgerInput.value;
   const msgSelect = msgerSelect.value;
+
   if (!msgText) return;
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
   // alert("wait a seconds...");
@@ -60,7 +62,7 @@ msgerForm.addEventListener("submit", event => {
     dataType: "JSON",
     data: {
       'input': msgText,
-      'selected_number':msgSelect,
+      'selected_number': msgSelect,
     },
     success: function (data) {
       const port_data = JSON.stringify(data);
@@ -68,7 +70,6 @@ msgerForm.addEventListener("submit", event => {
       botResponse(port_data_json.output);
     },
     error: function (xhr, textStatus, thrownError) {
-      alert(textStatus)
       alert("Could not send URL to Django. Error: " + xhr.status + ": " + xhr.responseText);
     }
   });
@@ -97,20 +98,12 @@ function appendMessage(name, img, side, text) {
   msgerChat.scrollTop += 500;
 }
 
-// function botResponse(text) {
-//   const msgText = text.replace(/\n/g, '<br>').replace(/\. /g, '.<br>');
-//   setTimeout(() => {
-//     appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
-//   });
-// }
-
 function botResponse(text) {
-  const msgText = text.replace(/\n/g, '<br>').replace(/\. /g, '.<br>');
+  const msgText = text.replace(/\n/g, '<br>').replace(/^[0-9]\. /g, '.<br>');
   setTimeout(() => {
-      appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+    appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
   });
 }
-
 
 // Utils
 function get(selector, root = document) {
@@ -123,8 +116,6 @@ function formatDate(date) {
 
   return `${h.slice(-2)}:${m.slice(-2)}`;
 }
-
-
 
 // $.ajax({
 //   //요청이 전송될 URL 주소

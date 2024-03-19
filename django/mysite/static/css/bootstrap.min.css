@@ -12181,5 +12181,6 @@ fieldset:disabled .btn {
 
 /*# sourceMappingURL=bootstrap.min.css.map */
 .profile_photo {
+    position: absolute;
     border-radius: 50%;
 }

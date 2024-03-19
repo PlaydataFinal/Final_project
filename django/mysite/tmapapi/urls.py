@@ -7,6 +7,6 @@ app_name = "tmapapi"
 
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name='index'),
     path('get_tourist_spots/', TourTmapList.as_view(), name='get_tourist_spots'),
 ]

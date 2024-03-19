@@ -19,6 +19,8 @@ from .mysettings import MYDATABASES, MYDATABASE_ROUTERS
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ROOT_DIR = os.path.dirname(BASE_DIR)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -64,7 +66,6 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [BASE_DIR / 'templates'],
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -150,6 +151,3 @@ LOGIN_REDIRECT_URL = '/'
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 
 DATABASE_ROUTERS = MYDATABASE_ROUTERS
-
-# GOOGLE_API_KEY 설정
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "AIzaSyAPWz4S7KJA0spMwfdwBBa6nA8XnsoeByw")

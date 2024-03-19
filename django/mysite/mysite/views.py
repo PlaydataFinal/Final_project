@@ -1,100 +1,28 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-
-from django.contrib import messages
+from django.shortcuts import render
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from .utils import recommend_places, get_answer, get_data_from_mongodb
+from .utils import recommend_places, get_answer, get_selected_df
 from kakaoapi.models import tour_kakao
 
-from pymongo import MongoClient
-import pandas as pd
 from django.db.models import Count
 
 def home(request): 
     return render(request, 'main.html')
 
-def predict(request): 
-    return render(request, 'predict.html')
-
-# def result(request):
-#     import numpy as np
-#     import pickle
-
-# def index(request):
-#     return  render(request, 'index.html')
-
 def index(request):
-    tour = tour_kakao.objects.all().annotate(like_count=Count('like')).order_by('-like_count').distinct()[:10]
-    content = {"tour" : tour}
+    tour_even = tour_kakao.objects.all().annotate(like_count=Count('like')).order_by('-like_count').distinct()[:10:2]
+    tour_odd = tour_kakao.objects.all().annotate(like_count=Count('like')).order_by('-like_count').distinct()[1:10:2]
+    content = {
+        'content' : dict(zip(tour_even, tour_odd))
+    }
     return  render(request, 'index.html', content)
-
-def index_view(request):
-    return render(request, 'main.html')
-
-def result(request):
-    return render(request, 'result.html')
 
 def main(request):
     return render(request, 'main.html')
-
-@csrf_exempt
-def recommend_view(request):
-    print(f'request : {request}')
-    user_input = request.GET.get('input')
-    print(f'user_input : {user_input}')
-    if user_input:
-        output_text = recommend_places(user_input)
-        print(output_text)
-        return JsonResponse({'output': output_text}, json_dumps_params={'ensure_ascii': False}, status=200)
-    else:
-        return JsonResponse({'error': 'No input provided.'})
-
-@csrf_exempt
-def test(request):
-    return render(request, 'recommend.html')
     
-# @csrf_exempt
-# def chatbot_solve(request):
-#     print(f'request : {request}')
-#     # user_input = request.GET.get('input')
-#     user_input = request.POST.get('input')
-#     if user_input:
-#         # output_text = recommend_places(user_input)
-#         output_text = get_answer(user_input)
-#         print(f'output_text : ' + output_text)
-#         data = {
-#             'user_input' : user_input,
-#             'output_text' : output_text
-#         }
-#         # return render(request, 'recommend_result.html', data)
-#         return JsonResponse(data)
-#     else:
-#         # return redirect('test')
-#         return JsonResponse('Error')
-    
-    # MongoDB에서 데이터 가져오기
-df1 = get_data_from_mongodb('mongodb+srv://joowan119:admin123@atlascluster.gq7ssmg.mongodb.net/jejutext',
-                            'joowan119', 'admin123', 'jejutext', 'df')
-
-df2 = get_data_from_mongodb('mongodb+srv://joowan119:admin123@atlascluster.gq7ssmg.mongodb.net/jejutext',
-                            'joowan119', 'admin123', 'jejutext', 'food_df')
-
-df3 = get_data_from_mongodb('mongodb+srv://joowan119:admin123@atlascluster.gq7ssmg.mongodb.net/jejutext',
-                            'joowan119', 'admin123', 'jejutext', 'sleep_df')
-
-def get_selected_df(selected_number):
-    if selected_number == 1:
-        return df1
-    elif selected_number == 2:
-        return df2
-    elif selected_number == 3:
-        return df3
-    else:
-        raise ValueError("Invalid selected number.")
-    
-
+def chatbot(request):
+    return render(request, "simple_chat.html")
 
 
 @csrf_exempt
@@ -123,13 +51,3 @@ def chatbot_solve(request):
             return JsonResponse({'error': 'Invalid input. Please try again.'}, status=400)
     else:
         return JsonResponse({'error': 'Invalid request method.'}, status=400)
-
-
-def chatbot(request):
-    return render(request, "simple_chat.html")
-
-def tour_detail(request, tour_id):
-    tour_list = tour_kakao.objects.get(id=tour_id)
-    tour_all = tour_kakao.objects.all()
-    content = {"tour" : tour_list, "tour_all" : tour_all}
-    return render(request, "tour_detail.html", content)
