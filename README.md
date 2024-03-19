@@ -1,10 +1,10 @@
 # 유사도 기반 추천시스템
-서비스 운영 전이라 Cold start issue가 있는 상황. 유저 정보나 선택 정보가 없어서 Collaborative Filtering을 적용하기 힘들다. Content-Based Filtering을 채택.
+서비스 운영 전이라 Cold start issue가 있는 상황. 유저 정보나 선택 정보가 없어서 Collaborative Filtering을 적용하기 힘들다. Content-Based Filtering을 채택.<br>
 
 Ai Hub에서 여행 방문지, 경로 데이터를 발견하여 Collaborative Filtering이나 Hybrid 기법 적용을 고려했다. 다만 후술할 데이터 출처인 제주관광공사 홈페이지인 visitjeju의 데이터와 idx가 달라서 테이블 join 전처리의 어려움이 있었음. 여러 데이터 출처를 선택하기보단 visitjeju 홈페이지에서 크롤링해올 수 있는 데이터를 최대한 활용하기로 했다.
 
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/69652d49-93d6-4bfe-9008-ca439633f218)
-
+<br>
 
 
 좋아요, 별점, 리뷰 데이터와 해당 유저의 메타 데이터가 없는 상황에서 관광지 간 유사도를 얻을 수 있는 방법을 고민했다.
@@ -12,12 +12,12 @@ Ai Hub에서 여행 방문지, 경로 데이터를 발견하여 Collaborative Fi
 
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/0a474f48-b14c-42e9-8289-e8c4247a826d)
 
-
+<br>
 
 이는 Content-Based Filtering 중 임베딩 방식을 의미한다. Content-Based Filtering에는 이와 달리 One Hot Encoding 을 활용하는 방식이 있다. 관광지에 대한 여러 정보를 수집하여 columns으로 만들어 관광지에 대한 메타 데이터 테이블을 형성하고 One Hot Encoding을 통해 유사도를 계산하는 방식을 고안했었다. 하지만 메타 데이터 테이블의 colunm 하나를 만들기 위해 fancy한 모델을 찾고 성능을 체크해야 하는 것은 비효율적이라 판단되어서 해당 모델링은 기각되었다.
 
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/0a1e040f-e411-4921-817f-8a998864e3aa)
-
+<br><br>
 
 
 
@@ -30,13 +30,13 @@ insight
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/961dded5-5459-4b5d-a036-d200e0ad0afd)
 
 
-
+<br>
 
 태그들을 TF-IDF 백터화 시키기
 
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/8e817da0-0f9f-4440-b9f3-65bc1acf3e41)
 
-
+<br>
 
 코사인 유사도를 계산 및 데이터프레임 얻기
 
@@ -46,38 +46,38 @@ insight
 
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/93c8f042-4b67-49b9-a319-21ac42a60949)
 
-
+<br>
 
 유사도 행렬을 사용하면 유저가 한 관광지를 골랐을 때 그와 비슷한 관광지를 추천해줄 수 있다.
 
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/45686885-8356-4f17-9a61-bb5e425f1ee8)
 
-
+<br>
 
 최종적으로 태그 유사도 추천시스템은 챗봇에 사용한 상세설명을 임베딩한 값과 함께
 웹페이지 중 관광지 상세정보 페이지에서 해당 관광지와 유사한 3곳을 추천해주는 서비스로서 적용되었다.
 
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/128f74a6-0daf-40ff-a9c1-fe6264b1a98a)
 
-
+<br>
 ID는 웹 url 관광지마다 구분자임.(mysite/6103 -> 1100고지 설명페이지) 임베딩은 챗봇에 사용한 상세설명에서 핵심키워드 20개를 추출해서 임베딩한 값들이다. 추가로 저 태그 유사도를 사용하기위해 임베딩을 해서 유사도 검사시 사용할 때 상세설명 키워드 추출한 임베딩값과 태그 임베딩을 동시 사용하였다.
 
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/c644d2b3-8433-430b-9c11-a6fbfa52cde8)
 
-
+<br>
 
 관광지 상세설명간에 서로 유사한 관광지를 상위 40개 구함 > 이 40개 중에서 태그 임베딩값을 이용해서 가장 유사한 3개를 선택 > 이 3개에 해당하는 ID를 rec칼럼에 저장 하는 프로세스로 로직을 구성했다.
 
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/ba04be0c-9b71-4321-946a-215aff36b22d)
 
-
+<br>
 
 
 +태그 클러스터링도 시도했었는데 클러스터는 잘 나눠지는 것을 확인했다. 하지만 적절한 활용 방법을 생각하지 못해 서비스화시키지는 못 했다.
 
 ![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/5e848793-b443-4aef-bb03-9bdd9c9843ba)
 
-
+<br><br>
 
 
 
@@ -93,6 +93,108 @@ ID는 웹 url 관광지마다 구분자임.(mysite/6103 -> 1100고지 설명페�
 
 그러나 데이터 merge 시 난점때문에 활용하기 어려웠다. 그래서 텍스트 유사도 모델링의 데이터로  visitjeju에 관광지별 상세설명 글을 채택했다. 텍스트 유사도 모델링은 챗봇 서비스로 적용하였다.
 
-
+<br><br>
 
 # 이미지 유사도
+## reference
+<오늘의 집> 이미지 유사도 모델
+브랜드 <오늘의 집>에서 주어진 인테리어 이미지와 비슷한 공간, 비슷한 상품을 추천해주는 서비스의 알고리즘을 참고했다. <오늘의 집>에서는 비슷한 공간을 추천해줄 때 이미지 분류 모델로 알려진 VGGNet을 사용하여 classifier 전 layer에서 이미지 백터를 얻어냈다. 이후 백터들 간 코사인 유사도를 계산하였다. 이 모델링이 정성적으로 비슷한 인테리어 스타일의 이미지를 추천해주기 위해 설계되었다는 점에서 우리가 활용하기 적합하다고 보았다.
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/8ee0ff82-71f4-4d02-bd33-d0da43dcd9db)
+<br>
+
+
+다만, 이미지 유사도에 왜 지도학습을 써야 되는지?, 분류모델을 모델링에 포함하면 유사도 추출에 긍정적인 영향을 주는지?는 의문이 되었다. -> 해당 레퍼런스에서는 모던, 한옥, 네추럴 등 인테리어 카테고리를 이미지 추천에 활용하려 했지만 우리의 모델링에서는 필요없는 과정이라 생각하고 VGGNet을 개별 이미지의 feature extraction하는 과정으로만 활용했다.
+<br><br>
+## 모델링
+데이터셋은 visitjeju의 관광지별 대표이미지 한 장씩을 크롤링해서 활용했다. 이 1473개의 관광지별 이미지에 VGG16을 적용해 이미지 vector를 도출하고 백터를 데이터프레임의 새로운 컬럼으로 만들었다. 이 데이터프레임을 db에 저장해놓는다. 서비스 시에는 유저가 관광지 이미지 10-20개 중에서 자기 취향인 관광지 이미지 4개를 고른다. 이 4개의 목록을 받아서 선택한 관광지의 백터와 1473개의 관광지의 백터 간 유사도를 계산한 뒤 sorting하여 유사한 관광지를 도출하는 방식을 만들었다.
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/beaaef5b-8405-4cc5-90a2-eb5c72ba6f0e)
+
+<br><br>
+
+## 모델 학습 및 추론 결과
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/84ec3962-cabd-4058-abed-12002b6bdcd1)
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/a22d7e98-6ec3-4399-976d-91adba104699)
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/f790e374-1441-4b7f-adcb-19f11946cb72)
+
+<br>
+
+이미지 백터를 계산하는 함수를 정의하고 모든 image_names에 대한 백터 계산을 수행하게 하였다. 계산 시간은 40분~1시간이 걸렸는데 개발환경은 코랩 프로로 바꾸어도 계산 시간이 개선되지는 않았다. 모델 학습이 아니라 결국 추론 상황이어서 GPU 리소스의 영향력이 적용되지는 않는 것 같았다.
+계산한 백터를 포함한 데이터프레임을 만들고 이를 db에 저장해놓을 것이다.<br>
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/f0807ce9-de68-47d2-a23d-2a6f04c2451b)
+
+
+계산된 백터는 25088차원이었다.
+
+서비스 개발 코드는 아래와 같다.
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/d430cec7-020b-47c2-94a5-9dbf5e82c1e2)
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/d2109788-fc64-43d8-95ff-1cd43e14f8d1)
+
+<br>
+
+
+
+이로써 총 4x1473 개의 계산된 유사도를 얻을 수 있다. 이를 sorting한 뒤 [4:9]로 슬라이싱하면 유저가 선택한 관광지 4개와 유사한 관광지 5개를 도출할 수 있다.
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/9a438bab-3b87-4bd9-b049-e38aeb4ddb7c)
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/495f98cc-2463-477e-995c-202c542a9db3)
+
+<br>
+
+
+모델이 정성적을 비슷한 이미지를 추천해주고 있는지 체크해보았다.
+
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/f9dacecf-7a3c-41ab-83d9-2029d1c71e53)
+
+목장카페 밭디와 유사한 관광지로
+
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/864beda5-b7d2-495d-a1f9-72e1eb36de83)<br>
+
+제주 토이 승마장을 추천했다. 픽셀 단위의 유사성이 정성적인 수준에서의 유사성까지 보장해주는 예시이다. 하지만 허점도 존재했다.<br>
+
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/df74ed04-35ff-4bbb-9373-8a41285024ff)
+
+이 무민랜드의 이미지를 보고<br>
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/0d82d9df-cb28-48ad-a8c4-1fb580692ed1)
+
+위의 연화못을 추천해주었다. 무민랜드 대표 사진이 연화못과 비슷하지만 우리는 그것이 어디까지나 특정 실내 전시관의 컨셉일 뿐임을 안다.
+<br><br>
+
+## 벡터 저장 방식
+1473개 이미지의 백터를 구한 뒤 db에 저장해놓는 적절한 방식을 고민했다. 기존에 구축해놓은 관계형db인 mariadb에 테이블 형식으로 저장할 수도 있겠다. 다만 용량이 비교적 크며 메모리를 많이 잡아먹을 것이고 그래서 조회에 시간이 더 걸린다는 맹점이 존재했다. 따라서 비정형 NoSQL 중 몽고db에 백터를 저장할 것을 구상했다. 테이블 형태가 아니라 백터 같은 비관계형 데이터 베이스를 지원하기 때문. 물론 결과적으로 몽고db의 저장 공간 부족으로 이미지 백터는 csv 파일로 저장해서 필요할 때 사용했다.
+이 과정에서 csv파일로 저장할 때 csv파일이 백터를 리스트로 저장하지 않고 리스트에 ‘’를 양쪽에 붙인 문자열로 저장하는 이슈가 있어 문자열을 배열로 변환하는 로직을 추가해야 했다.
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/65b4baa8-156f-41bf-9316-2a63cf84cbe5)
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/b72d6300-899b-43c3-b3b5-8c7b6ada5a77)
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/c753f31b-84ed-4ebf-aaa2-a01fa930d7f2)
+
+
+<br><br>
+
+
+## 모델 서빙 플로우 설계
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/299fe36f-f400-4a70-a145-48e207289051)
+
+추천 모델 서빙 플로우. 유사도 행렬이 아니라 백터를 db에 저장해놓기로 했기 때문에 혹시 서비스 코드 실행 시 유사도 계산 및 sorting에 시간이 많이 걸리는지 관찰해야했다. 다행히 시간이 오래 걸리는 이슈는 없었다.
+<br><br>
+
+
+## 추천서비스 로직 구성
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/92df85c3-3fe8-4757-a870-3416ab10e4d5)
+<br>
+
+이는 4x1473개의 계산된 유사도를 sorting한 것이다. row3에 대해서만 즉, 결국 한 관광지에 대한 추천만 하게 되는 문제가 있었다. 발라드, 힙합, 락 을 골랐는데 결국 발라드와 유사한 것들만 추천하게 되는 상황이었다. 편향 문제 개선을 위해 각각 추천해주는 방식으로 바꿨다.
+![image](https://github.com/PlaydataFinal/Final_project/assets/145752714/19813f7b-92b7-4401-8b71-fa89fa9193d0)
+
+<br><br>
+
+
+## Evaluation과 Future Work
+-유저의 선택 데이터가 있었다면 협업 필터링이나 하이브리드 기법을 적용해볼 수 있었을텐데 실제 기업 비즈니스 과정이 아니어서 이를 실현하지 못 한 것이 아쉽다. 기회가 된다면 협업 필터링이나 하이브리드 기법을 구현해보고 싶다. A/B test 같은 성능 평가도 해보고 싶다.
+<br>
+-태그 유사도, 텍스트 유사도를 동시에 고려한 추천시스템을 구성해보고 결과를 확인해보고 싶었으나 이미지 유사도에 치중하느라 달성하지 못했다.
+<br>
+-최종적인 관광지 추천에서 특정 관광지에 편향이 생기는 이슈를 교정하였다. 다만 실제 더욱 복잡한 input 데이터를 다루는 상황에서는 더 정교한 추천 로직 구성이 요구될 것이다. 실제 기업에서 쓰는 추천 로직을 추가적으로 조사해볼 것이다.
+<br>
+-기업 활동이 아니어서 사실상 추천시스템의 성능 테스트가 부재중이라는 점이 아쉽다.
+AiHub에서 찾은 여행 경로 데이터를 가지고 관광지 간 사회연결망 분석, 관광지 클러스터링 등을 궁리했으나 서비스화하지 못했다.
+<br>
+-추천시스템과 이미지 분류에 있어 SOTA라 할 수 있는 transformer를 고려하지 않았다. 선도적인 모델을 찾아서 적용하는 것보다 조금은 구식의 모델이라도 직접 구조와 이론을 공부하고 해당 맥락에서 참신한 플로우를 짜기 위해 치열하게 고민해보는 것이 좀 더 내실있는 과정이라고 생각했기 때문이다. 또한 이렇게 직접 설계하고 구현해낸 경험은 이후 SOTA 모델을 활용하고 그 이상을 뚫기 위한 제반이 될 것이다. 
+
