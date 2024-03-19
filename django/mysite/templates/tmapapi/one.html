@@ -17,11 +17,11 @@
                         도착지 : <input type="text" id="destination" size="15">
                         <select id="selectLevel">
                             <option value="0" selected="selected">교통최적+추천</option>
-                            <option value="1">교통최적+무료우선</option>
+                            <!-- <option value="1">교통최적+무료우선</option> -->
                             <option value="2">교통최적+최소시간</option>
                             <option value="3">교통최적+초보</option>
-                            <option value="4">교통최적+고속도로우선</option>
-                            <option value="10">최단거리+유/무료</option>
+                            <!-- <option value="4">교통최적+고속도로우선</option> -->
+                            <!-- <option value="10">최단거리+유/무료</option> -->
                             <option value="12">이륜차도로우선</option>
                             <option value="19">교통최적+어린이보호구역 회피</option>
                         </select> 
@@ -30,7 +30,7 @@
                             <option value="Y">Y</option>
                             <option value="N">N</option>
                         </select>
-                        <button type="button" id="btn_apply">적용하기</button> 
+                        <button type="button" id="btn_apply">검색</button> 
                     </form>
                 </div>
             </div>
@@ -86,29 +86,60 @@
                     success: function(data) {
                         console.log("받아온 데이터:", data);
 
-                        var departureData = data[0];
-                        var destinationData = data[1];
+                        // 출발지와 도착지 정보가 모두 없는 경우 처리
+                        if (!departure && !destination) {
+                            alert("출발지와 도착지 정보가 올바르지 않습니다.");
+                            return;
+                        }
 
-                        var departureLatitude = departureData.Latitude;
-                        var departureLongitude = departureData.Longitude;
-                        var destinationLatitude = destinationData.Latitude;
-                        var destinationLongitude = destinationData.Longitude;
+                        // 출발지 정보가 없는 경우 처리
+                        if (!departure) {
+                            alert("출발지 정보가 올바르지 않습니다.");
+                            return;
+                        }
 
-                        // 출발지와 도착지 마커 생성
-                        createMarkers(departureLatitude, departureLongitude, destinationLatitude, destinationLongitude);
+                        // 도착지 정보가 없는 경우 처리
+                        if (!destination) {
+                            alert("도착지 정보가 올바르지 않습니다.");
+                            return;
+                        }
 
-                        // 마커 생성 후 마커 위치 출력
-                        console.log(marker_s.getPosition().lat());
+                        // 출발지와 도착지 데이터 처리
+                        var departureData = data.find(obj => obj.Name === departure);
+                        var destinationData = data.find(obj => obj.Name === destination);
 
-                        // 경로 검색
-                        searchRoute(departureLongitude, departureLatitude, destinationLongitude, destinationLatitude, searchOption, trafficInfochk);
+                        // 출발지와 도착지 데이터가 모두 존재하는 경우에만 처리
+                        if (departureData && destinationData) {
+                            var departureLatitude = departureData.Latitude;
+                            var departureLongitude = departureData.Longitude;
+                            var destinationLatitude = destinationData.Latitude;
+                            var destinationLongitude = destinationData.Longitude;
+
+                            // 출발지와 도착지 마커 생성
+                            createMarkers(departureLatitude, departureLongitude, destinationLatitude, destinationLongitude);
+
+                            // 마커 생성 후 마커 위치 출력
+                            console.log(marker_s.getPosition().lat());
+
+                            // 경로 검색
+                            searchRoute(departureLongitude, departureLatitude, destinationLongitude, destinationLatitude, searchOption, trafficInfochk);
+                        } else {
+                            if (!departureData) {
+                                alert("출발지 정보가 올바르지 않습니다.");
+                            }
+                            if (!destinationData) {
+                                alert("도착지 정보가 올바르지 않습니다.");
+                            }
+                        }
                     },
                     error: function (xhr, status, error) {
                         console.error("오류 발생:", error);
+                        alert("검색 중 오류가 발생했습니다.");
                     }
                 });
             });
         });
+
 
         function createMarkers(departureLatitude, departureLongitude, destinationLatitude, destinationLongitude) {
             // 기존 마커들 삭제
@@ -121,14 +152,14 @@
 
             // 출발지 마커 생성
             marker_s = new Tmapv2.Marker({
-                position: new Tmapv2.LatLng(departureLatitude, departureLongitude), // 출발지의 위도와 경도는 그대로 사용
+                position: new Tmapv2.LatLng(departureLatitude, departureLongitude), // 출발지의 위도와 경도
                 icon: "marker/pin_r_m_s.png",
                 map: map
             });
 
             // 도착지 마커 생성
             marker_e = new Tmapv2.Marker({
-                position: new Tmapv2.LatLng(destinationLatitude, destinationLongitude), // 도착지의 위도와 경도는 그대로 사용
+                position: new Tmapv2.LatLng(destinationLatitude, destinationLongitude), // 도착지의 위도와 경도
                 icon: "marker/pin_r_m_e.png",
                 map: map
             });
@@ -162,10 +193,10 @@
                     var resultData = response.features;
                     var tDistance = "총 거리 : " + (resultData[0].properties.totalDistance / 1000).toFixed(1) + "km,";
                     var tTime = " 총 시간 : " + (resultData[0].properties.totalTime / 60).toFixed(0) + "분,";
-                    var tFare = " 총 요금 : " + resultData[0].properties.totalFare + "원,";
+                    // var tFare = " 총 요금 : " + resultData[0].properties.totalFare + "원,";
                     var taxiFare = " 예상 택시 요금 : " + resultData[0].properties.taxiFare + "원";
 
-                    $("#result").text(tDistance + tTime + tFare + taxiFare);
+                    $("#result").text(tDistance + tTime + taxiFare);
 
                     for (var i in resultData) {
                         var geometry = resultData[i].geometry;
@@ -237,59 +268,56 @@
         // 라인을 그리는 함수
         function drawLine(arrPoint, traffic, pointType) {
             var polyline_;
-
             var lineColor = "#06050D"; // 기본 라인 색상
 
-            if (traffic != "0") {
-                if (traffic && traffic.length > 0) { // traffic이 정의되어 있고 길이가 0보다 큰 경우에만 실행
-                    var tInfo = [];
+            if (traffic && traffic.length > 0) { // traffic이 정의되어 있고 길이가 0보다 큰 경우에만 실행
+                var tInfo = [];
 
-                    for (var z = 0; z < traffic.length; z++) {
-                        var trafficObject = {
-                            "startIndex": traffic[z][0],
-                            "endIndex": traffic[z][1],
-                            "trafficIndex": traffic[z][2],
-                        };
-                        tInfo.push(trafficObject);
+                for (var z = 0; z < traffic.length; z++) {
+                    var trafficObject = {
+                        "startIndex": traffic[z][0],
+                        "endIndex": traffic[z][1],
+                        "trafficIndex": traffic[z][2],
+                    };
+                    tInfo.push(trafficObject);
+                }
+
+                for (var x = 0; x < tInfo.length; x++) {
+                    var sectionPoint = [];
+
+                    for (var y = tInfo[x].startIndex; y <= tInfo[x].endIndex; y++) {
+                        sectionPoint.push(arrPoint[y]);
                     }
 
-                    for (var x = 0; x < tInfo.length; x++) {
-                        var sectionPoint = [];
-
-                        for (var y = tInfo[x].startIndex; y <= tInfo[x].endIndex; y++) {
-                            sectionPoint.push(arrPoint[y]);
-                        }
-
-                        switch (tInfo[x].trafficIndex) {
-                            case 0:
-                                lineColor = "#06050D"; // 검정색
-                                break;
-                            case 1:
-                                lineColor = "#61AB25"; // 녹색
-                                break;
-                            case 2:
-                                lineColor = "#FFFF00"; // 노란색
-                                break;
-                            case 3:
-                                lineColor = "#E87506"; // 주황색
-                                break;
-                            case 4:
-                                lineColor = "#D61125"; // 빨간색
-                                break;
-                            default:
-                                lineColor = "#06050D";
-                                break;
-                        }
-
-                        polyline_ = new Tmapv2.Polyline({
-                            path: sectionPoint,
-                            strokeColor: lineColor,
-                            strokeWeight: 6,
-                            map: map
-                        });
-
-                        resultdrawArr.push(polyline_);
+                    switch (tInfo[x].trafficIndex) {
+                        case 0:
+                            lineColor = "#06050D"; // 검정색
+                            break;
+                        case 1:
+                            lineColor = "#61AB25"; // 녹색
+                            break;
+                        case 2:
+                            lineColor = "#FFFF00"; // 노란색
+                            break;
+                        case 3:
+                            lineColor = "#E87506"; // 주황색
+                            break;
+                        case 4:
+                            lineColor = "#D61125"; // 빨간색
+                            break;
+                        default:
+                            lineColor = "#06050D";
+                            break;
                     }
+
+                    polyline_ = new Tmapv2.Polyline({
+                        path: sectionPoint,
+                        strokeColor: lineColor,
+                        strokeWeight: 6,
+                        map: map
+                    });
+
+                    resultdrawArr.push(polyline_);
                 }
             } else {
                 polyline_ = new Tmapv2.Polyline({
@@ -305,8 +333,26 @@
             // 출발지와 도착지 마커 처리
             if (pointType === "S") {
                 marker_s.setMap(map);
+                if (marker_e.getPosition()) { // 도착지 마커가 있는 경우
+                    var line = new Tmapv2.Polyline({
+                        path: [marker_s.getPosition(), marker_e.getPosition()],
+                        strokeColor: "#06050D",
+                        strokeWeight: 6,
+                        map: map
+                    });
+                    resultdrawArr.push(line);
+                }
             } else if (pointType === "E") {
                 marker_e.setMap(map);
+                if (marker_s.getPosition()) { // 출발지 마커가 있는 경우
+                    var line = new Tmapv2.Polyline({
+                        path: [marker_s.getPosition(), marker_e.getPosition()],
+                        strokeColor: "#06050D",
+                        strokeWeight: 6,
+                        map: map
+                    });
+                    resultdrawArr.push(line);
+                }
             }
         }
 

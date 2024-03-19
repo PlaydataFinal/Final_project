@@ -70,6 +70,18 @@
                 .then(data => {
                     console.log("받아온 데이터:", data);
 
+                    // 출발지 정보가 없을 때
+                    if (!data || !data[0]) {
+                        alert("출발지 정보가 올바르지 않습니다.");
+                        return;
+                    }
+
+                    // 도착지 정보가 없을 때
+                    if (!data[1]) {
+                        alert("도착지 정보가 올바르지 않습니다.");
+                        return;
+                    }
+
                     // 출발지와 도착지 정보 추출
                     var departureData = data[0]; // 첫 번째 객체를 출발지 정보로 가정
                     var destinationData = data[1]; // 두 번째 객체를 도착지 정보로 가정
@@ -80,11 +92,18 @@
                     var destinationLatitude = destinationData.Latitude;
                     var destinationLongitude = destinationData.Longitude;
 
-                    // 마커 생성
-                    createMarkers(departureLatitude, departureLongitude, destinationLatitude, destinationLongitude);
-                    
-                    // 마커 생성 후 마커 위치 출력
-                    console.log(marker_s.getPosition().lat());
+                    // 출발지와 도착지 좌표가 모두 있는 경우에만 마커 생성
+                    if (departureLatitude && departureLongitude && destinationLatitude && destinationLongitude) {
+                        // 마커 생성
+                        createMarkers(departureLatitude, departureLongitude, destinationLatitude, destinationLongitude);
+
+                        // 마커 생성 후 마커 위치 출력
+                        console.log(marker_s.getPosition().lat());
+                    } else if (!departureLatitude || !departureLongitude) {
+                        alert("출발지 정보가 올바르지 않습니다.");
+                    } else if (!destinationLatitude || !destinationLongitude) {
+                        alert("도착지 정보가 올바르지 않습니다.");
+                    }
                 })
                 .catch(error => {
                     console.error("오류 발생:", error);
