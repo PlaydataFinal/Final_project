@@ -70,9 +70,3 @@ def profile(request):
             'user_change_form': user_change_form,
             'profile_form': profile_form
         })
-        
-def first(request):
-    profile = Profile.objects.get(user=request.user)
-    profile.is_first = False
-    profile.save()
-    return render(request, 'common/first.html')

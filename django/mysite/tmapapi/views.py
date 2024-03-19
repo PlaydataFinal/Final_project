@@ -4,7 +4,6 @@ from rest_framework import generics
 from .models import tour_tmap
 from .serializers import TourTmapSerializer
 
-from django.http import HttpResponse
 from rest_framework.response import Response
 from django.db.models import Q
 
@@ -18,9 +17,6 @@ class TourTmapList(generics.ListAPIView):
     def get_queryset(self):
         departure = self.request.query_params.get('departure', '')
         destination = self.request.query_params.get('destination', '')
-        print(f"keyword --> {departure}")
-        print(f"keyword --> {destination}")
-        print(f"keyword --> {self.request}")
         queryset = tour_tmap.objects.all()
 
         if departure or destination:

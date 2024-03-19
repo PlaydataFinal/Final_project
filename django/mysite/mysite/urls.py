@@ -27,7 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
     path('index/', views.index, name='index'),
-    path('result/', views.result, name='result'),
     path('main/', views.main, name='main'),
     path('common/', include('common.urls')),
     path('recommend/', views.recommend_view, name='recommend'),

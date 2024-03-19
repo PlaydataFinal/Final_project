@@ -46,7 +46,6 @@ def tour_detail(request, tour_id):
         comment = tour_comment.objects.order_by('-create_date')
 
     content = {"tour" : tour_list, "tour_all" : tour_all, "comment" : comment, "sort" : sort}
-    print(f'sort : {content["sort"]}')
     return render(request, "tour_detail.html", content)
 
 @login_required(login_url='common:login')

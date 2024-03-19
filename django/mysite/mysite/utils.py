@@ -6,11 +6,9 @@ import ast, os
 from sentence_transformers import SentenceTransformer
 
 from langchain_community.embeddings import HuggingFaceEmbeddings
-import random
 
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.runnable import RunnableMap
-from sklearn.preprocessing import StandardScaler
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 

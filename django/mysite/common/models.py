@@ -15,8 +15,6 @@ class Profile(models.Model):
     phone = models.CharField(validators = [phoneNumberRegex], max_length = 11, unique = True)
     
     email = models.EmailField(max_length=150, blank=True, null=True)
-    
-    is_first = models.BooleanField(default = True)
 
     # class Meta:
     #     app_label = "maria"
