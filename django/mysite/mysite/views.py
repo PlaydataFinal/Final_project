@@ -75,14 +75,14 @@ def test(request):
 #         return JsonResponse('Error')
     
     # MongoDB에서 데이터 가져오기
-df1 = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext',
-                            'admin', 'admin123', 'jejutext', 'df')
+df1 = get_data_from_mongodb('mongodb+srv://joowan119:admin123@atlascluster.gq7ssmg.mongodb.net/jejutext',
+                            'joowan119', 'admin123', 'jejutext', 'df')
 
-df2 = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext',
-                            'admin', 'admin123', 'jejutext', 'food_df')
+df2 = get_data_from_mongodb('mongodb+srv://joowan119:admin123@atlascluster.gq7ssmg.mongodb.net/jejutext',
+                            'joowan119', 'admin123', 'jejutext', 'food_df')
 
-df3 = get_data_from_mongodb('mongodb+srv://admin:admin123@atlascluster.rlgup9y.mongodb.net/jejutext',
-                            'admin', 'admin123', 'jejutext', 'sleep_df')
+df3 = get_data_from_mongodb('mongodb+srv://joowan119:admin123@atlascluster.gq7ssmg.mongodb.net/jejutext',
+                            'joowan119', 'admin123', 'jejutext', 'sleep_df')
 
 def get_selected_df(selected_number):
     if selected_number == 1:
