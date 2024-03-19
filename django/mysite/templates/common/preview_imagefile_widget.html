@@ -1,5 +1,6 @@
 <!-- 기존이미지 -->
 <div>
+    {{ user.profile.image }}
     <img id='imagePreview' src='{{ form.photo.value.url }}' width="150rem" style="border-radius: 50%;"/>
     <!-- 기존 ClearableFileInput의 삭제 기능을 활용하기 위해 위에 삭제 버튼을 누르면 체크되도록 하되 안보이게 설정 -->
     <div class="custom-control custom-checkbox d-none">

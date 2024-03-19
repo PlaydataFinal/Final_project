@@ -64,5 +64,6 @@ def profile(request):
         profile_form = ProfileForm(instance=profile)
         return render(request, 'common/profile.html', {
             'user_change_form': user_change_form,
-            'profile_form': profile_form
+            'profile_form': profile_form,
+            # 'profile': profile
         })

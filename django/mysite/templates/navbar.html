@@ -1,6 +1,6 @@
 <!-- navbar.html -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color:#ffbb80;">
-    <div class="container px-4 px-lg-5">
+    <div class="container px-4 px-lg-5" style="width: 100%!important;">
         <a class="navbar-brand" href="{% url 'index' %}"><img src="/static/assets/img/1.png" alt=""
                 style="max-width: 150px; max-height: 150px;"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
@@ -10,31 +10,31 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'chatbot' %}">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 fs-6" href="{% url 'chatbot' %}">
                         챗봇</a>
                 </li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'kakaoapi:index' %}">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 fs-6" href="{% url 'kakaoapi:index' %}">
                         여행지</a>
                 </li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'tmapapi:index' %}">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 fs-6" href="{% url 'tmapapi:index' %}">
                         길찾기</a>
                 </li>
                 {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4 fs-6"
                         href="{% url 'common:people' user.username %}">
                         My Page</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'common:logout' %}">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4 fs-6" href="{% url 'common:logout' %}">
                         {{ user.profile.nickname }}님 (로그아웃)</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'common:signup' %}">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4 fs-6" href="{% url 'common:signup' %}">
                         회원가입</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'common:login' %}">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4 fs-6" href="{% url 'common:login' %}">
                         로그인</a>
                 </li>
                 {% endif %}
