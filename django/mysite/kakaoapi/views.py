@@ -39,7 +39,7 @@ def tour_detail(request, tour_id):
     tour_all = tour_kakao.objects.all()
     sort = request.GET.get('sort', '')
     if sort == 'likes':
-        comment = tour_comment.objects.all().annotate(like_count=Count('comment_like')).order_by('-like_count')
+        comment = tour_comment.objects.filter(tour_id=tour_id).annotate(like_count=Count('comment_like')).order_by('-like_count')
 
     elif sort == 'mypost':
         user = request.user.id
@@ -47,7 +47,7 @@ def tour_detail(request, tour_id):
 
     else:
         sort = 'date'
-        comment = tour_comment.objects.order_by('-create_date')
+        comment = tour_comment.objects.filter(tour_id=tour_id).order_by('-create_date')
 
     content = {"tour" : tour_list, "tour_all" : tour_all, "comment" : comment, "sort" : sort}
     return render(request, "tour_detail.html", content)

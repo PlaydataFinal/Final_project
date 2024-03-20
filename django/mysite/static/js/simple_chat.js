@@ -62,17 +62,19 @@ function preAnswer(msgText, msgSelect) {
 
 msgerForm.addEventListener("submit", event => {
   event.preventDefault();
-
+  document.getElementById('chatLoading').hidden = false;
   const msgText = msgerInput.value;
   const msgSelect = msgerSelect.value;
 
   if (!msgText) return;
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+  
   // alert("wait a seconds...");
   // 여기서 ajax 통신을 통해 모델 호출
   // https://hooongs.tistory.com/23
   // https://shiningyouandme.tistory.com/23
   botResponse(preAnswer(msgText, msgSelect));
+
   $.ajax({
     //요청이 전송될 URL 주소
     url: '../chatbot_solve/',
@@ -83,6 +85,7 @@ msgerForm.addEventListener("submit", event => {
       'selected_number': msgSelect,
     },
     success: function (data) {
+      document.getElementById('chatLoading').hidden = true;
       const port_data = JSON.stringify(data);
       var port_data_json = JSON.parse(port_data);
       botResponse(port_data_json.output);
