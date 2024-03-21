@@ -1,5 +1,5 @@
 
-# tasks.py
+# mysite/tasks.py
 
 from celery import Celery
 import time
