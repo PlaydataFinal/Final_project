@@ -10,7 +10,7 @@
     <div class="container text-center">
         <div class="text-wrap text-wrapper-30">JEJU</div>
         <p class="text-wrap text-wrapper-31">
-            간략한 페이지 소개문 작성
+            제주도 관광 추천 서비스
         </p>
         {% if request.user.is_authenticated %}
         <button type="button" class="btn btn-primary btn-lg" onclick="alreadyLogin()">
@@ -92,9 +92,9 @@
         <div class="container w-100">
 
             <div class="row text-start" style="margin: 30px 10px;">
-                <div class="col-5 feature">챗봇
+                <div class="text-wrap feature">챗봇
                     <p class="text-wrap text-wrapper-43">
-                        챗봇과 관련된 설명 작성
+                        관광지, 음식점, 숙박 다양하게 물어보세요!
                     </p>
                     <button type="button" class="btn btn-warning btn-lg" onclick="location.href='../chatbot/'">
                         <div class="text-wrapper-42">Try now</div>
@@ -106,7 +106,7 @@
                 <div class="row" style="margin: 30px 10px;">
                     <div class="text-wrap feature-2">여행지 검색
                         <p class="text-wrap text-wrapper-44">
-                            여행지 검색 관련 설명 작성
+                            제주도의 아름다운 관광지를 찾아보세요!
                         </p>
                         <button type="button" class="btn btn-warning btn-lg" onclick="location.href='../kakaoapi/'">
                             <div class="text-wrapper-42">Try now</div>
@@ -116,9 +116,9 @@
             </div>
 
             <div class="row text-start" style="margin: 30px 10px;">
-                <div class="col-5 text-wrap feature-3">길찾기
+                <div class="text-wrap feature-3">길찾기
                     <p class="text-wrap text-wrapper-43">
-                        길찾기 관련 설명 작성
+                        가고싶은 곳의 경로를 검색해보세요!
                     </p>
                     <button type="button" class="btn btn-warning btn-lg" onclick="location.href='../tmapapi/'">
                         <div class="text-wrapper-42">Try now</div>
@@ -130,52 +130,52 @@
     <div class="container text-center">
         <div class="text-wrapper-33">Our Team</div>
         <p class="text-wrapper-32">
-            팀 설명 작성
+            팀원소개
         </p>
         <div class="row">
             <div class="col">
-                <img class="img-fluid team_image"
-                    src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-                <div class="text-wrap text-wrapper-34">담당 업무 작성</div>
-                <div class="text-wrap text-wrapper-35">구주완</div>
-                <p class="text-wrap text-wrapper-36">간략한 소개?</p>
+                <img class="img-fluid team_image" 
+                    src="../static/assets/img/joowan.png" />
+                <div class="text-wrap text-wrapper-34">데에터 엔지니어</div>
+                <div class="text-wrap text-wrapper-35">구주완(팀장)</div>
+                <p class="text-wrap text-wrapper-36">클라우드 기반 서버 구축, 모델 서빙, 데이터 수집</p>
             </div>
             <div class="col">
                 <img class="img-fluid team_image"
-                    src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-                <div class="text-wrap text-wrapper-34">담당 업무 작성</div>
+                    src="../static/assets/img/seulhee.png" />
+                <div class="text-wrap text-wrapper-34">데이터 엔지니어</div>
                 <div class="text-wrap text-wrapper-35">이슬희</div>
-                <p class="text-wrap text-wrapper-36">간략한 소개?</p>
+                <p class="text-wrap text-wrapper-36">모델 서빙(tmapapi), 백엔드 기능 구현</p>
             </div>
             <div class="col">
                 <img class="img-fluid team_image"
-                    src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-                <div class="text-wrap text-wrapper-34">담당 업무 작성</div>
+                    src="../static/assets/img/sangyeon.png" />
+                <div class="text-wrap text-wrapper-34">데이터 사이언티스트</div>
                 <div class="text-wrap text-wrapper-35">최상윤</div>
-                <p class="text-wrap text-wrapper-36">간략한 소개?</p>
+                <p class="text-wrap text-wrapper-36">데이터 수집, 챗봇 모델 개발, 이미지 추천시스템, 관광지 추천시스템</p>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <img class="img-fluid team_image"
-                    src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-                <div class="text-wrap text-wrapper-34">담당 업무 작성</div>
+                    src="../static/assets/img/youjeong.jpeg" />
+                <div class="text-wrap text-wrapper-34">데이터 사이언티스트</div>
                 <div class="text-wrap text-wrapper-35">이유정</div>
-                <p class="text-wrap text-wrapper-36">간략한 소개?</p>
+                <p class="text-wrap text-wrapper-36">챗봇 모델 개발</p>
             </div>
             <div class="col">
                 <img class="img-fluid team_image"
                     src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-                <div class="text-wrap text-wrapper-34">담당 업무 작성</div>
+                <div class="text-wrap text-wrapper-34">백엔드 & 프론트엔드</div>
                 <div class="text-wrap text-wrapper-35">김겨레</div>
-                <p class="text-wrap text-wrapper-36">Commodo qui nulla ipsum ea cupidatat sit aliquip dolor.</p>
+                <p class="text-wrap text-wrapper-36">웹 설계, 디자인, 기능 구현, 모델 서빙</p>
             </div>
             <div class="col">
                 <img class="img-fluid team_image"
-                    src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
-                <div class="text-wrap text-wrapper-34">담당 업무 작성</div>
+                    src="../static/assets/img/tahyeon.png" />
+                <div class="text-wrap text-wrapper-34">데이터 사이언티스트</div>
                 <div class="text-wrap text-wrapper-35">김태현</div>
-                <p class="text-wrap text-wrapper-36">간략한 소개?</p>
+                <p class="text-wrap text-wrapper-36">이미지 추천시스템 개발</p>
             </div>
 
         </div>

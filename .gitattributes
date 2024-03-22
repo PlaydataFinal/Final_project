@@ -24,3 +24,5 @@ fastapi/ocr.h5.4Cf23ae7 filter=lfs diff=lfs merge=lfs -text
 django/mysite/ocr filter=lfs diff=lfs merge=lfs -text
 django/mysite/ocr.h5 filter=lfs diff=lfs merge=lfs -text
 django/mysite/ocr.py filter=lfs diff=lfs merge=lfs -text
+/home/ubuntu/Final_project/django/mysite/vector_csv4.csv filter=lfs diff=lfs merge=lfs -text
+django/mysite/vector_csv4.csv filter=lfs diff=lfs merge=lfs -text

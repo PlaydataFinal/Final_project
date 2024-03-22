@@ -1,13 +1,14 @@
+#mysite/views.py
 from django.shortcuts import render
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .utils import recommend_places, get_answer, get_selected_df
+from .tasks import process_index 
 from kakaoapi.models import tour_kakao
-
 from django.db.models import Count
 
-def home(request): 
+def home(request):
     return render(request, 'main.html')
 
 def index(request):

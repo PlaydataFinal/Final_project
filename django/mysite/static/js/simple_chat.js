@@ -42,38 +42,15 @@ if (PERSON_NAME == "비회원") {
   }
 };
 
-function preAnswer(msgText, msgSelect) {
-  if (msgSelect == 1) {
-    returnText = "관광지와 관련된 질문\n'" + msgText + "'\n 에 대한 답변을 준비중입니다.\n잠시만 기다려주세요.";
-    return returnText;
-  }
-  else if (msgSelect == 2) {
-    returnText = "음식점과 관련된 질문\n'" + msgText + "'\n 에 대한 답변을 준비중입니다.\n잠시만 기다려주세요.";
-    return returnText;
-  }
-  else if (msgSelect == 3) {
-    returnText = "숙박업소와 관련된 질문\n'" + msgText + "'\n 에 대한 답변을 준비중입니다.\n잠시만 기다려주세요.";
-    return returnText;
-  }
-  else {
-    return "질문 내용을 확인해주세요."
-  }
-}
-
 msgerForm.addEventListener("submit", event => {
   event.preventDefault();
-  document.getElementById('chatLoading').hidden = false;
+
   const msgText = msgerInput.value;
   const msgSelect = msgerSelect.value;
-
+  document.getElementById('chatLoading').hidden = false;
   if (!msgText) return;
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
-  
-  // alert("wait a seconds...");
-  // 여기서 ajax 통신을 통해 모델 호출
-  // https://hooongs.tistory.com/23
-  // https://shiningyouandme.tistory.com/23
-  botResponse(preAnswer(msgText, msgSelect));
+
 
   $.ajax({
     //요청이 전송될 URL 주소
@@ -92,6 +69,7 @@ msgerForm.addEventListener("submit", event => {
     },
     error: function (xhr, textStatus, thrownError) {
       alert("Could not send URL to Django. Error: " + xhr.status + ": " + xhr.responseText);
+    
     }
   });
 
@@ -125,7 +103,7 @@ function botResponse(text) {
     appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
   });
 }
-
+                                
 // Utils
 function get(selector, root = document) {
   return root.querySelector(selector);
@@ -137,25 +115,4 @@ function formatDate(date) {
 
   return `${h.slice(-2)}:${m.slice(-2)}`;
 }
-
-// $.ajax({
-//   //요청이 전송될 URL 주소
-//   url: 'test2/',
-//   type: "POST",
-//   dataType: "JSON",
-//   data: {
-//     'input': msgText,
-//     csrfmiddlewaretoken: '{{ csrf_token }}'
-//   },
-//   headers: { "X-CSRFToken": "{{ csrf_token }}" },
-
-//   success: function (data) {
-
-//     const port_data = JSON.stringify(data);
-//     var port_data_json = JSON.parse(port_data);
-//   },
-//   error: function (xhr, textStatus, thrownError) {
-//     alert("Could not send URL to Django. Error: " + xhr.status + ": " + xhr.responseText);
-//   }
-// });
 
