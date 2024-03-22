@@ -20,6 +20,6 @@ function goSignup() {
         reverseButtons: true, // 버튼 순서 거꾸로
     }).then((confirmed) => {
         if (Object.values(confirmed)[0])
-            location.href = '{% url "common:signup" %}';
+            location.href = '../common/signup/';
     });
 }
