@@ -7,11 +7,8 @@ from .serializers import TourTmapSerializer
 from rest_framework.response import Response
 from django.db.models import Q
 
-<<<<<<< HEAD
-=======
 from kakaoapi.models import tour_kakao
 
->>>>>>> goodjoowan
 def index(request):
     tour_all = tour_tmap.objects.all()
     content = {
