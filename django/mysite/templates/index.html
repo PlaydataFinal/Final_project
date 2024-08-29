@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block content %}
+{% include 'top_bottom.html' %}
+
+
+<!-- 홈 페이지 고유의 내용을 추가합니다 -->
+<!-- 여러분의 홈 페이지 콘텐츠를 추가하세요 -->
+
+<div class="mainpage">
+    <div class="container text-center">
+        <div class="text-wrap text-wrapper-30">JEJU</div>
+        <p class="text-wrap text-wrapper-31">
+            제주도 관광 추천 서비스
+        </p>
+        {% if request.user.is_authenticated %}
+        <button type="button" class="btn btn-primary btn-lg" onclick="alreadyLogin()">
+            <div class="text-wrapper-28">Join us now</div>
+        </button>
+        {% else %}
+        <button type="button" class="btn btn-primary btn-lg" onclick="goSignup()">
+            <div class="text-wrapper-28">Join us now</div>
+        </button>
+        {% endif %}
+        <img class="main_image"
+            src="https://as1.ftcdn.net/v2/jpg/03/39/38/48/1000_F_339384818_tgKTbP0V3YA2iEzYJqB7yPHDkF2IpJpY.jpg" />
+    </div>
+</div>
+<div class="projects">
+    <div class="container-fluid w-75 shoe_test">
+        <h3 style="text-align: center; position: relative; top: 30px;">실시간 여행지 랭킹</h3>
+        <button class="btn_play">
+            <i>P</i>
+            <i>l</i>
+            <i>a</i>
+            <i>y</i>
+            <i>use</i>
+        </button>
+        <div class="shoe_carousel">
+            <div class="shoe_swiper">
+                <ul class="shoe_slide original">
+                    {% for x, y in content.items %}
+                    <li>
+                        <div class="row w-100" style="height: 420px;">
+                            <img class="img-fluid" style="min-width: 360px;" src="{{ x.Image_URL }}"
+                                onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
+                            <div class="text-wrapper-16">{{ x.Name }}
+                                <div class="fs-6 fw-lighter">추천 수 : {{ x.like.count }}</div>
+                            </div>
+                            <p class="text-wrap text-wrapper-18">{{ x.Tag }}</p>
+                        </div>
+                        <br><br><br>
+                        <div class="row w-100" style="height: 420px;">
+                            <img class="img-fluid" style="min-width: 360px;" src="{{ y.Image_URL }}"
+                                onclick="location.href='../kakaoapi/tour/{{ y.id }}/'"><br>
+                            <div class="text-wrapper-16">{{ y.Name }}
+                                <div class="fs-6 fw-lighter">추천 수 : {{ y.like.count }}</div>
+                            </div>
+                            <p class="text-wrap text-wrapper-18">{{ y.Tag }}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <ul class="shoe_slide clone">
+                    {% for x, y in content.items %}
+                    <li>
+                        <div class="row w-100" style="height: 420px;">
+                            <img class="img-fluid" style="min-width: 360px;" src="{{ x.Image_URL }}"
+                                onclick="location.href='../kakaoapi/tour/{{ x.id }}/'"><br>
+                            <div class="text-wrapper-16">{{ x.Name }}
+                                <div class="fs-6 fw-lighter">추천 수 : {{ x.like.count }}</div>
+                            </div>
+                            <p class="text-wrap text-wrapper-18">{{ x.Tag }}</p>
+                        </div>
+                        <br><br><br>
+                        <div class="row w-100" style="height: 420px;">
+                            <img class="img-fluid" style="min-width: 360px;" src="{{ y.Image_URL }}"
+                                onclick="location.href='../kakaoapi/tour/{{ y.id }}/'"><br>
+                            <div class="text-wrapper-16">{{ y.Name }}
+                                <div class="fs-6 fw-lighter">추천 수 : {{ y.like.count }}</div>
+                            </div>
+                            <p class="text-wrap text-wrapper-18">{{ y.Tag }}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mainpage">
+    <div class="overlap w-100">
+        <div class="container w-100">
+
+            <div class="row text-start" style="margin: 30px 10px;">
+                <div class="text-wrap feature">챗봇
+                    <p class="text-wrap text-wrapper-43">
+                        관광지, 음식점, 숙박 다양하게 물어보세요!
+                    </p>
+                    <button type="button" class="btn btn-warning btn-lg" onclick="location.href='../chatbot/'">
+                        <div class="text-wrapper-42">Try now</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end text-end">
+                <div class="row" style="margin: 30px 10px;">
+                    <div class="text-wrap feature-2">여행지 검색
+                        <p class="text-wrap text-wrapper-44">
+                            제주도의 아름다운 관광지를 찾아보세요!
+                        </p>
+                        <button type="button" class="btn btn-warning btn-lg" onclick="location.href='../kakaoapi/'">
+                            <div class="text-wrapper-42">Try now</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-start" style="margin: 30px 10px;">
+                <div class="text-wrap feature-3">길찾기
+                    <p class="text-wrap text-wrapper-43">
+                        가고싶은 곳의 경로를 검색해보세요!
+                    </p>
+                    <button type="button" class="btn btn-warning btn-lg" onclick="location.href='../tmapapi/'">
+                        <div class="text-wrapper-42">Try now</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center">
+        <div class="text-wrapper-33">Our Team</div>
+        <p class="text-wrapper-32">
+            팀원소개
+        </p>
+        <div class="row">
+            <div class="col">
+                <img class="img-fluid team_image" 
+                    src="../static/assets/img/joowan.png" />
+                <div class="text-wrap text-wrapper-34">데에터 엔지니어</div>
+                <div class="text-wrap text-wrapper-35">구주완(팀장)</div>
+                <p class="text-wrap text-wrapper-36">클라우드 기반 서버 구축, 모델 서빙, 데이터 수집</p>
+            </div>
+            <div class="col">
+                <img class="img-fluid team_image"
+                    src="../static/assets/img/seulhee.png" />
+                <div class="text-wrap text-wrapper-34">데이터 엔지니어</div>
+                <div class="text-wrap text-wrapper-35">이슬희</div>
+                <p class="text-wrap text-wrapper-36">모델 서빙(tmapapi), 백엔드 기능 구현</p>
+            </div>
+            <div class="col">
+                <img class="img-fluid team_image"
+                    src="../static/assets/img/sangyeon.png" />
+                <div class="text-wrap text-wrapper-34">데이터 사이언티스트</div>
+                <div class="text-wrap text-wrapper-35">최상윤</div>
+                <p class="text-wrap text-wrapper-36">데이터 수집, 챗봇 모델 개발, 이미지 추천시스템, 관광지 추천시스템</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img class="img-fluid team_image"
+                    src="../static/assets/img/youjeong.jpeg" />
+                <div class="text-wrap text-wrapper-34">데이터 사이언티스트</div>
+                <div class="text-wrap text-wrapper-35">이유정</div>
+                <p class="text-wrap text-wrapper-36">챗봇 모델 개발</p>
+            </div>
+            <div class="col">
+                <img class="img-fluid team_image"
+                    src="https://d3kxs6kpbh59hp.cloudfront.net/community/COMMUNITY/1fd86ae5ff7a4415a7bf8446606aa71c/0bfd9d34a77846d284e67cd1329c50bd_1649160032.png" />
+                <div class="text-wrap text-wrapper-34">백엔드 & 프론트엔드</div>
+                <div class="text-wrap text-wrapper-35">김겨레</div>
+                <p class="text-wrap text-wrapper-36">웹 설계, 디자인, 기능 구현, 모델 서빙</p>
+            </div>
+            <div class="col">
+                <img class="img-fluid team_image"
+                    src="../static/assets/img/tahyeon.png" />
+                <div class="text-wrap text-wrapper-34">데이터 사이언티스트</div>
+                <div class="text-wrap text-wrapper-35">김태현</div>
+                <p class="text-wrap text-wrapper-36">이미지 추천시스템 개발</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
